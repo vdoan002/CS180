@@ -1,0 +1,10 @@
+body{
+	background-color: #8cdbf2;
+	text-align: center;
+	width: 850px;
+	margin: 0 auto;
+}
+#titlebar{
+	color: white;
+	background-color: blue;
+}
