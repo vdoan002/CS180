@@ -16,7 +16,8 @@
 	<body>
 		<h2>Home Page</h2>
 		<p>Hello <?php Print "$user"?>!</p> <!--Displays user's name-->
-		<a href="logout.php">Click here to logout</a><br/><br/>
+		<a href="logout.php">Click here to logout</a><br/>
+		<a href="map.html">Click here for map of meeting location</a><br/><br/>
 		<!--<form action="add.php" method="POST">
 			Add more to list: <input type="text" name="details"/><br/>
 			public post? <input type="checkbox" name="public[]" value="yes"/><br/>
