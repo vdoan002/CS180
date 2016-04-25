@@ -1,0 +1,528 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0018DA241CCDA0E20026E5B5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0018DA231CCDA0E20026E5B5 /* main.m */; };
+		0018DA271CCDA0E20026E5B5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0018DA261CCDA0E20026E5B5 /* AppDelegate.m */; };
+		0018DA2A1CCDA0E20026E5B5 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0018DA291CCDA0E20026E5B5 /* FirstViewController.m */; };
+		0018DA2D1CCDA0E20026E5B5 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0018DA2C1CCDA0E20026E5B5 /* SecondViewController.m */; };
+		0018DA301CCDA0E20026E5B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0018DA2E1CCDA0E20026E5B5 /* Main.storyboard */; };
+		0018DA321CCDA0E20026E5B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0018DA311CCDA0E20026E5B5 /* Assets.xcassets */; };
+		0018DA351CCDA0E20026E5B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0018DA331CCDA0E20026E5B5 /* LaunchScreen.storyboard */; };
+		0018DA401CCDA0E20026E5B5 /* UCR_Craigslist_NativeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0018DA3F1CCDA0E20026E5B5 /* UCR_Craigslist_NativeTests.m */; };
+		0018DA4B1CCDA0E20026E5B5 /* UCR_Craigslist_NativeUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0018DA4A1CCDA0E20026E5B5 /* UCR_Craigslist_NativeUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0018DA3C1CCDA0E20026E5B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0018DA171CCDA0E20026E5B5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0018DA1E1CCDA0E20026E5B5;
+			remoteInfo = "UCR-Craigslist-Native";
+		};
+		0018DA471CCDA0E20026E5B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0018DA171CCDA0E20026E5B5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0018DA1E1CCDA0E20026E5B5;
+			remoteInfo = "UCR-Craigslist-Native";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0018DA1F1CCDA0E20026E5B5 /* UCR-Craigslist-Native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "UCR-Craigslist-Native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0018DA231CCDA0E20026E5B5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0018DA251CCDA0E20026E5B5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		0018DA261CCDA0E20026E5B5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		0018DA281CCDA0E20026E5B5 /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
+		0018DA291CCDA0E20026E5B5 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		0018DA2B1CCDA0E20026E5B5 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
+		0018DA2C1CCDA0E20026E5B5 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		0018DA2F1CCDA0E20026E5B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0018DA311CCDA0E20026E5B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0018DA341CCDA0E20026E5B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0018DA361CCDA0E20026E5B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0018DA3B1CCDA0E20026E5B5 /* UCR-Craigslist-NativeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UCR-Craigslist-NativeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0018DA3F1CCDA0E20026E5B5 /* UCR_Craigslist_NativeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UCR_Craigslist_NativeTests.m; sourceTree = "<group>"; };
+		0018DA411CCDA0E20026E5B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0018DA461CCDA0E20026E5B5 /* UCR-Craigslist-NativeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UCR-Craigslist-NativeUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0018DA4A1CCDA0E20026E5B5 /* UCR_Craigslist_NativeUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UCR_Craigslist_NativeUITests.m; sourceTree = "<group>"; };
+		0018DA4C1CCDA0E20026E5B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0018DA1C1CCDA0E20026E5B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0018DA381CCDA0E20026E5B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0018DA431CCDA0E20026E5B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0018DA161CCDA0E20026E5B5 = {
+			isa = PBXGroup;
+			children = (
+				0018DA211CCDA0E20026E5B5 /* UCR-Craigslist-Native */,
+				0018DA3E1CCDA0E20026E5B5 /* UCR-Craigslist-NativeTests */,
+				0018DA491CCDA0E20026E5B5 /* UCR-Craigslist-NativeUITests */,
+				0018DA201CCDA0E20026E5B5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0018DA201CCDA0E20026E5B5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0018DA1F1CCDA0E20026E5B5 /* UCR-Craigslist-Native.app */,
+				0018DA3B1CCDA0E20026E5B5 /* UCR-Craigslist-NativeTests.xctest */,
+				0018DA461CCDA0E20026E5B5 /* UCR-Craigslist-NativeUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0018DA211CCDA0E20026E5B5 /* UCR-Craigslist-Native */ = {
+			isa = PBXGroup;
+			children = (
+				0018DA251CCDA0E20026E5B5 /* AppDelegate.h */,
+				0018DA261CCDA0E20026E5B5 /* AppDelegate.m */,
+				0018DA281CCDA0E20026E5B5 /* FirstViewController.h */,
+				0018DA291CCDA0E20026E5B5 /* FirstViewController.m */,
+				0018DA2B1CCDA0E20026E5B5 /* SecondViewController.h */,
+				0018DA2C1CCDA0E20026E5B5 /* SecondViewController.m */,
+				0018DA2E1CCDA0E20026E5B5 /* Main.storyboard */,
+				0018DA311CCDA0E20026E5B5 /* Assets.xcassets */,
+				0018DA331CCDA0E20026E5B5 /* LaunchScreen.storyboard */,
+				0018DA361CCDA0E20026E5B5 /* Info.plist */,
+				0018DA221CCDA0E20026E5B5 /* Supporting Files */,
+			);
+			path = "UCR-Craigslist-Native";
+			sourceTree = "<group>";
+		};
+		0018DA221CCDA0E20026E5B5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0018DA231CCDA0E20026E5B5 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0018DA3E1CCDA0E20026E5B5 /* UCR-Craigslist-NativeTests */ = {
+			isa = PBXGroup;
+			children = (
+				0018DA3F1CCDA0E20026E5B5 /* UCR_Craigslist_NativeTests.m */,
+				0018DA411CCDA0E20026E5B5 /* Info.plist */,
+			);
+			path = "UCR-Craigslist-NativeTests";
+			sourceTree = "<group>";
+		};
+		0018DA491CCDA0E20026E5B5 /* UCR-Craigslist-NativeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				0018DA4A1CCDA0E20026E5B5 /* UCR_Craigslist_NativeUITests.m */,
+				0018DA4C1CCDA0E20026E5B5 /* Info.plist */,
+			);
+			path = "UCR-Craigslist-NativeUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0018DA1E1CCDA0E20026E5B5 /* UCR-Craigslist-Native */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0018DA4F1CCDA0E20026E5B5 /* Build configuration list for PBXNativeTarget "UCR-Craigslist-Native" */;
+			buildPhases = (
+				0018DA1B1CCDA0E20026E5B5 /* Sources */,
+				0018DA1C1CCDA0E20026E5B5 /* Frameworks */,
+				0018DA1D1CCDA0E20026E5B5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "UCR-Craigslist-Native";
+			productName = "UCR-Craigslist-Native";
+			productReference = 0018DA1F1CCDA0E20026E5B5 /* UCR-Craigslist-Native.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0018DA3A1CCDA0E20026E5B5 /* UCR-Craigslist-NativeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0018DA521CCDA0E20026E5B5 /* Build configuration list for PBXNativeTarget "UCR-Craigslist-NativeTests" */;
+			buildPhases = (
+				0018DA371CCDA0E20026E5B5 /* Sources */,
+				0018DA381CCDA0E20026E5B5 /* Frameworks */,
+				0018DA391CCDA0E20026E5B5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0018DA3D1CCDA0E20026E5B5 /* PBXTargetDependency */,
+			);
+			name = "UCR-Craigslist-NativeTests";
+			productName = "UCR-Craigslist-NativeTests";
+			productReference = 0018DA3B1CCDA0E20026E5B5 /* UCR-Craigslist-NativeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		0018DA451CCDA0E20026E5B5 /* UCR-Craigslist-NativeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0018DA551CCDA0E20026E5B5 /* Build configuration list for PBXNativeTarget "UCR-Craigslist-NativeUITests" */;
+			buildPhases = (
+				0018DA421CCDA0E20026E5B5 /* Sources */,
+				0018DA431CCDA0E20026E5B5 /* Frameworks */,
+				0018DA441CCDA0E20026E5B5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0018DA481CCDA0E20026E5B5 /* PBXTargetDependency */,
+			);
+			name = "UCR-Craigslist-NativeUITests";
+			productName = "UCR-Craigslist-NativeUITests";
+			productReference = 0018DA461CCDA0E20026E5B5 /* UCR-Craigslist-NativeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0018DA171CCDA0E20026E5B5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = UCR;
+				TargetAttributes = {
+					0018DA1E1CCDA0E20026E5B5 = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 429F9FW29U;
+					};
+					0018DA3A1CCDA0E20026E5B5 = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 429F9FW29U;
+						TestTargetID = 0018DA1E1CCDA0E20026E5B5;
+					};
+					0018DA451CCDA0E20026E5B5 = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 429F9FW29U;
+						TestTargetID = 0018DA1E1CCDA0E20026E5B5;
+					};
+				};
+			};
+			buildConfigurationList = 0018DA1A1CCDA0E20026E5B5 /* Build configuration list for PBXProject "UCR-Craigslist-Native" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0018DA161CCDA0E20026E5B5;
+			productRefGroup = 0018DA201CCDA0E20026E5B5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0018DA1E1CCDA0E20026E5B5 /* UCR-Craigslist-Native */,
+				0018DA3A1CCDA0E20026E5B5 /* UCR-Craigslist-NativeTests */,
+				0018DA451CCDA0E20026E5B5 /* UCR-Craigslist-NativeUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0018DA1D1CCDA0E20026E5B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0018DA351CCDA0E20026E5B5 /* LaunchScreen.storyboard in Resources */,
+				0018DA321CCDA0E20026E5B5 /* Assets.xcassets in Resources */,
+				0018DA301CCDA0E20026E5B5 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0018DA391CCDA0E20026E5B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0018DA441CCDA0E20026E5B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0018DA1B1CCDA0E20026E5B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0018DA2D1CCDA0E20026E5B5 /* SecondViewController.m in Sources */,
+				0018DA271CCDA0E20026E5B5 /* AppDelegate.m in Sources */,
+				0018DA2A1CCDA0E20026E5B5 /* FirstViewController.m in Sources */,
+				0018DA241CCDA0E20026E5B5 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0018DA371CCDA0E20026E5B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0018DA401CCDA0E20026E5B5 /* UCR_Craigslist_NativeTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0018DA421CCDA0E20026E5B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0018DA4B1CCDA0E20026E5B5 /* UCR_Craigslist_NativeUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0018DA3D1CCDA0E20026E5B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0018DA1E1CCDA0E20026E5B5 /* UCR-Craigslist-Native */;
+			targetProxy = 0018DA3C1CCDA0E20026E5B5 /* PBXContainerItemProxy */;
+		};
+		0018DA481CCDA0E20026E5B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0018DA1E1CCDA0E20026E5B5 /* UCR-Craigslist-Native */;
+			targetProxy = 0018DA471CCDA0E20026E5B5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		0018DA2E1CCDA0E20026E5B5 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0018DA2F1CCDA0E20026E5B5 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		0018DA331CCDA0E20026E5B5 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0018DA341CCDA0E20026E5B5 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0018DA4D1CCDA0E20026E5B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		0018DA4E1CCDA0E20026E5B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0018DA501CCDA0E20026E5B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "UCR-Craigslist-Native/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "CS180.UCR-Craigslist-Native";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		0018DA511CCDA0E20026E5B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "UCR-Craigslist-Native/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "CS180.UCR-Craigslist-Native";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		0018DA531CCDA0E20026E5B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "UCR-Craigslist-NativeTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "CS180.UCR-Craigslist-NativeTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UCR-Craigslist-Native.app/UCR-Craigslist-Native";
+			};
+			name = Debug;
+		};
+		0018DA541CCDA0E20026E5B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "UCR-Craigslist-NativeTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "CS180.UCR-Craigslist-NativeTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UCR-Craigslist-Native.app/UCR-Craigslist-Native";
+			};
+			name = Release;
+		};
+		0018DA561CCDA0E20026E5B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "UCR-Craigslist-NativeUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "CS180.UCR-Craigslist-NativeUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "UCR-Craigslist-Native";
+			};
+			name = Debug;
+		};
+		0018DA571CCDA0E20026E5B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "UCR-Craigslist-NativeUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "CS180.UCR-Craigslist-NativeUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "UCR-Craigslist-Native";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0018DA1A1CCDA0E20026E5B5 /* Build configuration list for PBXProject "UCR-Craigslist-Native" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0018DA4D1CCDA0E20026E5B5 /* Debug */,
+				0018DA4E1CCDA0E20026E5B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0018DA4F1CCDA0E20026E5B5 /* Build configuration list for PBXNativeTarget "UCR-Craigslist-Native" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0018DA501CCDA0E20026E5B5 /* Debug */,
+				0018DA511CCDA0E20026E5B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		0018DA521CCDA0E20026E5B5 /* Build configuration list for PBXNativeTarget "UCR-Craigslist-NativeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0018DA531CCDA0E20026E5B5 /* Debug */,
+				0018DA541CCDA0E20026E5B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		0018DA551CCDA0E20026E5B5 /* Build configuration list for PBXNativeTarget "UCR-Craigslist-NativeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0018DA561CCDA0E20026E5B5 /* Debug */,
+				0018DA571CCDA0E20026E5B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0018DA171CCDA0E20026E5B5 /* Project object */;
+}
