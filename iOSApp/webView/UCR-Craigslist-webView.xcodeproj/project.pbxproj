@@ -1,0 +1,526 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		00EB4C091CCD8FDC0085DE11 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 00EB4C081CCD8FDC0085DE11 /* main.m */; };
+		00EB4C0C1CCD8FDC0085DE11 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 00EB4C0B1CCD8FDC0085DE11 /* AppDelegate.m */; };
+		00EB4C0F1CCD8FDC0085DE11 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00EB4C0E1CCD8FDC0085DE11 /* ViewController.m */; };
+		00EB4C121CCD8FDC0085DE11 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00EB4C101CCD8FDC0085DE11 /* Main.storyboard */; };
+		00EB4C141CCD8FDC0085DE11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00EB4C131CCD8FDC0085DE11 /* Assets.xcassets */; };
+		00EB4C171CCD8FDC0085DE11 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00EB4C151CCD8FDC0085DE11 /* LaunchScreen.storyboard */; };
+		00EB4C221CCD8FDC0085DE11 /* UCR_Craigslist_webViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00EB4C211CCD8FDC0085DE11 /* UCR_Craigslist_webViewTests.m */; };
+		00EB4C2D1CCD8FDC0085DE11 /* UCR_Craigslist_webViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00EB4C2C1CCD8FDC0085DE11 /* UCR_Craigslist_webViewUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		00EB4C1E1CCD8FDC0085DE11 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 00EB4BFC1CCD8FDC0085DE11 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00EB4C031CCD8FDC0085DE11;
+			remoteInfo = "UCR-Craigslist-webView";
+		};
+		00EB4C291CCD8FDC0085DE11 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 00EB4BFC1CCD8FDC0085DE11 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00EB4C031CCD8FDC0085DE11;
+			remoteInfo = "UCR-Craigslist-webView";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		00EB4C041CCD8FDC0085DE11 /* UCR-Craigslist-webView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "UCR-Craigslist-webView.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		00EB4C081CCD8FDC0085DE11 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		00EB4C0A1CCD8FDC0085DE11 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		00EB4C0B1CCD8FDC0085DE11 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		00EB4C0D1CCD8FDC0085DE11 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		00EB4C0E1CCD8FDC0085DE11 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		00EB4C111CCD8FDC0085DE11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		00EB4C131CCD8FDC0085DE11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		00EB4C161CCD8FDC0085DE11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		00EB4C181CCD8FDC0085DE11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00EB4C1D1CCD8FDC0085DE11 /* UCR-Craigslist-webViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UCR-Craigslist-webViewTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		00EB4C211CCD8FDC0085DE11 /* UCR_Craigslist_webViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UCR_Craigslist_webViewTests.m; sourceTree = "<group>"; };
+		00EB4C231CCD8FDC0085DE11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00EB4C281CCD8FDC0085DE11 /* UCR-Craigslist-webViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UCR-Craigslist-webViewUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		00EB4C2C1CCD8FDC0085DE11 /* UCR_Craigslist_webViewUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UCR_Craigslist_webViewUITests.m; sourceTree = "<group>"; };
+		00EB4C2E1CCD8FDC0085DE11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		00EB4C011CCD8FDC0085DE11 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		00EB4C1A1CCD8FDC0085DE11 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		00EB4C251CCD8FDC0085DE11 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		00EB4BFB1CCD8FDC0085DE11 = {
+			isa = PBXGroup;
+			children = (
+				00EB4C061CCD8FDC0085DE11 /* UCR-Craigslist-webView */,
+				00EB4C201CCD8FDC0085DE11 /* UCR-Craigslist-webViewTests */,
+				00EB4C2B1CCD8FDC0085DE11 /* UCR-Craigslist-webViewUITests */,
+				00EB4C051CCD8FDC0085DE11 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		00EB4C051CCD8FDC0085DE11 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				00EB4C041CCD8FDC0085DE11 /* UCR-Craigslist-webView.app */,
+				00EB4C1D1CCD8FDC0085DE11 /* UCR-Craigslist-webViewTests.xctest */,
+				00EB4C281CCD8FDC0085DE11 /* UCR-Craigslist-webViewUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		00EB4C061CCD8FDC0085DE11 /* UCR-Craigslist-webView */ = {
+			isa = PBXGroup;
+			children = (
+				00EB4C0A1CCD8FDC0085DE11 /* AppDelegate.h */,
+				00EB4C0B1CCD8FDC0085DE11 /* AppDelegate.m */,
+				00EB4C0D1CCD8FDC0085DE11 /* ViewController.h */,
+				00EB4C0E1CCD8FDC0085DE11 /* ViewController.m */,
+				00EB4C101CCD8FDC0085DE11 /* Main.storyboard */,
+				00EB4C131CCD8FDC0085DE11 /* Assets.xcassets */,
+				00EB4C151CCD8FDC0085DE11 /* LaunchScreen.storyboard */,
+				00EB4C181CCD8FDC0085DE11 /* Info.plist */,
+				00EB4C071CCD8FDC0085DE11 /* Supporting Files */,
+			);
+			path = "UCR-Craigslist-webView";
+			sourceTree = "<group>";
+		};
+		00EB4C071CCD8FDC0085DE11 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				00EB4C081CCD8FDC0085DE11 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		00EB4C201CCD8FDC0085DE11 /* UCR-Craigslist-webViewTests */ = {
+			isa = PBXGroup;
+			children = (
+				00EB4C211CCD8FDC0085DE11 /* UCR_Craigslist_webViewTests.m */,
+				00EB4C231CCD8FDC0085DE11 /* Info.plist */,
+			);
+			path = "UCR-Craigslist-webViewTests";
+			sourceTree = "<group>";
+		};
+		00EB4C2B1CCD8FDC0085DE11 /* UCR-Craigslist-webViewUITests */ = {
+			isa = PBXGroup;
+			children = (
+				00EB4C2C1CCD8FDC0085DE11 /* UCR_Craigslist_webViewUITests.m */,
+				00EB4C2E1CCD8FDC0085DE11 /* Info.plist */,
+			);
+			path = "UCR-Craigslist-webViewUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		00EB4C031CCD8FDC0085DE11 /* UCR-Craigslist-webView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00EB4C311CCD8FDC0085DE11 /* Build configuration list for PBXNativeTarget "UCR-Craigslist-webView" */;
+			buildPhases = (
+				00EB4C001CCD8FDC0085DE11 /* Sources */,
+				00EB4C011CCD8FDC0085DE11 /* Frameworks */,
+				00EB4C021CCD8FDC0085DE11 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "UCR-Craigslist-webView";
+			productName = "UCR-Craigslist-webView";
+			productReference = 00EB4C041CCD8FDC0085DE11 /* UCR-Craigslist-webView.app */;
+			productType = "com.apple.product-type.application";
+		};
+		00EB4C1C1CCD8FDC0085DE11 /* UCR-Craigslist-webViewTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00EB4C341CCD8FDC0085DE11 /* Build configuration list for PBXNativeTarget "UCR-Craigslist-webViewTests" */;
+			buildPhases = (
+				00EB4C191CCD8FDC0085DE11 /* Sources */,
+				00EB4C1A1CCD8FDC0085DE11 /* Frameworks */,
+				00EB4C1B1CCD8FDC0085DE11 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				00EB4C1F1CCD8FDC0085DE11 /* PBXTargetDependency */,
+			);
+			name = "UCR-Craigslist-webViewTests";
+			productName = "UCR-Craigslist-webViewTests";
+			productReference = 00EB4C1D1CCD8FDC0085DE11 /* UCR-Craigslist-webViewTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		00EB4C271CCD8FDC0085DE11 /* UCR-Craigslist-webViewUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00EB4C371CCD8FDC0085DE11 /* Build configuration list for PBXNativeTarget "UCR-Craigslist-webViewUITests" */;
+			buildPhases = (
+				00EB4C241CCD8FDC0085DE11 /* Sources */,
+				00EB4C251CCD8FDC0085DE11 /* Frameworks */,
+				00EB4C261CCD8FDC0085DE11 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				00EB4C2A1CCD8FDC0085DE11 /* PBXTargetDependency */,
+			);
+			name = "UCR-Craigslist-webViewUITests";
+			productName = "UCR-Craigslist-webViewUITests";
+			productReference = 00EB4C281CCD8FDC0085DE11 /* UCR-Craigslist-webViewUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		00EB4BFC1CCD8FDC0085DE11 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = UCR;
+				TargetAttributes = {
+					00EB4C031CCD8FDC0085DE11 = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 429F9FW29U;
+					};
+					00EB4C1C1CCD8FDC0085DE11 = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 429F9FW29U;
+						TestTargetID = 00EB4C031CCD8FDC0085DE11;
+					};
+					00EB4C271CCD8FDC0085DE11 = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 429F9FW29U;
+						TestTargetID = 00EB4C031CCD8FDC0085DE11;
+					};
+				};
+			};
+			buildConfigurationList = 00EB4BFF1CCD8FDC0085DE11 /* Build configuration list for PBXProject "UCR-Craigslist-webView" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 00EB4BFB1CCD8FDC0085DE11;
+			productRefGroup = 00EB4C051CCD8FDC0085DE11 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				00EB4C031CCD8FDC0085DE11 /* UCR-Craigslist-webView */,
+				00EB4C1C1CCD8FDC0085DE11 /* UCR-Craigslist-webViewTests */,
+				00EB4C271CCD8FDC0085DE11 /* UCR-Craigslist-webViewUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		00EB4C021CCD8FDC0085DE11 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00EB4C171CCD8FDC0085DE11 /* LaunchScreen.storyboard in Resources */,
+				00EB4C141CCD8FDC0085DE11 /* Assets.xcassets in Resources */,
+				00EB4C121CCD8FDC0085DE11 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		00EB4C1B1CCD8FDC0085DE11 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		00EB4C261CCD8FDC0085DE11 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		00EB4C001CCD8FDC0085DE11 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00EB4C0F1CCD8FDC0085DE11 /* ViewController.m in Sources */,
+				00EB4C0C1CCD8FDC0085DE11 /* AppDelegate.m in Sources */,
+				00EB4C091CCD8FDC0085DE11 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		00EB4C191CCD8FDC0085DE11 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00EB4C221CCD8FDC0085DE11 /* UCR_Craigslist_webViewTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		00EB4C241CCD8FDC0085DE11 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00EB4C2D1CCD8FDC0085DE11 /* UCR_Craigslist_webViewUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		00EB4C1F1CCD8FDC0085DE11 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00EB4C031CCD8FDC0085DE11 /* UCR-Craigslist-webView */;
+			targetProxy = 00EB4C1E1CCD8FDC0085DE11 /* PBXContainerItemProxy */;
+		};
+		00EB4C2A1CCD8FDC0085DE11 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00EB4C031CCD8FDC0085DE11 /* UCR-Craigslist-webView */;
+			targetProxy = 00EB4C291CCD8FDC0085DE11 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		00EB4C101CCD8FDC0085DE11 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				00EB4C111CCD8FDC0085DE11 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		00EB4C151CCD8FDC0085DE11 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				00EB4C161CCD8FDC0085DE11 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		00EB4C2F1CCD8FDC0085DE11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		00EB4C301CCD8FDC0085DE11 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		00EB4C321CCD8FDC0085DE11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "UCR-Craigslist-webView/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "CS180.UCR-CraigslistWebView";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		00EB4C331CCD8FDC0085DE11 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "UCR-Craigslist-webView/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "CS180.UCR-CraigslistWebView";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		00EB4C351CCD8FDC0085DE11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "UCR-Craigslist-webViewTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "CS180.UCR-Craigslist-webViewTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UCR-Craigslist-webView.app/UCR-Craigslist-webView";
+			};
+			name = Debug;
+		};
+		00EB4C361CCD8FDC0085DE11 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "UCR-Craigslist-webViewTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "CS180.UCR-Craigslist-webViewTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UCR-Craigslist-webView.app/UCR-Craigslist-webView";
+			};
+			name = Release;
+		};
+		00EB4C381CCD8FDC0085DE11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "UCR-Craigslist-webViewUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "CS180.UCR-Craigslist-webViewUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "UCR-Craigslist-webView";
+			};
+			name = Debug;
+		};
+		00EB4C391CCD8FDC0085DE11 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "UCR-Craigslist-webViewUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "CS180.UCR-Craigslist-webViewUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "UCR-Craigslist-webView";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		00EB4BFF1CCD8FDC0085DE11 /* Build configuration list for PBXProject "UCR-Craigslist-webView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00EB4C2F1CCD8FDC0085DE11 /* Debug */,
+				00EB4C301CCD8FDC0085DE11 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		00EB4C311CCD8FDC0085DE11 /* Build configuration list for PBXNativeTarget "UCR-Craigslist-webView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00EB4C321CCD8FDC0085DE11 /* Debug */,
+				00EB4C331CCD8FDC0085DE11 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		00EB4C341CCD8FDC0085DE11 /* Build configuration list for PBXNativeTarget "UCR-Craigslist-webViewTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00EB4C351CCD8FDC0085DE11 /* Debug */,
+				00EB4C361CCD8FDC0085DE11 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		00EB4C371CCD8FDC0085DE11 /* Build configuration list for PBXNativeTarget "UCR-Craigslist-webViewUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00EB4C381CCD8FDC0085DE11 /* Debug */,
+				00EB4C391CCD8FDC0085DE11 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 00EB4BFC1CCD8FDC0085DE11 /* Project object */;
+}
