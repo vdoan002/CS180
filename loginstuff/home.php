@@ -3,7 +3,7 @@
 ?>
 <html>
 	<head>
-		<title>My first PHP website</title>
+		<title>UCR Craigslist</title>
 	</head>
 	<?php
 	if($_SESSION['user']){ //checks if user is logged in
@@ -17,56 +17,50 @@
 		<h2>Home Page</h2>
 		<p>Hello <?php Print "$user"?>!</p> <!--Displays user's name-->
 		<a href="logout.php">Click here to logout</a><br/>
+		<a href="postitem.php">Click here to make/edit a post</a><br/>
 		<a href="map.html">Click here for map of meeting location</a><br/><br/>
-		<!--<form action="add.php" method="POST">
-			Add more to list: <input type="text" name="details"/><br/>
-			public post? <input type="checkbox" name="public[]" value="yes"/><br/>
-			<input type="submit" value="Add to list"/>
-		</form>
-		<h2 align="center">My list</h2>
+		<h2 align="center">All Posts</h2>
 		<table border="1px" width="100%">
 			<tr>
 				<th>Id</th>
-				<th>Details</th>
-				<th>Post Time</th>
-				<th>Edit Time</th>
-				<th>Edit</th>
-				<th>Delete</th>
-				<th>Public Post</th>
+				<th>Title</th>
+				<th>Seller</th>
+				<th>Price</th>
+				<th>Category</th>
+				<th>Description</th>
+				<th>Date / Time</th>
+				<th>Pictures</th>
 			</tr>
-
 			<?php
-				$servername = "fdb14.biz.nf";
-			    $serverusername = "2104912_db1";
-			    $serverpassword = "data5base";
-				$conn = mysqli_connect($servername, $serverusername, $serverpassword) or die(mysqli_connect_error()); //Connect to server
-			    mysqli_select_db($conn,"2104912_db1") or die("Cannot connect to database");//Connect to database
-
-				$query = mysqli_query($conn, "Select * from list"); // SQL Query
+				include 'serverconnect.php'; //server connection code
+			    
+				$query = mysqli_query($conn, "SELECT * from posts"); // SQL Query
 				while($row = mysqli_fetch_array($query,MYSQLI_ASSOC))
 				{
 					Print "<tr>";
-						Print '<td align="center">'. $row['id'] . "</td>";
-						Print '<td align="center">'. $row['details'] . "</td>";
-						Print '<td align="center">'. $row['date_posted']. " - ". $row['time_posted']."</td>";
-						Print '<td align="center">'. $row['date_edited']. " - ". $row['time_edited']. "</td>";
-						Print '<td align="center"><a href="edit.php?id='. $row['id'] .'">edit</a> </td>';
-						Print '<td align="center"><a href="#" onclick="myFunction('.$row['id'].')">delete</a> </td>';
-						Print '<td align="center">'. $row['public']. "</td>";
+						$id = $row['post_id'];
+						Print '<td align="center">'. $id . "</td>";
+						Print '<td align="center">'. $row['post_title'] . "</td>";
+						Print '<td align="center">'. $row['post_username'] . "</td>";
+						Print '<td align="center">$'. $row['post_price'] . "</td>";
+						Print '<td align="center">'. $row['post_category'] . "</td>";
+						Print '<td align="center">'. $row['post_description'] . "</td>";
+						Print '<td align="center">'. $row['post_date']. " - ". $row['post_time']."</td>";
+						if($numpics = $row['post_photos']){
+							$picstartloc = $row['post_photo_id'];
+							$picloc = $picstartloc - $numpics+1;
+							Print '<td align="center">';
+							for($x = 0; $x < $numpics; $x++){
+								$piclocnew = $picloc + $x;
+								Print'<img src=getimages.php?post_id='.$piclocnew."></br>";
+							}
+							Print '</td>';
+						}
+						else
+							Print '<td align="center"> none </td>';
 					Print "</tr>";
 				}
 			?>
 		</table>
-		<script>
-			function myFunction(id)
-			{
-			var r=confirm("Are you sure you want to delete this record?");
-			if (r==true)
-			  {
-			  	window.location.assign("delete.php?id=" + id);
-			  }
-			}
-		</script>
-	-->
 	</body>
 </html>

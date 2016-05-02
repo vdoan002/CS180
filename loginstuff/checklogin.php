@@ -1,11 +1,6 @@
 <?php
     session_start();
-    $servername = "fdb14.biz.nf";
-    $serverusername = "2104912_db1";
-    $serverpassword = "data5base";
-
-    $conn = mysqli_connect($servername, $serverusername, $serverpassword) or die(mysqli_connect_error()); //Connect to server
-    mysqli_select_db($conn,"2104912_db1") or die("Cannot connect to database");//Connect to database
+    include 'serverconnect.php'; //server connection code
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     $query = mysqli_query($conn,"Select * from users WHERE username='$username'"); // Query the users table
