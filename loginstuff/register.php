@@ -1,11 +1,5 @@
 <?php
-	$servername = "fdb14.biz.nf";
-	$serverusername = "2104912_db1";
-	$serverpassword = "data5base";
-
-	// Create connection
-	$conn = mysqli_connect($servername, $serverusername, $serverpassword) or die(mysqli_connect_error());
-	mysqli_select_db($conn,"2104912_db1") or die("Cannot connect to database");
+	include 'serverconnect.php'; //server connection code
 	$query = mysqli_query($conn,"Select * from users");
 	if($_SERVER["REQUEST_METHOD"] == "POST"){
 		$email = mysqli_real_escape_string($conn, $_POST['email']);
