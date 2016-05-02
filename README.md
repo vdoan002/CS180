@@ -3,7 +3,7 @@
 ##Software Construction Team Project
 
 ## Website Link
-[UCR Craigslist Website](http://159.203.208.220/ucrcraigslist.html "UCR Craigslist")
+[UCR Craigslist Website](http://159.203.208.220/ "UCR Craigslist")
 
 ## Team Members
 *  Tristan Zickovich
