@@ -18,7 +18,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    NSURL *url = [NSURL URLWithString:@"http://practicemakesperfect.co.nf"];
+    NSURL *url = [NSURL URLWithString:@"http://159.203.208.220"];
     NSURLRequest * urlRequest = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:urlRequest];
 }
