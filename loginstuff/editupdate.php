@@ -4,6 +4,8 @@
 	}
 	else{
 		header("location:index.php");
+		Print "Please log in";
+		exit();
 	}
 	if($_SERVER['REQUEST_METHOD'] == "POST")
 	{
@@ -20,7 +22,6 @@
 		$photobit = 0;
 		$imagenames = $_FILES['itemimages']['tmp_name'];
 		if(!empty(imagenames)){
-		//if(file_exists($imagenames[0]) && is_uploaded_file($imagenames[0])){
 			foreach($imagenames as $file){
 				if(file_exists($file) && getimagesize($file)){ //make sure uploads aren't empty & is a pic
 					$photobit += 1;
@@ -48,5 +49,6 @@
 			}
 		}
 		header("location: home.php");
+		exit();
 	}
 ?>
