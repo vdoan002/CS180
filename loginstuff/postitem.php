@@ -1,23 +1,39 @@
 <?php
 	session_start();
+	if($_SESSION['user']){
+	}
+	else{
+		header("location:index.php");
+		Print "Please log in";
+		exit();
+	}
 ?>
 <html>
 	<head>
 		<title>UCR Craigslist</title>
 	<head>
 	<body>
-		<a href="logout.php">Click here to logout</a>
-		<a href="home.php">Return to Home page</a><br/><br/>
+		<?php
+			include 'navbar.php';
+		?>
 
 		<form action="add.php" method="POST" enctype="multipart/form-data">
 			Add new item<br/>
 			Category:
 			<select name="category">
-			  <option value="electronics">Electronics</option>
 			  <option value="books">Books</option>
-			  <option value="music">Music</option>
+			  <option value="clothing">Clothing</option>
+			  <option value="electronics">Electronics</option>
+			  <option value="furniture">Furniture</option>
 			  <option value="household">Household</option>
+			  <option value="leases">Leases</option>
+			  <option value="music">Music</option>
+			  <option value="pets">Pets</option>
 			  <option value="services">Services</option>
+			  <option value="tickets">Tickets</option>
+			  <option value="vehicles">Vehicles</option>
+
+			  <option value="other">Other</option>
 			</select> <br/>
 			Title: <input type="text" maxlength="100" name="title" required/> 
 			Price: $<input type="number" min="0" name="price" required/><br/>
@@ -33,7 +49,6 @@
 		<h2 align="center">Your Posts</h2>
 		<table border="1px" width="100%">
 			<tr>
-				<th>Id</th>
 				<th>Title</th>
 				<th>Seller</th>
 				<th>Price</th>
@@ -45,11 +60,6 @@
 			</tr>
 
 			<?php
-				if($_SESSION['user']){
-				}
-				else{
-					header("location:index.php");
-				}
 				include 'serverconnect.php'; //server connection code
 			    $user = $_SESSION['user'];
 
@@ -57,7 +67,6 @@
 				while($row = mysqli_fetch_array($query,MYSQLI_ASSOC))
 				{
 					Print "<tr>";
-						Print '<td align="center">'. $row['post_id'] . "</td>";
 						Print '<td align="center">'. $row['post_title'] . "</td>";
 						Print '<td align="center">'. $row['post_username'] . "</td>";
 						Print '<td align="center">$'. $row['post_price'] . "</td>";

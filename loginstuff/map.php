@@ -1,4 +1,13 @@
-<!DOCTYPE html>
+<?php
+  session_start(); //starts the session
+  if($_SESSION['user']){ //checks if user is logged in
+  }
+  else{
+    header("location:index.php"); // redirects if user is not logged in
+    Print "Please log in";
+    exit();
+  }
+?>
 <html>
   <head>
     <style>
@@ -19,7 +28,9 @@
     </script>
   </head>
   <body>
-    <a href="home.php">Click here to go back</a><br/><br/>
+    <?php
+      include 'navbar.php';
+    ?>
     <form onsubmit="return false">
   	  Meeting Location: <input type="text" id="locinfo" placeholder="Coffee Bean UCR" required />
   	  <input type="submit" value="Navigate" onclick="updateMap()" /><br><br>

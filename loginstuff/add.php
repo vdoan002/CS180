@@ -4,6 +4,8 @@
 	}
 	else{
 		header("location:index.php");
+		Print "Please log in";
+		exit();
 	}
 	if($_SERVER['REQUEST_METHOD'] = "POST") //Added an if to keep the page secured
 	{
@@ -22,7 +24,6 @@
 		$photobit = 0;
 		$imagenames = $_FILES['itemimages']['tmp_name'];
 		if(!empty(imagenames)){
-		//if(file_exists($imagenames[0]) && is_uploaded_file($imagenames[0])){
 			foreach($imagenames as $file){
 				if(file_exists($file) && getimagesize($file)){ //make sure uploads aren't empty & is a pic
 					$photobit += 1;
@@ -30,17 +31,6 @@
 			}
 		}
 
-		/*
-		//get single image
-		$imagename=$_FILES['itemimage']['tmp_name'];
-		if(file_exists($imagename) && is_uploaded_file($imagename)){ //checks if file was uploaded
-			if(getimagesize($_FILES['itemimage']['tmp_name'])){ //checks that file is an image
-				$image=addslashes(file_get_contents($_FILES['itemimage']['tmp_name']));
-				$image_name = addslashes($_FILES['itemimage']['name']);
-				$photobit = 1;
-			}
-		}
-		*/
 		//add post
 		mysqli_query($conn,"INSERT INTO posts (post_title, post_username, post_price, post_category, post_description, post_date, post_time, post_photos) VALUES ('$title','$username','$price','$category','$description', '$date','$time', '$photobit')"); //SQL query
 		//add photo for post, if it exists
@@ -65,9 +55,11 @@
 			mysqli_query($conn, "UPDATE posts SET post_photo_id='$newid2' WHERE post_id='$newid'");
 		}
 		header("location: home.php");
+		exit();
 	}
 	else
 	{
 		header("location: home.php"); //redirects back to home
+		exit();
 	}
 ?>
