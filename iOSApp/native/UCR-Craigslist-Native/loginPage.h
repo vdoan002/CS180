@@ -7,28 +7,31 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LoginViewController.h"
 
-@protocol <#protocol name#> <NSObject>
+//@protocol LoginViewProtocol <NSObject>
 
-<#methods#>
 
-@end
+//@end
 
-@interface loginPage : UIViewController{
-    
+@interface loginPage : UIViewController<UITextFieldDelegate> {
     IBOutlet UITextField *userTF;
     IBOutlet UITextField *passwdTF;
 }
 
+@property (strong, nonatomic) IBOutlet UIButton *loginUIButton;
+
 - (IBAction)loginButton:(id)sender;
 
+//@property (nonatomic, weak) id <LoginViewProtocl> delegate;
+//@property (nonatomic, retain) LoginViewController * loginView;
+
+@property (nonatomic, retain) IBOutlet UILabel *titleLabel;
 @property (nonatomic, strong) NSMutableArray * jsonArray;
 @property (nonatomic, strong) NSMutableArray * loginArray;
-@
 
 #pragma mark - 
 #pragma mark Class Methods
+
 - (void) retrieveData;
 
 @end

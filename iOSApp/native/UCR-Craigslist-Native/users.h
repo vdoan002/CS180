@@ -11,7 +11,6 @@
 @interface users : NSObject
 
 -(void)loginWithUsername:(NSString *)username andPassword:(NSString *)password;
--(void)logout;
 -(BOOL)validUser;
 
 @property (strong, nonatomic) NSString * userID;

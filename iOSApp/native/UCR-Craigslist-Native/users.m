@@ -34,9 +34,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"loginActionFinished" object:self userInfo:nil];
 }
 
-- (void)logout{
-    // Here you can delete the account
-}
 
 - (BOOL)validUser {
     
