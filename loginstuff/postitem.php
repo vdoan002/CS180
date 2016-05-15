@@ -7,45 +7,53 @@
 		Print "Please log in";
 		exit();
 	}
+	include 'navbar.php';
 ?>
 <html>
 	<head>
 		<title>UCR Craigslist</title>
+		<script>
+		  	function toggleHidden(divID){
+			var item = document.getElementById(divID);
+			if(item && item.className === 'hidden')
+				item.className = 'visible';
+			else if(item && item.className ==='visible')
+				item.className = 'hidden';
+			}
+  		</script>
 	<head>
 	<body>
-		<?php
-			include 'navbar.php';
-		?>
+		<button type="button" onclick="toggleHidden('addPost')" class="visible">Add New Post</button>
+		<div class="hidden" id="addPost">
+			<form action="add.php" method="POST" enctype="multipart/form-data">
+				Add new item<br/>
+				Category:
+				<select name="category">
+				  <option value="books">Books</option>
+				  <option value="clothing">Clothing</option>
+				  <option value="electronics">Electronics</option>
+				  <option value="furniture">Furniture</option>
+				  <option value="household">Household</option>
+				  <option value="leases">Leases</option>
+				  <option value="music">Music</option>
+				  <option value="pets">Pets</option>
+				  <option value="services">Services</option>
+				  <option value="tickets">Tickets</option>
+				  <option value="vehicles">Vehicles</option>
 
-		<form action="add.php" method="POST" enctype="multipart/form-data">
-			Add new item<br/>
-			Category:
-			<select name="category">
-			  <option value="books">Books</option>
-			  <option value="clothing">Clothing</option>
-			  <option value="electronics">Electronics</option>
-			  <option value="furniture">Furniture</option>
-			  <option value="household">Household</option>
-			  <option value="leases">Leases</option>
-			  <option value="music">Music</option>
-			  <option value="pets">Pets</option>
-			  <option value="services">Services</option>
-			  <option value="tickets">Tickets</option>
-			  <option value="vehicles">Vehicles</option>
-
-			  <option value="other">Other</option>
-			</select> <br/>
-			Title: <input type="text" maxlength="100" name="title" required/> 
-			Price: $<input type="number" min="0" name="price" required/><br/>
-			Description: <br/>
-			<input type="text" name="description" required/><br/>
-			<div id="moreFiles">
-				Image File 1: <input type="file" name="itemimages[]"/><br/>
-			</div>
-			<input type="button" value="Add Another Image" onclick="addFileUpload('moreFiles')"/><br/>
-			<input type="submit" value="Add to posts"/>
-		</form>
-
+				  <option value="other">Other</option>
+				</select> <br/>
+				Title: <input type="text" maxlength="100" name="title" required/> 
+				Price: $<input type="number" min="0" name="price" required/><br/>
+				Description: <br/>
+				<input type="text" name="description" required/><br/>
+				<div id="moreFiles">
+					Image File 1: <input type="file" name="itemimages[]"/><br/>
+				</div>
+				<input type="button" value="Add Another Image" onclick="addFileUpload('moreFiles')"/><br/>
+				<input type="submit" value="Add to posts"/>
+			</form>
+		</div>
 		<h2 align="center">Your Posts</h2>
 		<table border="1px" width="100%">
 			<tr>
@@ -53,7 +61,6 @@
 				<th>Seller</th>
 				<th>Price</th>
 				<th>Category</th>
-				<th>Description</th>
 				<th>Date / Time</th>
 				<th>Edit</th>
 				<th>Delete</th>
@@ -71,7 +78,6 @@
 						Print '<td align="center">'. $row['post_username'] . "</td>";
 						Print '<td align="center">$'. $row['post_price'] . "</td>";
 						Print '<td align="center">'. $row['post_category'] . "</td>";
-						Print '<td align="center">'. $row['post_description'] . "</td>";
 						Print '<td align="center">'. $row['post_date'] . " - ". $row['post_time']."</td>";
 						Print '<td align="center"><a href="edit.php?post_id='. $row['post_id'] .'">edit</a> </td>';
 						Print '<td align="center"><a href="#" onclick="myFunction('.$row['post_id'].')">delete</a> </td>';

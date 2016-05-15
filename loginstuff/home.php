@@ -7,6 +7,7 @@
 		Print "Please log in";
 		exit();
 	}
+	include 'navbar.php';
 ?>
 <html>
 	<head>
@@ -14,9 +15,6 @@
 	</head>
 	<body>
 		<h2>Home Page</h2>
-		<?php
-			include 'navbar.php';
-		?>
 		<h2>Browse By Category</h2>
 		<ul>
 			<li><a href="category.php?category=books">Books</a></li>
@@ -40,7 +38,6 @@
 				<th>Seller</th>
 				<th>Price</th>
 				<th>Category</th>
-				<th>Description</th>
 				<th>Date / Time</th>
 				<th>Pictures</th>
 			</tr>
@@ -53,10 +50,9 @@
 					Print "<tr>";
 						$id = $row['post_id'];
 						Print '<td align="center"><a href="specificpost.php?post_id='.$id.'">'. $row['post_title'] . "</a></td>";
-						Print '<td align="center">'. $row['post_username'] . "</td>";
+						Print '<td align="center"><a href="profile.php?user_profile='. $row['post_username'] .'">'.$row['post_username']."</a></td>";
 						Print '<td align="center">$'. $row['post_price'] . "</td>";
 						Print '<td align="center">'. $row['post_category'] . "</td>";
-						Print '<td align="center">'. $row['post_description'] . "</td>";
 						Print '<td align="center">'. $row['post_date']. " - ". $row['post_time']."</td>";
 						if($numpics = $row['post_photos']){
 							Print '<td align="center">'.$numpics.' available</td>';

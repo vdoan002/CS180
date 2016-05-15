@@ -1,0 +1,36 @@
+body {
+  color: white;
+  text-align:center;
+}
+
+blockquote {border: 0}
+
+.wrapper {
+    min-width:400px;
+    max-width:400px;
+    text-align:center;
+    margin:0 auto;
+}
+
+.blockquote-footer {
+	color: #f2f2f2;
+}
+
+#info{
+	background-color: white;
+	height: 50vh; 
+	color: black;
+	h2 { padding-top: 30px; }
+	p { padding-bottom: 50px; }
+}
+
+#landing {
+  color: white;
+  background: linear-gradient(180deg, rgba(0,0,0,0.2) 40%,rgba(0,0,0,1) 100%),
+              url('/images/ucr_background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  height: 50vh;
+
+  h1 { padding-top: 100px; color="black";}
+  p { padding-top: 20px; }
+}

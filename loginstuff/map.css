@@ -1,0 +1,16 @@
+body {
+  text-align:center;
+    background: linear-gradient(180deg, rgba(0,0,0,0.2) 40%,rgba(0,0,0,1) 100%),
+              url('/images/ucr_background.jpg') no-repeat center center fixed;
+  background-size:cover;
+  height:100vh;
+}
+
+blockquote {border: 0}
+
+.wrapper {
+    min-width:400px;
+    max-width:400px;
+    text-align:center;
+    margin:0 auto;
+}

@@ -9,12 +9,20 @@
 	}
 
 	Print'
-	<div id="navbar">
-		<p>Hello '.$user.'!</p>
-		<a href="home.php">HOME</a><br/>
-		<a href="logout.php">LOGOUT</a><br/>
-		<a href="postitem.php">MAKE/EDIT POST</a><br/>
-		<a href="map.php">MAP</a><br/><br/>
-	</div>
+	    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/navbar.css" rel="stylesheet">
+	<nav class="navbar navbar-light style="background-color: #e3f2fd;" navbar-fixed-top">
+		<a class="navbar-brand">UCR Craigslist</a>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav pull-left">
+					<li><a href="home.php">HOME</a></li>
+					<li><a href="postitem.php">MANAGE POSTS</a></li>
+					<li><a href="chat.php">MESSAGES</a></li>
+					<li><a href="map.php">MAP</a></li>
+					<li><a href="profile.php?user_profile='.$user.'">'.strtoupper($user).'</a></li>
+					<li><a href="logout.php">LOGOUT</a></li>
+				</ul>
+		</div>
+	</nav>
 	'
 ?>
