@@ -7,6 +7,7 @@
     Print "Please log in";
     exit();
   }
+  include 'navbar.php';
 ?>
 <html>
   <head>
@@ -26,22 +27,24 @@
         }
     	}
     </script>
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/map.css" rel="stylesheet">
   </head>
   <body>
-    <?php
-      include 'navbar.php';
-    ?>
-    <form onsubmit="return false">
-  	  Meeting Location: <input type="text" id="locinfo" placeholder="Coffee Bean UCR" required />
-  	  <input type="submit" value="Navigate" onclick="updateMap()" /><br><br>
-    </form>
-  	<div id="maplocation">
-		<iframe
-		  width="600"
-		  height="450"
-		  frameborder="0" style="border:0"
-		  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAXuuDhTJljm3Glal3QQwpPUFPO7BAK7tw &q=Coffee+Bean+UCR,Riverside+CA" allowfullscreen>
-		</iframe>
-	</div>
+		<div class="wrapper">
+			<form onsubmit="return false">
+			  Meeting Location: <input type="text" id="locinfo" placeholder="Coffee Bean UCR" required />
+			  <input type="submit" value="Navigate" onclick="updateMap()" /><br><br>
+			</form>
+			<div id="maplocation">
+				<iframe
+				  width="600"
+				  height="450"
+				  frameborder="0" style="border:0"
+				  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAXuuDhTJljm3Glal3QQwpPUFPO7BAK7tw &q=Coffee+Bean+UCR,Riverside+CA" allowfullscreen>
+				</iframe>
+			</div>
+		</div>
+	
   </body>
 </html>

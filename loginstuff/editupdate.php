@@ -20,11 +20,13 @@
 
 		//check for new photo upload
 		$photobit = 0;
-		$imagenames = $_FILES['itemimages']['tmp_name'];
-		if(!empty(imagenames)){
-			foreach($imagenames as $file){
-				if(file_exists($file) && getimagesize($file)){ //make sure uploads aren't empty & is a pic
-					$photobit += 1;
+		if($numpics > 0){
+			$imagenames = $_FILES['itemimages']['tmp_name'];
+			if(!empty(imagenames)){
+				foreach($imagenames as $file){
+					if(file_exists($file) && getimagesize($file)){ //make sure uploads aren't empty & is a pic
+						$photobit += 1;
+					}
 				}
 			}
 		}
@@ -48,6 +50,7 @@
 				$curiteration += 1;
 			}
 		}
+
 		header("location: home.php");
 		exit();
 	}

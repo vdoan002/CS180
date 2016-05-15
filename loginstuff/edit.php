@@ -7,6 +7,7 @@
 		Print "Please log in";
 		exit();
 	}
+	include 'navbar.php';
 ?>
 <html>
 	<head>
@@ -17,9 +18,6 @@
 		$id_exists = false;
 	?>
 	<body>
-		<?php
-			include 'navbar.php';
-		?>
 		<h2 align="center">Currently Selected</h2>
 		<table border="1px" width="100%">
 			<tr>
@@ -90,11 +88,15 @@
 		{
 			$query = mysqli_query($conn, "SELECT * from images WHERE image_post_id='$id'");
 			$picname = array("e","e","e","e");
+			$picnameId = array("e","e","e","e");
 			$baseloc = $picid - $numpics + 1;
+			$ct = 0;
 			while($row = mysqli_fetch_array($query,MYSQLI_ASSOC)){
 				$arrayloc = $row['image_id'] - $baseloc;
 		        $image_name = $row['image_name'];
-				$picname[$arrayloc] = $image_name; 		
+				$picname[$arrayloc] = $image_name; 
+				$picnameId[$ct]	= $row['image_id'];	
+				++$ct;
 		    }
 			$tempcategory = ucfirst($category);
 			Print '
@@ -120,11 +122,15 @@
 				Price: $<input type="number" min="1" name="price" value="' . $price . '"/ required><br/>
 				Description: <br/>
 				<input type="text" name="description" value="' . $description . '"/ required><br/>
-				Edit corresponding image to replace it. </br>
 				';
-				for($x = 0; $x < $numpics; $x++){
-					$val = $x + 1;
-					Print'Image File '. $val .', Currently "'.$picname[$x].'": <input type="file" name="itemimages[]"><br/>';
+				if($numpics > 0){
+					Print 'Edit corresponding image to replace it. </br>';
+					for($x = 0; $x < $numpics; $x++){
+						$val = $x + 1;
+						Print'Image File '. $val .', Currently "'.$picname[$x].'"<br>
+						<a href="deletepic.php?image_id='.$picnameId[$x].'&post_id='.$_GET['post_id'].'"> click to delete pic </a><br>
+						swap pic <input type="file" name="itemimages[]"><br/>';
+					}
 				}
 				Print
 				'
