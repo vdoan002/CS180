@@ -18,8 +18,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    NSURL *url = [NSURL URLWithString:@"http://159.203.208.220/home"];
-    NSURLRequest * urlRequest = [NSURLRequest requestWithURL:url];
+    NSURL *url = [NSURL URLWithString:@"http://practicemakesperfect.co.nf/profile.php?user_profile=mchen046"];
+    NSMutableURLRequest * urlRequest = [NSMutableURLRequest requestWithURL:url];
     [self.webView loadRequest:urlRequest];
 }
 

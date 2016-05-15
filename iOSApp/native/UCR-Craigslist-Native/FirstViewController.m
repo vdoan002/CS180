@@ -18,9 +18,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    
     NSURL *url = [NSURL URLWithString:@"http://practicemakesperfect.co.nf/home.php"];
-    NSURLRequest * urlRequest = [NSURLRequest requestWithURL:url];
+    NSMutableURLRequest * urlRequest = [NSMutableURLRequest requestWithURL:url];
+    
+    [urlRequest setHTTPMethod:@"POST"];
+    [urlRequest setHTTPShouldHandleCookies:YES];
+    
     [self.webView loadRequest:urlRequest];
 }
 

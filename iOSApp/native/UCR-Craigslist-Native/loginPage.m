@@ -6,6 +6,7 @@
 //  Copyright © 2016 UCR. All rights reserved.
 //
 
+#import "AppDelegate.h"
 #import "loginPage.h"
 #import "users.h"
 
@@ -16,18 +17,40 @@
 @end
 
 @implementation loginPage
-@synthesize loginArray, jsonArray;
+@synthesize loginArray, jsonArray, titleLabel, loginUIButton;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     [self retrieveData];
+    //keyboard dismiss: http://stackoverflow.com/a/5711504
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                          action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:tap];
+    
+    userTF.delegate = self;
+    passwdTF.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == userTF) {
+        [textField resignFirstResponder];
+        [passwdTF becomeFirstResponder];
+    } else if (textField == passwdTF) {
+        [textField resignFirstResponder];
+        [loginUIButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+    }
+    return YES;
+}
+
+-(void)dismissKeyboard { //http://stackoverflow.com/a/5711504
+    [userTF resignFirstResponder];
+    [passwdTF resignFirstResponder];
 }
 
 /*
@@ -43,7 +66,7 @@
 #pragma mark -
 #pragma mark Class Methods
     
-- (void)retrieveData {
+- (void)retrieveData { //referenced from: http://youtu.be/nqnohLXQRW4 . database linking
     NSURL * url = [NSURL URLWithString:getDataURL];
     NSData * data = [NSData dataWithContentsOfURL:url];
     
@@ -62,10 +85,12 @@
         
         [loginArray addObject:[[users alloc]initWithUsers:userID email:email username:username password:password num_reviews:num_reviews total_rating:total_rating]];
     }
-}
+} //end database linking
+
+
 
 - (IBAction)loginButton:(id)sender {
-    
+    [[self view] endEditing:YES]; 
     //trying to match inputted text with database
     BOOL matched = 0;
     NSLog(@"loginArray.count: %lu", (unsigned long)loginArray.count);
@@ -92,6 +117,7 @@
                                        handler:^(UIAlertAction * action) {}];
             
             [alert addAction:actionOk];
+            
             matched = 1;
         }
     }
@@ -111,7 +137,33 @@
 
         [self presentViewController:alert animated:YES completion:nil];
     }
+    else if(matched){
+        //source code: http://stackoverflow.com/a/21877460
+        AppDelegate *appDelg = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+        appDelg.validLogin = 1;
+        [self dismissLoginAndShowProfile];
+        //end source code
+    }
     
 }
-         
+
+//source code: http://stackoverflow.com/a/21877460
+#pragma mark - Dismissing Delegate Methods
+
+-(void) loginActionFinished:(NSNotification*)notification {
+    
+    AppDelegate *appDelg = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    appDelg.validLogin = 1;
+    
+    [self dismissLoginAndShowProfile];
+}
+
+- (void)dismissLoginAndShowProfile {
+    [self dismissViewControllerAnimated:NO completion:^{
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UITabBarController *tabView = [storyboard instantiateViewControllerWithIdentifier:@"tabView"];
+        [self presentViewController:tabView animated:YES completion:nil];
+    }];
+}
+//end source code
 @end
