@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "users.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    users * user = [[users alloc] init];
+    self.validLogin = [user validUser];
+    
     return YES;
 }
 
