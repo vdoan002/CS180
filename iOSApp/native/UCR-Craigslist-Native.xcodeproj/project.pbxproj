@@ -19,6 +19,8 @@
 		0018DA351CCDA0E20026E5B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0018DA331CCDA0E20026E5B5 /* LaunchScreen.storyboard */; };
 		0018DA401CCDA0E20026E5B5 /* UCR_Craigslist_NativeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0018DA3F1CCDA0E20026E5B5 /* UCR_Craigslist_NativeTests.m */; };
 		0018DA4B1CCDA0E20026E5B5 /* UCR_Craigslist_NativeUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0018DA4A1CCDA0E20026E5B5 /* UCR_Craigslist_NativeUITests.m */; };
+		00D7429B1CE8281300471EC9 /* loginPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D7429A1CE8281300471EC9 /* loginPage.m */; };
+		00D742A11CE84CDB00471EC9 /* users.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D742A01CE84CDB00471EC9 /* users.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,10 @@
 		0018DA461CCDA0E20026E5B5 /* UCR-Craigslist-NativeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UCR-Craigslist-NativeUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0018DA4A1CCDA0E20026E5B5 /* UCR_Craigslist_NativeUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UCR_Craigslist_NativeUITests.m; sourceTree = "<group>"; };
 		0018DA4C1CCDA0E20026E5B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00D742991CE8281300471EC9 /* loginPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loginPage.h; sourceTree = "<group>"; };
+		00D7429A1CE8281300471EC9 /* loginPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = loginPage.m; sourceTree = "<group>"; };
+		00D7429F1CE84CDB00471EC9 /* users.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = users.h; sourceTree = "<group>"; };
+		00D742A01CE84CDB00471EC9 /* users.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = users.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +131,10 @@
 				000512DB1CD6EEA500002D45 /* FourthViewController.m */,
 				000512E61CD6EF3200002D45 /* FifthViewController.h */,
 				000512E71CD6EF3200002D45 /* FifthViewController.m */,
+				00D742991CE8281300471EC9 /* loginPage.h */,
+				00D7429A1CE8281300471EC9 /* loginPage.m */,
+				00D7429F1CE84CDB00471EC9 /* users.h */,
+				00D742A01CE84CDB00471EC9 /* users.m */,
 				0018DA2E1CCDA0E20026E5B5 /* Main.storyboard */,
 				0018DA311CCDA0E20026E5B5 /* Assets.xcassets */,
 				0018DA331CCDA0E20026E5B5 /* LaunchScreen.storyboard */,
@@ -297,8 +307,10 @@
 				0018DA2D1CCDA0E20026E5B5 /* SecondViewController.m in Sources */,
 				000512E51CD6EF1A00002D45 /* ThirdViewController.m in Sources */,
 				0018DA271CCDA0E20026E5B5 /* AppDelegate.m in Sources */,
+				00D7429B1CE8281300471EC9 /* loginPage.m in Sources */,
 				0018DA2A1CCDA0E20026E5B5 /* FirstViewController.m in Sources */,
 				000512E81CD6EF3200002D45 /* FifthViewController.m in Sources */,
+				00D742A11CE84CDB00471EC9 /* users.m in Sources */,
 				0018DA241CCDA0E20026E5B5 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
