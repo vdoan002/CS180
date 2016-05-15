@@ -1,10 +1,17 @@
 <?php
-	session_start(); //starts the session
-	if($_SESSION['user']){ //checks if user is logged in
+	session_start();
+	if($_SESSION['user']){
 	}
 	else{
-		header("location:index.php"); // redirects if user is not logged in
+		header("location:index.php");
 		Print "Please log in";
+		exit();
+	}
+	if($_SERVER['REQUEST_METHOD'] == "GET"){
+				$category = $_GET['category'];
+	}
+	else{
+		header("location: home.php"); //redirects back to home
 		exit();
 	}
 ?>
@@ -13,27 +20,10 @@
 		<title>UCR Craigslist</title>
 	</head>
 	<body>
-		<h2>Home Page</h2>
 		<?php
 			include 'navbar.php';
 		?>
-		<h2>Browse By Category</h2>
-		<ul>
-			<li><a href="category.php?category=books">Books</a></li>
-			<li><a href="category.php?category=clothing">Clothing</a></li>
-			<li><a href="category.php?category=electronics">Electronics</a></li>
-			<li><a href="category.php?category=furniture">Furniture</a></li>
-			<li><a href="category.php?category=household">Household</a></li>
-			<li><a href="category.php?category=leases">Leases</a></li>
-			<li><a href="category.php?category=music">Music</a></li>
-			<li><a href="category.php?category=pets">Pets</a></li>
-			<li><a href="category.php?category=services">Services</a></li>
-			<li><a href="category.php?category=tickets">Tickets</a></li>
-			<li><a href="category.php?category=vehicles">Vehicles</a></li>
-			<li><a href="category.php?category=other">Other</a></li>
-		</ul>
-
-		<h2 align="center">All Posts</h2>
+		<h2 align="center"><?php echo ucfirst($category) ?></h2>
 		<table border="1px" width="100%">
 			<tr>
 				<th>Title</th>
@@ -44,10 +34,12 @@
 				<th>Date / Time</th>
 				<th>Pictures</th>
 			</tr>
-			<?php
+		<?php
+			if($_SERVER['REQUEST_METHOD'] == "GET")
+			{
 				include 'serverconnect.php'; //server connection code
-			    
-				$query = mysqli_query($conn, "SELECT * from posts"); // SQL Query
+					    
+				$query = mysqli_query($conn, "SELECT * from posts WHERE post_category='$category'"); // SQL Query
 				while($row = mysqli_fetch_array($query,MYSQLI_ASSOC))
 				{
 					Print "<tr>";
@@ -65,7 +57,12 @@
 							Print '<td align="center"> none </td>';
 					Print "</tr>";
 				}
-			?>
+			}
+			else{
+				header("location: home.php"); //redirects back to home
+				exit();
+			}
+		?>
 		</table>
 	</body>
 </html>

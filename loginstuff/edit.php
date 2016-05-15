@@ -1,27 +1,28 @@
 <?php
 	session_start(); //starts the session
+	if($_SESSION['user']){ //checks if user is logged in
+	}
+	else{
+		header("location:index.php"); // redirects if user is not logged in
+		Print "Please log in";
+		exit();
+	}
 ?>
 <html>
 	<head>
 		<title>UCR Craigslist</title>
 	</head>
 	<?php
-	if($_SESSION['user']){ //checks if user is logged in
-	}
-	else{
-		header("location:index.php"); // redirects if user is not logged in
-	}
-	$user = $_SESSION['user']; //assigns user value
-	$id_exists = false;
+		$user = $_SESSION['user']; //assigns user value
+		$id_exists = false;
 	?>
 	<body>
-		<p>Hello <?php Print "$user"?>!</p> <!--Displays user's name-->
-		<a href="logout.php">Click here to logout</a>
-		<a href="home.php">Return to Home page</a><br/><br/>
+		<?php
+			include 'navbar.php';
+		?>
 		<h2 align="center">Currently Selected</h2>
 		<table border="1px" width="100%">
 			<tr>
-				<th>Id</th>
 				<th>Title</th>
 				<th>Seller</th>
 				<th>Price</th>
@@ -53,7 +54,7 @@
 							$numpics = $row['post_photos'];
 							$picid = $row['post_photo_id'];
 							Print "<tr>";
-							Print '<td align="center">'. $id . "</td>";
+							//Print '<td align="center">'. $id . "</td>";
 							Print '<td align="center">'. $title . "</td>";
 							Print '<td align="center">'. $row['post_username'] . "</td>";
 							Print '<td align="center">$'. $price . "</td>";
@@ -101,11 +102,19 @@
 				Category:
 				<select name="category">
 				  <option value="' . $category . '">' . $tempcategory . '</option>
-				  <option value="electronics">Electronics</option>
 				  <option value="books">Books</option>
-				  <option value="music">Music</option>
+				  <option value="clothing">Clothing</option>
+				  <option value="electronics">Electronics</option>
+				  <option value="furniture">Furniture</option>
 				  <option value="household">Household</option>
+				  <option value="leases">Leases</option>
+				  <option value="music">Music</option>
+				  <option value="pets">Pets</option>
 				  <option value="services">Services</option>
+				  <option value="tickets">Tickets</option>
+				  <option value="vehicles">Vehicles</option>
+
+			  	  <option value="other">Other</option>
 				</select> <br/>
 				Title: <input type="text" maxlength="100" name="title" value="' . $title . '" required/> 
 				Price: $<input type="number" min="1" name="price" value="' . $price . '"/ required><br/>

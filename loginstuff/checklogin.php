@@ -23,6 +23,7 @@
           {
              $_SESSION['user'] = $username; //set the username in a session. This serves as a global variable
              header("location: home.php"); // redirects the user to the authenticated home page
+             exit();
           }
        }
        else
