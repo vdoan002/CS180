@@ -10,4 +10,5 @@
 
 @interface ThirdViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
 @end
