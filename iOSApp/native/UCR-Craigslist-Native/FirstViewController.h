@@ -2,15 +2,13 @@
 //  FirstViewController.h
 //  UCR-Craigslist-Native
 //
-//  Created by Michael Chen on 4/24/16.
+//  Created by Michael Chen on 5/15/16.
 //  Copyright © 2016 UCR. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface FirstViewController : UIViewController
-
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
+@interface FirstViewController : UITableViewController
+@property (strong, nonatomic) IBOutlet UITableView *navBar;
 
 @end
-
