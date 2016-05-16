@@ -1,9 +1,9 @@
 body {
   color: white;
-  text-align:center;
+  text-align: center;
 }
 
-blockquote {border: 0}
+blockquote {border: 0;}
 
 .wrapper {
     min-width:400px;
@@ -12,25 +12,54 @@ blockquote {border: 0}
     margin:0 auto;
 }
 
+.wrapper2{
+	min-width:400px;
+    max-width:400px;
+    margin:0 auto;
+}
+
 .blockquote-footer {
 	color: #f2f2f2;
 }
 
 #info{
-	background-color: white;
-	height: 50vh; 
-	color: black;
+	background-color: #2D6CC0;
+	height: 50vh;
+	padding-top: 50px;
+	
 	h2 { padding-top: 30px; }
 	p { padding-bottom: 50px; }
 }
 
 #landing {
-  color: white;
-  background: linear-gradient(180deg, rgba(0,0,0,0.2) 40%,rgba(0,0,0,1) 100%),
-              url('/images/ucr_background.jpg') no-repeat center center fixed;
+	color: gray;
+  background-color: white;
   background-size: cover;
   height: 50vh;
 
-  h1 { padding-top: 100px; color="black";}
+  h1 { padding-top: 100px; 
+		text-align: center;}
+  img {text-align: center;}
   p { padding-top: 20px; }
+}
+
+#info2{
+	height: 50vh;
+	padding-top: 10px;
+	padding-bottom: 50px;
+}
+
+
+table.mytable {	
+    border: 0px solid black;
+    padding: 100px;
+	color:black;
+}
+	
+	td{ padding-right: 80px;
+	    padding-left: 80px;
+            padding-top: 40px;
+	    text-align: center; }
+	th{ text-align: center;
+	    font-size: 1.8em; }
 }

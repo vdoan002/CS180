@@ -12,7 +12,7 @@
 		include 'serverconnect.php'; //server connection code
 		$username = $_SESSION['user'];
 		$category = $_POST['category'];
-		$title = $_POST['title'];
+		$title = mysqli_real_escape_string($conn,$_POST['title']);
 		$price = $_POST['price'];
 
 	    $description = mysqli_real_escape_string($conn,$_POST['description']);
@@ -23,7 +23,7 @@
 		//get images
 		$photobit = 0;
 		$imagenames = $_FILES['itemimages']['tmp_name'];
-		if(!empty(imagenames)){
+		if(!empty($imagenames)){
 			foreach($imagenames as $file){
 				if(file_exists($file) && getimagesize($file)){ //make sure uploads aren't empty & is a pic
 					$photobit += 1;
@@ -54,12 +54,8 @@
 			$newid2 = mysqli_insert_id($conn); //set location of photo in images table
 			mysqli_query($conn, "UPDATE posts SET post_photo_id='$newid2' WHERE post_id='$newid'");
 		}
-		header("location: home.php");
-		exit();
 	}
-	else
-	{
-		header("location: home.php"); //redirects back to home
-		exit();
-	}
+
+	header("location: postitem.php");
+	exit();
 ?>

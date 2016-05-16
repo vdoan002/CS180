@@ -43,25 +43,14 @@
 					Print 'Seller: '.$seller.'<br/>
 					<h1>'.$title.' $'.$price.'</h1><br/>
 					Category: '.$category.' Posted on '.$postdate.' at '.$posttime.'<br/>
-					Description:<br/>'.$description.'<br/>';
-
-					if($numpics = $row['post_photos']){
-						$picstartloc = $row['post_photo_id'];
-						$picloc = $picstartloc - $numpics+1;
-						Print '<table width="70%">';
-						for($x = 0; $x < $numpics; $x++){
-							if(!($x%2)){ //create new row every 2 pics
-								Print '<tr>';
-							}
-							$piclocnew = $picloc + $x;
-							Print'<td align="center"><img src=getimages.php?post_id='.$piclocnew."></td></br>";
-							if(!($x%2)){
-								Print '</tr>';
-							}
-						}
-						Print '</table>';
-					}
-					
+					Description:<br/>'.$description.'<br/>';					
+				}
+				if($numpics > 0){
+					$query = mysqli_query($conn, "SELECT * FROM images WHERE image_post_id='$post_id'");
+					while($row = mysqli_fetch_array($query,MYSQLI_ASSOC)){
+				        $image_id = $row['image_id'];
+						Print'<td align="center"><img src=getimages.php?post_id='.$image_id."></td></br>";
+				    }
 				}
 			}
 		?>
