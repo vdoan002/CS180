@@ -26,12 +26,15 @@
 //@property (nonatomic, retain) LoginViewController * loginView;
 
 @property (nonatomic, retain) IBOutlet UILabel *titleLabel;
-@property (nonatomic, strong) NSMutableArray * jsonArray;
-@property (nonatomic, strong) NSMutableArray * loginArray;
+
 
 #pragma mark - 
 #pragma mark Class Methods
 
-- (void) retrieveData;
+- (void) retrieveUsers;
+- (void) retrievePosts;
+- (void) retrieveReviews;
+- (void) retrieveImages;
+- (void) retrieveChat;
 
 @end

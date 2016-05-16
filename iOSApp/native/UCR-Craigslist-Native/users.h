@@ -23,6 +23,6 @@
 #pragma mark -
 #pragma mark Class Methods
 
-- (id)initWithUsers: (NSString *)userID email: (NSString *)email username: (NSString *)username password: (NSString *)password num_reviews: (NSString *)num_reviews total_rating: (NSString *)total_rating;
+- (id)initWithUsers: (NSString *)_userID email: (NSString *)_email username: (NSString *)_username password: (NSString *)_password num_reviews: (NSString *)_num_reviews total_rating: (NSString *)_total_rating;
 
 @end
