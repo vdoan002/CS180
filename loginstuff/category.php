@@ -8,7 +8,8 @@
 		exit();
 	}
 	if($_SERVER['REQUEST_METHOD'] == "GET"){
-				$category = $_GET['category'];
+		$category = $_GET['category'];
+		include 'navbar.php';
 	}
 	else{
 		header("location: home.php"); //redirects back to home
@@ -18,21 +19,23 @@
 <html>
 	<head>
 		<title>UCR Craigslist</title>
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/home.css" rel="stylesheet">
 	</head>
 	<body>
-		<?php
-			include 'navbar.php';
-		?>
 		<h2 align="center"><?php echo ucfirst($category) ?></h2>
-		<table border="1px" width="100%">
-			<tr>
-				<th>Title</th>
-				<th>Seller</th>
-				<th>Price</th>
-				<th>Category</th>
-				<th>Date / Time</th>
-				<th>Pictures</th>
-			</tr>
+<table class ="table table-hover table-sm">
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>Seller</th>
+					<th>Price</th>
+					<th>Category</th>
+					<th>Date / Time</th>
+					<th>Pictures</th>
+				</tr>
+			</thead>
+			<tbody>
 		<?php
 			if($_SERVER['REQUEST_METHOD'] == "GET")
 			{
@@ -61,6 +64,7 @@
 				exit();
 			}
 		?>
+		</tbody>
 		</table>
 	</body>
 </html>

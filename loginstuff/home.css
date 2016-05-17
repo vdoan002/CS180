@@ -1,0 +1,19 @@
+.wrapper {
+    min-width:400px;
+    max-width:400px;
+    text-align:center;
+    margin:0 auto;
+}
+
+.wrapperHome{
+	min-width: 800px;
+	margin:0 auto;
+	text-align:center;
+	max-width: 800px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}

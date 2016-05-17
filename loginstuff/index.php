@@ -20,6 +20,7 @@
 		</div>
 		
 		<div id="info">
+			
 			<div class="wrapper" color="black">
 				<blockquote class="blockquote">
 					<p class="m-b-0">Fast, easy, and intuitive to use. I've sold many of my old textbooks and other class materials here. The organized list of items makes it easy for me to list my products for sale.</p>
@@ -29,7 +30,34 @@
 					<p class="m-b-0">UCR Craigslist allows me to purchase textbooks for half the price they charge at the bookstore. It's useful for all students as sellers get a small return on their original purchase while the buyer gets a discount on the item they are looking for.</p>
 					<footer class="blockquote-footer">Vincent Doan</footer>
 				</blockquote>
+				
 			</div>
+		</div>
+			
+			
+	<br/><br/>
+		  <div id="info2" align="middle" class="container">
+			<table class="mytable" align="left">
+			  <thead>
+				<tr>
+				  <th>Buy</th>
+				  <th>Sell</th>
+				  <th>Trade</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<tr>
+				  <td><img align="middle" alt="Report" src="images/buy.png" class="img-rounded"></td>
+				  <td><img align="middle" alt="Report" src="images/sell.png" class="img-rounded"></td>
+				  <td><img align="middle" alt="Report" src="images/trade.png" class="img-rounded"></td>
+				</tr>
+				<tr>
+				  <td>Find the items you need for class that are being sold by others. Dodge those high price markups that the retailers charge you.</td>
+				  <td>Post your items for sale onlien for other users to see. Catagorize your items for easier searchabilitiy</td>
+				  <td>Reports are avaible for all users to see. Users can decide to visit the areas with issues and help better the enviroment. Users can group up with other users through Green and work together to improve the enviroment around them.</td>
+				</tr>
+			  </tbody>
+			</table>
 		</div>
     </body>
 </html>
