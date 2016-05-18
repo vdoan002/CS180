@@ -165,8 +165,12 @@
         NSString * image_post_id = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"image_post_id"];
         NSString * image_name = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"image_name"];
         NSString * image_pic = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"image_pic"];
-
-        [[dbArrays sharedInstance].imagesArray addObject:[[images alloc]initWithImages:image_id image_post_id:image_post_id image_name:image_name image_pic:image_pic ]];
+        
+        NSLog(@"image_pic: %@", image_pic);
+        
+        NSData * image_data = [[NSData alloc] initWithBase64EncodedString:image_pic options:0];
+        
+        [[dbArrays sharedInstance].imagesArray addObject:[[images alloc]initWithImages:image_id image_post_id:image_post_id image_name:image_name image_pic:image_pic image_data:image_data]];
     }
 }
 - (void) retrieveChat // chat_id, user_id, message, sent_on

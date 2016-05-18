@@ -14,10 +14,11 @@
 @property (strong, nonatomic) NSString * image_post_id;
 @property (strong, nonatomic) NSString * image_name;
 @property (strong, nonatomic) NSString * image_pic;
+@property (strong, nonatomic) NSData * image_data;
 
 #pragma mark -
 #pragma mark Class Methods
 
-- (id)initWithImages: (NSString *)_image_id image_post_id: (NSString *)_image_post_id image_name: (NSString *)_image_name image_pic: (NSString *)_image_pic;
+- (id)initWithImages: (NSString *)_image_id image_post_id: (NSString *)_image_post_id image_name: (NSString *)_image_name image_pic: (NSString *)_image_pic image_data: (NSData *)_image_data;
 
 @end
