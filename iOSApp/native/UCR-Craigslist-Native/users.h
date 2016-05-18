@@ -19,10 +19,11 @@
 @property (strong, nonatomic) NSString * password;
 @property (strong, nonatomic) NSString * num_reviews;
 @property (strong, nonatomic) NSString * total_rating;
+@property (strong, nonatomic) NSString * loggedIn;
 
 #pragma mark -
 #pragma mark Class Methods
 
-- (id)initWithUsers: (NSString *)_userID email: (NSString *)_email username: (NSString *)_username password: (NSString *)_password num_reviews: (NSString *)_num_reviews total_rating: (NSString *)_total_rating;
+- (id)initWithUsers: (NSString *)_userID email: (NSString *)_email username: (NSString *)_username password: (NSString *)_password num_reviews: (NSString *)_num_reviews total_rating: (NSString *)_total_rating loggedIn: (NSString *)_loggedIn;
 
 @end

@@ -14,6 +14,7 @@
 #import "reviews.h"
 #import "images.h"
 #import "chat.h"
+#import "FirstViewController.h"
 
 #define getUsersURL @"http://practicemakesperfect.co.nf/getUsers.php"
 #define getPostsURL @"http://practicemakesperfect.co.nf/getPosts.php"
@@ -26,22 +27,22 @@
 @end
 
 @implementation loginPage
-@synthesize  titleLabel, loginUIButton;
+@synthesize  titleLabel, loginUIButton, user;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     [self retrieveUsers];
     [self retrievePosts];
     [self retrieveReviews];
     [self retrieveImages];
     [self retrieveChat];
-    
-    NSLog(@"users: %@", [dbArrays sharedInstance].usersArray);
+    /*NSLog(@"users: %@", [dbArrays sharedInstance].usersArray);
     NSLog(@"posts: %@", [dbArrays sharedInstance].postsArray);
     NSLog(@"reviews: %@", [dbArrays sharedInstance].reviewsArray);
     NSLog(@"images: %@", [dbArrays sharedInstance].imagesArray);
-    NSLog(@"chat: %@", [dbArrays sharedInstance].chatArray);
+    NSLog(@"chat: %@", [dbArrays sharedInstance].chatArray);*/
     
     //keyboard dismiss: http://stackoverflow.com/a/5711504
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
@@ -50,6 +51,8 @@
     
     userTF.delegate = self;
     passwdTF.delegate = self;
+    
+    //[self.view setNeedsDisplay];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -96,14 +99,15 @@
     
     NSLog(@"retrieveUsers jsonArray.count: %lu", (unsigned long)[dbArrays sharedInstance].jsonArray.count);
     for(int i = 0; i < [dbArrays sharedInstance].jsonArray.count; i++){
-        NSString * userID = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"userID"];
+        NSString * userID = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"id"];
         NSString * email = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"email"];
         NSString * username = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"username"];
         NSString * password = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"password"];
         NSString * num_reviews = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"num_reviews"];
         NSString * total_rating = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"total_rating"];
+        NSString * loggedIn = @"false";
         
-        [[dbArrays sharedInstance].usersArray addObject:[[users alloc]initWithUsers:userID email:email username:username password:password num_reviews:num_reviews total_rating:total_rating]];
+        [[dbArrays sharedInstance].usersArray addObject:[[users alloc]initWithUsers:userID email:email username:username password:password num_reviews:num_reviews total_rating:total_rating loggedIn:loggedIn]];
     }
 }
 
@@ -202,8 +206,8 @@
         if([userTF.text isEqualToString:[[[dbArrays sharedInstance].usersArray objectAtIndex:i] username]] && [passwdTF.text isEqualToString:[[[dbArrays sharedInstance].usersArray objectAtIndex:i] password]]){
            
              UIAlertController *alert = [UIAlertController
-                                              alertControllerWithTitle:@"Valid login!"
-                                              message:@"Proceed to tab view."
+                                         alertControllerWithTitle:[NSString stringWithFormat:@"Welcome, %@", userTF.text]
+                                              message:@"to UCR Craigslist!"
                                               preferredStyle:UIAlertControllerStyleAlert];
             
             [self presentViewController:alert animated:YES completion:nil];
@@ -216,6 +220,8 @@
             
             [alert addAction:actionOk];
             
+            user = [[dbArrays sharedInstance].usersArray objectAtIndex:i];
+            user.loggedIn = @"true";
             matched = 1;
         }
     }
@@ -239,29 +245,35 @@
         //source code: http://stackoverflow.com/a/21877460
         AppDelegate *appDelg = (AppDelegate*)[[UIApplication sharedApplication] delegate];
         appDelg.validLogin = 1;
-        [self dismissLoginAndShowProfile];
+        [self dismissLoginAndShowTabs];
         //end source code
     }
     
 }
 
+-(void)getUser:(id)_user{
+    user = _user;
+}
+
 //source code: http://stackoverflow.com/a/21877460
 #pragma mark - Dismissing Delegate Methods
 
--(void) loginActionFinished:(NSNotification*)notification {
+/*-(void) loginActionFinished:(NSNotification*)notification {
     
     AppDelegate *appDelg = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     appDelg.validLogin = 1;
     
     [self dismissLoginAndShowProfile];
-}
+}*/
 
-- (void)dismissLoginAndShowProfile {
-    [self dismissViewControllerAnimated:NO completion:^{
+- (void)dismissLoginAndShowTabs {
+    [self dismissViewControllerAnimated:YES completion:^{
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UITabBarController *tabView = [storyboard instantiateViewControllerWithIdentifier:@"tabView"];
         [self presentViewController:tabView animated:YES completion:nil];
     }];
+    /*FirstViewController * firstObj = [[firstObj alloc] initWithNibName:nil bundle:nil];
+    [self presentViewController:firstObj animated:YES completion:NULL];*/
 }
 //end source code
 @end

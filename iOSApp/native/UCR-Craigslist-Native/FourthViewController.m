@@ -17,6 +17,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    NSURL *url = [NSURL URLWithString:@"http://pingchat.co.nf"];
+    NSURLRequest * urlRequest = [NSURLRequest requestWithURL:url];
+    [self.webView loadRequest:urlRequest];
 }
 
 - (void)didReceiveMemoryWarning {

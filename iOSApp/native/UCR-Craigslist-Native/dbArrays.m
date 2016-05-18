@@ -7,6 +7,9 @@
 //
 
 #import "dbArrays.h"
+#import "users.h"
+
+static NSString * _loggedIn;
 
 @implementation dbArrays
 @synthesize usersArray, postsArray, reviewsArray, imagesArray, chatArray, jsonArray;

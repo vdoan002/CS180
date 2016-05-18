@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "users.h"
 
 //@protocol LoginViewProtocol <NSObject>
 
@@ -26,6 +27,7 @@
 //@property (nonatomic, retain) LoginViewController * loginView;
 
 @property (nonatomic, retain) IBOutlet UILabel *titleLabel;
+@property(nonatomic, strong) users * user;
 
 
 #pragma mark - 
@@ -36,5 +38,7 @@
 - (void) retrieveReviews;
 - (void) retrieveImages;
 - (void) retrieveChat;
+
+-(void)getUser:(id)_user;
 
 @end

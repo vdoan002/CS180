@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "users.h"
+#import "loginPage.h"
 
 @interface AppDelegate ()
 
@@ -27,6 +28,8 @@
 
     users * user = [[users alloc] init];
     self.validLogin = [user validUser];
+    
+    NSLog(@"hello world!");
     
     return YES;
 }
