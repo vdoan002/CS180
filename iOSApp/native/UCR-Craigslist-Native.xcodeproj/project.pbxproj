@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		000512DC1CD6EEA500002D45 /* FourthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 000512DB1CD6EEA500002D45 /* FourthViewController.m */; };
 		000512E51CD6EF1A00002D45 /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 000512E41CD6EF1A00002D45 /* ThirdViewController.m */; };
-		000512E81CD6EF3200002D45 /* FifthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 000512E71CD6EF3200002D45 /* FifthViewController.m */; };
 		000AD0D81CE9A5CA002EDD65 /* postCellDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 000AD0D71CE9A5CA002EDD65 /* postCellDetail.m */; };
+		000E20B01CEBD8B300BCF8E0 /* FifthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 000E20AF1CEBD8B300BCF8E0 /* FifthViewController.m */; };
+		000E20B81CEBDA5B00BCF8E0 /* profileCellDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 000E20B71CEBDA5B00BCF8E0 /* profileCellDetail.m */; };
 		0018DA241CCDA0E20026E5B5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0018DA231CCDA0E20026E5B5 /* main.m */; };
 		0018DA271CCDA0E20026E5B5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0018DA261CCDA0E20026E5B5 /* AppDelegate.m */; };
 		0018DA2D1CCDA0E20026E5B5 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0018DA2C1CCDA0E20026E5B5 /* SecondViewController.m */; };
@@ -21,6 +21,9 @@
 		0018DA4B1CCDA0E20026E5B5 /* UCR_Craigslist_NativeUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0018DA4A1CCDA0E20026E5B5 /* UCR_Craigslist_NativeUITests.m */; };
 		005674481CE96E82004F359F /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 005674471CE96E82004F359F /* FirstViewController.m */; };
 		006FCDC31CE98E1F000D3004 /* dbArrays.m in Sources */ = {isa = PBXBuildFile; fileRef = 006FCDC21CE98E1F000D3004 /* dbArrays.m */; };
+		007A332B1CEF826800052223 /* FourthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 007A332A1CEF826800052223 /* FourthViewController.m */; };
+		007A332E1CEF83FE00052223 /* messages.m in Sources */ = {isa = PBXBuildFile; fileRef = 007A332D1CEF83FE00052223 /* messages.m */; };
+		007A33341CEF92EC00052223 /* messagesCellDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 007A33331CEF92EC00052223 /* messagesCellDetail.m */; };
 		0082BFB01CE9227800F0C555 /* posts.m in Sources */ = {isa = PBXBuildFile; fileRef = 0082BFAF1CE9227800F0C555 /* posts.m */; };
 		0082BFB31CE935F700F0C555 /* reviews.m in Sources */ = {isa = PBXBuildFile; fileRef = 0082BFB21CE935F700F0C555 /* reviews.m */; };
 		0082BFB91CE9361F00F0C555 /* images.m in Sources */ = {isa = PBXBuildFile; fileRef = 0082BFB81CE9361F00F0C555 /* images.m */; };
@@ -47,14 +50,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		000512DA1CD6EEA500002D45 /* FourthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FourthViewController.h; sourceTree = "<group>"; };
-		000512DB1CD6EEA500002D45 /* FourthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FourthViewController.m; sourceTree = "<group>"; };
 		000512E31CD6EF1A00002D45 /* ThirdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdViewController.h; sourceTree = "<group>"; };
 		000512E41CD6EF1A00002D45 /* ThirdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdViewController.m; sourceTree = "<group>"; };
-		000512E61CD6EF3200002D45 /* FifthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FifthViewController.h; sourceTree = "<group>"; };
-		000512E71CD6EF3200002D45 /* FifthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FifthViewController.m; sourceTree = "<group>"; };
 		000AD0D61CE9A5CA002EDD65 /* postCellDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postCellDetail.h; sourceTree = "<group>"; };
 		000AD0D71CE9A5CA002EDD65 /* postCellDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = postCellDetail.m; sourceTree = "<group>"; };
+		000E20AE1CEBD8B300BCF8E0 /* FifthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FifthViewController.h; sourceTree = "<group>"; };
+		000E20AF1CEBD8B300BCF8E0 /* FifthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FifthViewController.m; sourceTree = "<group>"; };
+		000E20B61CEBDA5B00BCF8E0 /* profileCellDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = profileCellDetail.h; sourceTree = "<group>"; };
+		000E20B71CEBDA5B00BCF8E0 /* profileCellDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = profileCellDetail.m; sourceTree = "<group>"; };
 		0018DA1F1CCDA0E20026E5B5 /* UCR-Craigslist-Native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "UCR-Craigslist-Native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0018DA231CCDA0E20026E5B5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0018DA251CCDA0E20026E5B5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -75,6 +78,12 @@
 		005674471CE96E82004F359F /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
 		006FCDC11CE98E1F000D3004 /* dbArrays.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dbArrays.h; sourceTree = "<group>"; };
 		006FCDC21CE98E1F000D3004 /* dbArrays.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dbArrays.m; sourceTree = "<group>"; };
+		007A33291CEF826800052223 /* FourthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FourthViewController.h; sourceTree = "<group>"; };
+		007A332A1CEF826800052223 /* FourthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FourthViewController.m; sourceTree = "<group>"; };
+		007A332C1CEF83FE00052223 /* messages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = messages.h; sourceTree = "<group>"; };
+		007A332D1CEF83FE00052223 /* messages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = messages.m; sourceTree = "<group>"; };
+		007A33321CEF92EC00052223 /* messagesCellDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = messagesCellDetail.h; sourceTree = "<group>"; };
+		007A33331CEF92EC00052223 /* messagesCellDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = messagesCellDetail.m; sourceTree = "<group>"; };
 		0082BFAE1CE9227800F0C555 /* posts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = posts.h; sourceTree = "<group>"; };
 		0082BFAF1CE9227800F0C555 /* posts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = posts.m; sourceTree = "<group>"; };
 		0082BFB11CE935F700F0C555 /* reviews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reviews.h; sourceTree = "<group>"; };
@@ -145,14 +154,16 @@
 				0018DA2C1CCDA0E20026E5B5 /* SecondViewController.m */,
 				000512E31CD6EF1A00002D45 /* ThirdViewController.h */,
 				000512E41CD6EF1A00002D45 /* ThirdViewController.m */,
-				000512DA1CD6EEA500002D45 /* FourthViewController.h */,
-				000512DB1CD6EEA500002D45 /* FourthViewController.m */,
-				000512E61CD6EF3200002D45 /* FifthViewController.h */,
-				000512E71CD6EF3200002D45 /* FifthViewController.m */,
+				007A33291CEF826800052223 /* FourthViewController.h */,
+				007A332A1CEF826800052223 /* FourthViewController.m */,
+				000E20AE1CEBD8B300BCF8E0 /* FifthViewController.h */,
+				000E20AF1CEBD8B300BCF8E0 /* FifthViewController.m */,
 				006FCDC11CE98E1F000D3004 /* dbArrays.h */,
 				006FCDC21CE98E1F000D3004 /* dbArrays.m */,
 				00D742991CE8281300471EC9 /* loginPage.h */,
 				00D7429A1CE8281300471EC9 /* loginPage.m */,
+				007A332C1CEF83FE00052223 /* messages.h */,
+				007A332D1CEF83FE00052223 /* messages.m */,
 				00D7429F1CE84CDB00471EC9 /* users.h */,
 				00D742A01CE84CDB00471EC9 /* users.m */,
 				0082BFAE1CE9227800F0C555 /* posts.h */,
@@ -163,8 +174,12 @@
 				0082BFB81CE9361F00F0C555 /* images.m */,
 				0082BFBB1CE9362500F0C555 /* chat.m */,
 				0082BFBA1CE9362500F0C555 /* chat.h */,
+				007A33321CEF92EC00052223 /* messagesCellDetail.h */,
+				007A33331CEF92EC00052223 /* messagesCellDetail.m */,
 				000AD0D61CE9A5CA002EDD65 /* postCellDetail.h */,
 				000AD0D71CE9A5CA002EDD65 /* postCellDetail.m */,
+				000E20B61CEBDA5B00BCF8E0 /* profileCellDetail.h */,
+				000E20B71CEBDA5B00BCF8E0 /* profileCellDetail.m */,
 				0018DA2E1CCDA0E20026E5B5 /* Main.storyboard */,
 				0018DA311CCDA0E20026E5B5 /* Assets.xcassets */,
 				0018DA331CCDA0E20026E5B5 /* LaunchScreen.storyboard */,
@@ -333,17 +348,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				000512DC1CD6EEA500002D45 /* FourthViewController.m in Sources */,
 				0082BFB01CE9227800F0C555 /* posts.m in Sources */,
+				000E20B81CEBDA5B00BCF8E0 /* profileCellDetail.m in Sources */,
 				0082BFB31CE935F700F0C555 /* reviews.m in Sources */,
+				000E20B01CEBD8B300BCF8E0 /* FifthViewController.m in Sources */,
 				0018DA2D1CCDA0E20026E5B5 /* SecondViewController.m in Sources */,
 				000512E51CD6EF1A00002D45 /* ThirdViewController.m in Sources */,
 				0018DA271CCDA0E20026E5B5 /* AppDelegate.m in Sources */,
+				007A33341CEF92EC00052223 /* messagesCellDetail.m in Sources */,
 				00D7429B1CE8281300471EC9 /* loginPage.m in Sources */,
+				007A332B1CEF826800052223 /* FourthViewController.m in Sources */,
 				0082BFBC1CE9362500F0C555 /* chat.m in Sources */,
 				005674481CE96E82004F359F /* FirstViewController.m in Sources */,
-				000512E81CD6EF3200002D45 /* FifthViewController.m in Sources */,
 				00D742A11CE84CDB00471EC9 /* users.m in Sources */,
+				007A332E1CEF83FE00052223 /* messages.m in Sources */,
 				006FCDC31CE98E1F000D3004 /* dbArrays.m in Sources */,
 				0082BFB91CE9361F00F0C555 /* images.m in Sources */,
 				0018DA241CCDA0E20026E5B5 /* main.m in Sources */,

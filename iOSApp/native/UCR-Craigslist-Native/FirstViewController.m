@@ -17,7 +17,7 @@
 @end
 
 @implementation FirstViewController
-@synthesize navBar;
+@synthesize navBar, num_posts_label;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -27,8 +27,17 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+   self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     NSLog(@"FirstViewController: users: %@", [dbArrays sharedInstance].usersArray);
+    
+    num_posts_label.userInteractionEnabled = false;
+    if([dbArrays sharedInstance].postsArray.count == 1){
+        num_posts_label.text = @"1 post";
+    }
+    else{
+        num_posts_label.text = [NSString stringWithFormat:@"%lu posts", [dbArrays sharedInstance].postsArray.count];
+    }
     
     
 }
@@ -49,7 +58,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"postCell" forIndexPath:indexPath];
     
     // Configure the cell...
     

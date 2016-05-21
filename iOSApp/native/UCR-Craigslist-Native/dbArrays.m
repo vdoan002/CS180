@@ -7,9 +7,12 @@
 //
 
 #import "dbArrays.h"
+#import "users.h"
+
+static NSString * _loggedIn;
 
 @implementation dbArrays
-@synthesize usersArray, postsArray, reviewsArray, imagesArray, chatArray, jsonArray;
+@synthesize usersArray, postsArray, reviewsArray, imagesArray, chatArray, messagesArray, jsonArray, imagesLoaded;
 
 // singleton: http://stackoverflow.com/questions/10649370/simple-passing-of-variables-between-classes-in-xcode
 + (dbArrays*) sharedInstance {
@@ -22,6 +25,8 @@
         myInstance.reviewsArray = [NSMutableArray arrayWithObject:@""];
         myInstance.imagesArray = [NSMutableArray arrayWithObject:@""];
         myInstance.chatArray = [NSMutableArray arrayWithObject:@""];
+        myInstance.messagesArray = [NSMutableArray arrayWithObject:@""];
+        myInstance.imagesLoaded = false;
     }
     return myInstance;
 }

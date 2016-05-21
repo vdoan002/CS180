@@ -18,9 +18,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    NSURL *url = [NSURL URLWithString:@"http://practicemakesperfect.co.nf/postitem.php"];
-    NSURLRequest * urlRequest = [NSURLRequest requestWithURL:url];
-    [self.webView loadRequest:urlRequest];
+    
 }
 
 - (void)didReceiveMemoryWarning {
