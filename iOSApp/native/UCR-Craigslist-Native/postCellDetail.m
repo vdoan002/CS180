@@ -79,7 +79,7 @@
     
     post_id_label.text = post.post_id;
     post_username_label.text = [NSString stringWithFormat:@"Seller: %@", post.post_username];
-    post_price_label.text = [NSString stringWithFormat:@"Price: %@", post.post_price];
+    post_price_label.text = [NSString stringWithFormat:@"Price: $%@", post.post_price];
     post_category_label.text = [NSString stringWithFormat:@"Category: %@", post.post_category];
     post_description_label.text = [NSString stringWithFormat:@"Description: %@", post.post_description];
     post_date_label.text = [NSString stringWithFormat:@"Posted on %@ at %@", post.post_date, post.post_time];

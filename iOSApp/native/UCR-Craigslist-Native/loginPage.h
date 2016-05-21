@@ -9,11 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "users.h"
 
-//@protocol LoginViewProtocol <NSObject>
-
-
-//@end
-
 @interface loginPage : UIViewController<UITextFieldDelegate> {
     IBOutlet UITextField *userTF;
     IBOutlet UITextField *passwdTF;
@@ -29,7 +24,6 @@
 @property (nonatomic, retain) IBOutlet UILabel *titleLabel;
 @property(nonatomic, strong) users * user;
 
-
 #pragma mark - 
 #pragma mark Class Methods
 
@@ -38,6 +32,7 @@
 - (void) retrieveReviews;
 - (void) retrieveImages;
 - (void) retrieveChat;
+- (void) retrieveMessages;
 
 -(void)getUser:(id)_user;
 

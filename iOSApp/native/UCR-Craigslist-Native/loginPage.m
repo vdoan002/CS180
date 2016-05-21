@@ -14,6 +14,7 @@
 #import "reviews.h"
 #import "images.h"
 #import "chat.h"
+#import "messages.h"
 #import "FirstViewController.h"
 
 #define getUsersURL @"http://practicemakesperfect.co.nf/getUsers.php"
@@ -21,6 +22,7 @@
 #define getReviewsURL @"http://practicemakesperfect.co.nf/getReviews.php"
 #define getImagesURL @"http://practicemakesperfect.co.nf/getImagesURL.php"
 #define getChatURL @"http://practicemakesperfect.co.nf/getChat.php"
+#define getMessagesURL @"http://practicemakesperfect.co.nf/getMessages.php"
 
 @interface loginPage ()
 
@@ -33,16 +35,28 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    //set placeholder text color
+    UIColor *color = [UIColor lightGrayColor];
+    userTF.attributedPlaceholder =[[NSAttributedString alloc] initWithString:@"username" attributes:@{NSForegroundColorAttributeName:color}];
+    passwdTF.attributedPlaceholder =[[NSAttributedString alloc] initWithString:@"password" attributes:@{NSForegroundColorAttributeName:color}];
+    
+    /*if(![dbArrays sharedInstance].imagesLoaded){ // images only loaded when app is first launched. optimization workaround
+        [self retrieveImages];
+        [dbArrays sharedInstance].imagesLoaded = true;
+    }*/
+    
     [self retrieveUsers];
     [self retrievePosts];
     [self retrieveReviews];
-    [self retrieveImages];
     [self retrieveChat];
+    [self retrieveMessages];
+    
     /*NSLog(@"users: %@", [dbArrays sharedInstance].usersArray);
     NSLog(@"posts: %@", [dbArrays sharedInstance].postsArray);
     NSLog(@"reviews: %@", [dbArrays sharedInstance].reviewsArray);
     NSLog(@"images: %@", [dbArrays sharedInstance].imagesArray);
-    NSLog(@"chat: %@", [dbArrays sharedInstance].chatArray);*/
+    NSLog(@"chat: %@", [dbArrays sharedInstance].chatArray);
+    NSLog(@"messages: %@", [dbArrays sharedInstance].messagesArray);*/
     
     //keyboard dismiss: http://stackoverflow.com/a/5711504
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
@@ -54,6 +68,8 @@
     
     //[self.view setNeedsDisplay];
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -193,6 +209,28 @@
         NSString * sent_on = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"sent_on"];
 
         [[dbArrays sharedInstance].chatArray addObject:[[chat alloc]initWithChat:chat_id user_id:user_id message:message sent_on:sent_on ]];
+    }
+}
+
+- (void) retrieveMessages{
+    NSURL * url = [NSURL URLWithString:getMessagesURL];
+    NSData * data = [NSData dataWithContentsOfURL:url];
+    
+    [dbArrays sharedInstance].jsonArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+    
+    [dbArrays sharedInstance].messagesArray = [[NSMutableArray alloc] init];
+    NSLog(@"retrieveMessages jsonArray.count: %lu", (unsigned long)[dbArrays sharedInstance].jsonArray.count);
+    for(int i = 0; i < [dbArrays sharedInstance].jsonArray.count; i++) {
+        NSString * message_id = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"message_id"];
+        NSString * message_sender = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"message_sender"];
+        NSString * message_receiver = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"message_receiver"];
+        NSString * message_content = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"message_content"];
+        NSString * message_timesent = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"message_timesent"];
+        NSString * message_date = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"message_date"];
+        NSString * message_seen = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"message_seen"];
+        BOOL message_threadLoaded = false;
+        
+        [[dbArrays sharedInstance].messagesArray addObject:[[messages alloc]initWithMessages:message_id message_sender:message_sender message_receiver:message_receiver message_content:message_content message_timesent:message_timesent message_date:message_date message_seen:message_seen message_threadLoaded:message_threadLoaded]];
     }
 }
 

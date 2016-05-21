@@ -18,7 +18,7 @@
 @end
 
 @implementation FifthViewController
-@synthesize navBar;
+@synthesize navBar, num_reviews_label;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -30,6 +30,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     NSLog(@"FifthViewController: reviews: %@", [dbArrays sharedInstance].reviewsArray);
+    num_reviews_label.userInteractionEnabled = false;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,6 +58,7 @@
     NSString * currentLoggedInUserName;
     NSString * currentLoggedInUserID;
     NSString * currentLoggedInUserRating;
+    NSString * currentLoggedInUserNumOfRatings;
     float currentLoggedInUserRatingFloat = 0.0;
     
     for(int i  = 0; i < [dbArrays sharedInstance].usersArray.count; i++){
@@ -66,8 +68,10 @@
             currentLoggedInUserName = userObj.username;
             currentLoggedInUserID = userObj.userID;
             currentLoggedInUserRatingFloat = [userObj.total_rating floatValue] / [userObj.num_reviews floatValue];
-            currentLoggedInUserRating = [NSString stringWithFormat:@"%f", currentLoggedInUserRatingFloat];
+            currentLoggedInUserRating = [NSString stringWithFormat:@"%.1f", currentLoggedInUserRatingFloat];
+            currentLoggedInUserNumOfRatings = userObj.num_reviews;
         }
+        
     }
     
     for(int i = 0; i < [dbArrays sharedInstance].reviewsArray.count; i++){
@@ -76,6 +80,8 @@
         NSLog(@"currentLoggedInUserID: %@", currentLoggedInUserID);
         NSLog(@"currentLoggedInUserName: %@", currentLoggedInUserName);
         NSLog(@"currentLoggedInUserRating: %@", currentLoggedInUserRating);
+        NSLog(@"currentLoggedInUserNumOfRatings: %@", currentLoggedInUserNumOfRatings);
+ 
         
         if([reviewObj.user_id isEqualToString:currentLoggedInUserID]){
             NSLog(@"reivewObj ADDED!!!!!!!!!!!!!!!!!");
@@ -94,6 +100,15 @@
     
     //set table title here
     navBar.title = [NSString stringWithFormat:@"%@: %@/5", currentLoggedInUserName, currentLoggedInUserRating];
+    
+    //set num of ratings label here
+    if([currentLoggedInUserNumOfRatings isEqualToString:@"0"]){
+        num_reviews_label.text = [NSString stringWithFormat:@"No reviews yet"];
+    }
+    else{
+        num_reviews_label.text = [NSString stringWithFormat:@"%@ reviews", currentLoggedInUserNumOfRatings];
+    }
+    
     NSLog(@"END OF findRelevantReviews; relevantReviewsArray.count: %lu", (unsigned long)relevantReviewsArray.count);
     return relevantReviewsArray;
 }

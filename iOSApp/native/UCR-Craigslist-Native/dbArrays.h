@@ -16,6 +16,8 @@
 @property (nonatomic, strong) NSMutableArray * reviewsArray;
 @property (nonatomic, strong) NSMutableArray * imagesArray;
 @property (nonatomic, strong) NSMutableArray * chatArray;
+@property (nonatomic, strong) NSMutableArray * messagesArray;
+@property (nonatomic) BOOL imagesLoaded;
 + (dbArrays*) sharedInstance;
 
 @end

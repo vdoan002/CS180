@@ -2,13 +2,14 @@
 //  FourthViewController.h
 //  UCR-Craigslist-Native
 //
-//  Created by Michael Chen on 5/1/16.
+//  Created by Michael Chen on 5/20/16.
 //  Copyright © 2016 UCR. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface FourthViewController : UIViewController
-@property (strong, nonatomic) IBOutlet UIWebView *webView;
-
+@interface FourthViewController : UITableViewController
+@property (strong, nonatomic) IBOutlet UITextField *num_threads_label;
+@property (strong, nonatomic) IBOutlet UINavigationItem *navBar;
+- (NSMutableArray*)findRelevantThreads;
 @end
