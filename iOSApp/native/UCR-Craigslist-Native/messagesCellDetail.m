@@ -114,7 +114,17 @@
 // http://stackoverflow.com/a/15589721
 -(void)writeToDB{
     // Create your request string with parameter name as defined in PHP file
-    NSString *myRequestString = [NSString stringWithFormat:@"content=%@&sender=%@&receiver=%@&", composeField.text, currentLoggedInUserName, message.message_sender];
+    NSString * messageUser;
+    NSString * messageFriend;
+    if([message.message_sender isEqualToString:currentLoggedInUserName]){
+        messageUser = message.message_sender;
+        messageFriend = message.message_receiver;
+    }
+    else{
+        messageUser = message.message_receiver;
+        messageFriend = message.message_sender;
+    }
+    NSString *myRequestString = [NSString stringWithFormat:@"content=%@&sender=%@&receiver=%@&", composeField.text, messageUser, messageFriend];
     
     // Create Data from request
     NSData *data = [NSData dataWithBytes: [myRequestString UTF8String] length: [myRequestString length]];
@@ -160,16 +170,12 @@
 }
 
 - (IBAction)sendButton:(id)sender{
-    [self writeToDB]; //write to the database
-    [self refreshAll];
-    //NSIndexPath *path1 = [NSIndexPath indexPathForRow:relevantMessagesArray.count inSection:0];
-    //NSArray *indexArray = [NSArray arrayWithObjects:path1,nil];
-    //[self.tableView insertRowsAtIndexPaths:indexArray withRowAnimation:UITableViewRowAnimationTop];
-    //[messageTableView endUpdates];
-    //[self viewDidLoad];
-    //[self.tableView reloadData];
-    NSLog(@"composeField.text: %@", composeField.text);
-    [composeField setText:@""];
+    if(![composeField.text isEqualToString:@""]){
+        [self writeToDB]; //write to the database
+        [self refreshAll];
+        NSLog(@"composeField.text: %@", composeField.text);
+        [composeField setText:@""];
+    }
 }
 
 - (IBAction)refreshButton:(id)sender {
@@ -222,9 +228,22 @@
     }
     
     for(int i = 0; i < [dbArrays sharedInstance].messagesArray.count; i++){
+        NSString * messageUser;
+        NSString * messageFriend;
         messageObj = [[dbArrays sharedInstance].messagesArray objectAtIndex:i];
+        if([message.message_sender isEqualToString:currentLoggedInUserName]){
+            messageUser = message.message_sender;
+            messageFriend = message.message_receiver;
+        }
+        else{
+            messageUser = message.message_receiver;
+            messageFriend = message.message_sender;
+        }
         
-        if(([messageObj.message_receiver isEqualToString:currentLoggedInUserName] && [messageObj.message_sender isEqualToString:message.message_sender]) || ([messageObj.message_sender isEqualToString:currentLoggedInUserName] && [messageObj.message_receiver isEqualToString:message.message_sender])){
+        //set title
+        navBarItem.title = messageFriend;
+        
+        if(([messageObj.message_receiver isEqualToString:currentLoggedInUserName] && [messageObj.message_sender isEqualToString:messageFriend]) || ([messageObj.message_sender isEqualToString:currentLoggedInUserName] && [messageObj.message_receiver isEqualToString:messageFriend])){
             /*NSLog(@"message ADDED!!!!!!!!!!!!!!!!!");
             NSLog(@"messageObj.message_id: %@", messageObj.message_id);
             NSLog(@"messageObj.message_sender: %@", messageObj.message_sender);
@@ -237,8 +256,7 @@
         }
     }
     
-    //set title
-    navBarItem.title = message.message_sender;
+    
     
     //set num of messages label here
     if(relevantMessagesArray.count == 1){
@@ -260,7 +278,10 @@
     message_output = [relevantMessagesArray objectAtIndex:indexPath.row];
     NSString * timeStamp = [NSString stringWithFormat:@"%@ on %@", message_output.message_timesent, message_output.message_date];
     if([message_output.message_sender isEqualToString:currentLoggedInUserName]){
+        //right align
         cell.detailTextLabel.text = [NSString stringWithFormat:@"you @ %@", timeStamp];
+        cell.textLabel.textAlignment = NSTextAlignmentRight;
+        cell.detailTextLabel.textAlignment = NSTextAlignmentRight;
     }
     else{
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ @ %@", message_output.message_sender, timeStamp];

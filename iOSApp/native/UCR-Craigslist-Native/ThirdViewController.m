@@ -207,31 +207,49 @@
 
 - (IBAction)submitButton:(id)sender {
     // write to the db
-    titleName = titleField.text;
-    price = priceField.text;
-    desc = descView.text;
-    [self writeToDB];
-    //refresh FirstViewController
-    /*FirstViewController * firstObj = [[FirstViewController alloc] init];
-    [firstObj refreshAll];*/
-    //courtesy popup
-    UIAlertController *alert = [UIAlertController
-                                alertControllerWithTitle:[NSString stringWithFormat:@"Submitted!"]
-                                message:@"Thank you for your submission."
-                                preferredStyle:UIAlertControllerStyleAlert];
-    
-    [self presentViewController:alert animated:YES completion:nil];
-    
-    //button creation and function (handler)
-    UIAlertAction* actionOk = [UIAlertAction
-                               actionWithTitle:@"OK"
-                               style:UIAlertActionStyleDefault
-                               handler:^(UIAlertAction * action) {}];
-    
-    [alert addAction:actionOk];
-    
-    
-    
+    if(![titleField.text isEqualToString:@""] && ![priceField.text isEqualToString:@""] && ![descView.text isEqualToString:@""] && ![descView.text isEqualToString:@"enter a description"]){
+        titleName = titleField.text;
+        price = priceField.text;
+        desc = descView.text;
+        [self writeToDB];
+        
+        titleField.text = @"";
+        priceField.text = @"";
+        descView.text = @"enter a description";
+        
+        //courtesy popup
+        UIAlertController *alert = [UIAlertController
+                                    alertControllerWithTitle:[NSString stringWithFormat:@"Submitted!"]
+                                    message:@"Thank you for your submission."
+                                    preferredStyle:UIAlertControllerStyleAlert];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+        
+        //button creation and function (handler)
+        UIAlertAction* actionOk = [UIAlertAction
+                                   actionWithTitle:@"OK"
+                                   style:UIAlertActionStyleDefault
+                                   handler:^(UIAlertAction * action) {}];
+        
+        [alert addAction:actionOk];
+    }
+    else{
+        //courtesy popup
+        UIAlertController *alert = [UIAlertController
+                                    alertControllerWithTitle:[NSString stringWithFormat:@"Not submitted!"]
+                                    message:@"Please enter a valid submission."
+                                    preferredStyle:UIAlertControllerStyleAlert];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+        
+        //button creation and function (handler)
+        UIAlertAction* actionOk = [UIAlertAction
+                                   actionWithTitle:@"OK"
+                                   style:UIAlertActionStyleDefault
+                                   handler:^(UIAlertAction * action) {}];
+        
+        [alert addAction:actionOk];
+    }
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{

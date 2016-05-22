@@ -18,7 +18,7 @@
 @end
 
 @implementation FourthViewController
-@synthesize navBar, num_threads_label;
+@synthesize navBar, num_threads_label, loginPageObj, relevantThreadsArray, currentLoggedInUserName;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,6 +31,8 @@
     
     num_threads_label.userInteractionEnabled = false;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self findRelevantThreads];
+    loginPageObj = [[loginPage alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,21 +47,20 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self findRelevantThreads].count;
+    return relevantThreadsArray.count;
 }
 
 - (IBAction)newButton:(id)sender {
     
 }
 
-- (NSMutableArray*)findRelevantThreads{
+- (void)findRelevantThreads{
     users * userObj;
     messages * message;
     //NSUInteger reviewCnt = 0;
     
     NSMutableArray * relevantThreadsArraySender = [NSMutableArray new];
-    NSMutableArray * relevantThreadsArray = [NSMutableArray new];
-    NSString * currentLoggedInUserName;
+    relevantThreadsArray = [NSMutableArray new];
     NSString * currentLoggedInUserID;
     
     for(int i  = 0; i < [dbArrays sharedInstance].usersArray.count; i++){
@@ -87,6 +88,11 @@
             [relevantThreadsArray addObject:message];
             [relevantThreadsArraySender addObject:message.message_sender];
         }
+        else if([message.message_sender isEqualToString:currentLoggedInUserName] && ![relevantThreadsArraySender containsObject:message.message_receiver]){
+            NSLog(@"thread ADDED!!!!!!!!!!!!!!!!!");
+            [relevantThreadsArray addObject:message];
+            [relevantThreadsArraySender addObject:message.message_receiver];
+        }
     }
     
     //set num of threads label here
@@ -99,8 +105,6 @@
     else{
         num_threads_label.text = [NSString stringWithFormat:@"%lu threads", (unsigned long)relevantThreadsArray.count];
     }
-    
-    return relevantThreadsArray;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -110,12 +114,28 @@
     // Configure the cell...
     
     //messages * message;
-    messages * message = [[self findRelevantThreads] objectAtIndex:indexPath.row];
-    cell.textLabel.text = message.message_sender;
+    messages * message = [relevantThreadsArray objectAtIndex:indexPath.row];
+    if([message.message_sender isEqualToString:currentLoggedInUserName]){
+        cell.textLabel.text = message.message_receiver;
+    }
+    else{
+        cell.textLabel.text = message.message_sender;
+    }
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
     return cell;
 }
 
+-(void)refreshAll{
+    [loginPageObj retrieveMessages]; //reload database retrieval
+    [self findRelevantThreads];
+    [self.tableView reloadData];
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [self refreshAll];
+    self.navigationController.toolbarHidden = true;
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -161,7 +181,7 @@
         NSIndexPath * indexPath = [self.tableView indexPathForSelectedRow];
         
         //get obj for selected row
-        messages * message = [[self findRelevantThreads] objectAtIndex:indexPath.row];
+        messages * message = [relevantThreadsArray objectAtIndex:indexPath.row];
         
         [[segue destinationViewController] getMessages:message];
     }
