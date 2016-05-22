@@ -7,6 +7,7 @@
 //
 
 #import "ThirdViewController.h"
+#import "FirstViewController.h"
 #import "users.h"
 #import "dbArrays.h"
 
@@ -92,6 +93,17 @@
       inComponent:(NSInteger)component
 {
     category = categories[row];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == titleField) {
+        [textField resignFirstResponder];
+        [priceField becomeFirstResponder];
+    } else if (textField == priceField) {
+        [textField resignFirstResponder];
+        [descView becomeFirstResponder];
+    }
+    return YES;
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView{
@@ -199,7 +211,9 @@
     price = priceField.text;
     desc = descView.text;
     [self writeToDB];
-    
+    //refresh FirstViewController
+    /*FirstViewController * firstObj = [[FirstViewController alloc] init];
+    [firstObj refreshAll];*/
     //courtesy popup
     UIAlertController *alert = [UIAlertController
                                 alertControllerWithTitle:[NSString stringWithFormat:@"Submitted!"]
@@ -215,6 +229,8 @@
                                handler:^(UIAlertAction * action) {}];
     
     [alert addAction:actionOk];
+    
+    
     
 }
 

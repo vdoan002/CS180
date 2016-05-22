@@ -39,13 +39,17 @@
     else{
         num_posts_label.text = [NSString stringWithFormat:@"%lu posts", [dbArrays sharedInstance].postsArray.count];
     }
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    // You code here to update the view.
+    [self refreshAll];
 }
 
 -(void)refreshAll{
