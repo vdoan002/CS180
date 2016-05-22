@@ -37,13 +37,13 @@
     
     //set placeholder text color
     UIColor *color = [UIColor lightGrayColor];
-    userTF.attributedPlaceholder =[[NSAttributedString alloc] initWithString:@"username" attributes:@{NSForegroundColorAttributeName:color}];
-    passwdTF.attributedPlaceholder =[[NSAttributedString alloc] initWithString:@"password" attributes:@{NSForegroundColorAttributeName:color}];
+    userTF.attributedPlaceholder =[[NSAttributedString alloc] initWithString:@"enter a username" attributes:@{NSForegroundColorAttributeName:color}];
+    passwdTF.attributedPlaceholder =[[NSAttributedString alloc] initWithString:@"enter a password" attributes:@{NSForegroundColorAttributeName:color}];
     
-    /*if(![dbArrays sharedInstance].imagesLoaded){ // images only loaded when app is first launched. optimization workaround
+    if(![dbArrays sharedInstance].imagesLoaded){ // images only loaded when app is first launched. optimization workaround
         [self retrieveImages];
         [dbArrays sharedInstance].imagesLoaded = true;
-    }*/
+    }
     
     [self retrieveUsers];
     [self retrievePosts];
@@ -213,6 +213,7 @@
 }
 
 - (void) retrieveMessages{
+    NSLog(@"RETRIEVING MESSAGES!!!!!!!!!!!!!!");
     NSURL * url = [NSURL URLWithString:getMessagesURL];
     NSData * data = [NSData dataWithContentsOfURL:url];
     

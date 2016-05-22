@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "loginPage.h"
 
 @interface FirstViewController : UITableViewController
 @property (strong, nonatomic) IBOutlet UITableView *navBar;
 @property (strong, nonatomic) IBOutlet UITextField *num_posts_label;
+@property (strong, nonatomic) loginPage * loginPageObj;
+- (IBAction)refreshButton:(id)sender;
+-(void)refreshAll;
 
 @end

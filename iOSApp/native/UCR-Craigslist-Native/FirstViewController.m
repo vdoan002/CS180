@@ -17,7 +17,7 @@
 @end
 
 @implementation FirstViewController
-@synthesize navBar, num_posts_label;
+@synthesize navBar, num_posts_label, loginPageObj;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -27,6 +27,7 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    loginPageObj = [[loginPage alloc] init];
    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     NSLog(@"FirstViewController: users: %@", [dbArrays sharedInstance].usersArray);
@@ -38,13 +39,30 @@
     else{
         num_posts_label.text = [NSString stringWithFormat:@"%lu posts", [dbArrays sharedInstance].postsArray.count];
     }
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    // You code here to update the view.
+    [self refreshAll];
+}
+
+-(void)refreshAll{
+    NSLog(@"Before retrievePosts - postsArray.count: %lu", [dbArrays sharedInstance].postsArray.count);
+    [loginPageObj retrievePosts];
+    NSLog(@"After retrievePosts - postsArray.count: %lu", [dbArrays sharedInstance].postsArray.count);
+    [self.tableView reloadData];
+    if([dbArrays sharedInstance].postsArray.count == 1){
+        num_posts_label.text = @"1 post";
+    }
+    else{
+        num_posts_label.text = [NSString stringWithFormat:@"%lu posts", [dbArrays sharedInstance].postsArray.count];
+    }
 }
 
 #pragma mark - Table view data source
@@ -69,6 +87,10 @@
     return cell;
 }
 
+- (IBAction)refreshButton:(id)sender {
+    NSLog(@"refreshButton pressed!");
+    [self refreshAll];
+}
 /*-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     //I have a static list of section titles in SECTION_ARRAY for reference.
     //Obviously your own section title code handles things differently to me.
@@ -127,5 +149,6 @@
     }
 }
                                 
+
 
 @end

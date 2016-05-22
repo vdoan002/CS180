@@ -18,8 +18,7 @@
 @end
 
 @implementation messagesCellDetail
-@synthesize message, navBarItem, currentLoggedInUserName, num_messages_label, barButtonItem, composeField, sendButtonItem;
-
+@synthesize message, navBarItem, currentLoggedInUserName, num_messages_label, barButtonItem, composeField, sendButtonItem, loginPageObj, relevantMessagesArray;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -28,7 +27,9 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-
+    loginPageObj = [[loginPage alloc] init];
+    
+    [self findRelevantMessages];
     composeField = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 310, 32)];
     UIBarButtonItem * textFieldItem = [[UIBarButtonItem alloc] initWithCustomView:composeField];
 
@@ -109,15 +110,81 @@
     
     [UIView commitAnimations];
 }
+// http://stackoverflow.com/a/11515771
+// http://stackoverflow.com/a/15589721
+-(void)writeToDB{
+    // Create your request string with parameter name as defined in PHP file
+    NSString * messageUser;
+    NSString * messageFriend;
+    if([message.message_sender isEqualToString:currentLoggedInUserName]){
+        messageUser = message.message_sender;
+        messageFriend = message.message_receiver;
+    }
+    else{
+        messageUser = message.message_receiver;
+        messageFriend = message.message_sender;
+    }
+    NSString *myRequestString = [NSString stringWithFormat:@"content=%@&sender=%@&receiver=%@&", composeField.text, messageUser, messageFriend];
+    
+    // Create Data from request
+    NSData *data = [NSData dataWithBytes: [myRequestString UTF8String] length: [myRequestString length]];
+    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[data length]];
+    /*NSDictionary *dictionary = @{@"content": composeField.text, @"sender": currentLoggedInUserName, @"receiver": message.message_sender};
+    NSError *error = nil;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary
+                                                   options:kNilOptions error:&error];*/
+
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString: @"http://www.practicemakesperfect.co.nf/setMessage.php"]];
+    
+    [request setHTTPMethod: @"POST"];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody: data];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSString *requestReply = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+        NSLog(@"requestReply: %@", requestReply);
+    }] resume];
+    
+    /*NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
+    NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:request fromData:data completionHandler:^(NSData *data,NSURLResponse *response, NSError *error) {
+        NSLog(@"response: %@", response);
+    }];
+    [uploadTask resume];*/
+    //NSData * returnData = [NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil];
+    // Log Response
+    //NSString * response = [[NSString alloc] initWithBytes:[returnSession bytes] length:[returnData length] encoding:NSUTF8StringEncoding];
+    //NSLog(@"response: %@",response);
+}
+
+-(void)refreshAll{
+    NSLog(@"Before retrieveChat - relevantMessagesArray.count: %lu",relevantMessagesArray.count);
+    NSLog(@"Before retrieveChat - messagesArray.count: %lu", [dbArrays sharedInstance].messagesArray.count);
+    [loginPageObj retrieveMessages]; //reload database retrieval
+    NSLog(@"After retrieveChat - messagesArray.count: %lu", [dbArrays sharedInstance].messagesArray.count);
+    [self findRelevantMessages];
+    NSLog(@"After retrieveChat - relevantMessagesArray.count: %lu",relevantMessagesArray.count);
+    NSLog(@"%@", self.tableView);
+    [self.tableView reloadData];
+}
 
 - (IBAction)sendButton:(id)sender{
-    //write to the db
-    NSLog(@"composeField.text: %@", composeField.text);
-    [composeField setText:@""];
-    
-    
-    //after written
-    //refresh db retreival
+    if(![composeField.text isEqualToString:@""]){
+        [self writeToDB]; //write to the database
+        [self refreshAll];
+        NSLog(@"composeField.text: %@", composeField.text);
+        [composeField setText:@""];
+    }
+}
+
+- (IBAction)refreshButton:(id)sender {
+    [self refreshAll];
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -141,14 +208,14 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self findRelevantMessages].count;
+    return relevantMessagesArray.count;
 }
 
--(NSMutableArray*)findRelevantMessages{
+-(void)findRelevantMessages{
     users * userObj;
     messages * messageObj;
     
-    NSMutableArray * relevantMessagesArray = [NSMutableArray new];
+    relevantMessagesArray = [NSMutableArray new];
     NSString * currentLoggedInUserID;
     
     for(int i  = 0; i < [dbArrays sharedInstance].usersArray.count; i++){
@@ -161,23 +228,35 @@
     }
     
     for(int i = 0; i < [dbArrays sharedInstance].messagesArray.count; i++){
+        NSString * messageUser;
+        NSString * messageFriend;
         messageObj = [[dbArrays sharedInstance].messagesArray objectAtIndex:i];
+        if([message.message_sender isEqualToString:currentLoggedInUserName]){
+            messageUser = message.message_sender;
+            messageFriend = message.message_receiver;
+        }
+        else{
+            messageUser = message.message_receiver;
+            messageFriend = message.message_sender;
+        }
         
-        if(([messageObj.message_receiver isEqualToString:currentLoggedInUserName] && [messageObj.message_sender isEqualToString:message.message_sender]) || ([messageObj.message_sender isEqualToString:currentLoggedInUserName] && [messageObj.message_receiver isEqualToString:message.message_sender])){
-            NSLog(@"message ADDED!!!!!!!!!!!!!!!!!");
+        //set title
+        navBarItem.title = messageFriend;
+        
+        if(([messageObj.message_receiver isEqualToString:currentLoggedInUserName] && [messageObj.message_sender isEqualToString:messageFriend]) || ([messageObj.message_sender isEqualToString:currentLoggedInUserName] && [messageObj.message_receiver isEqualToString:messageFriend])){
+            /*NSLog(@"message ADDED!!!!!!!!!!!!!!!!!");
             NSLog(@"messageObj.message_id: %@", messageObj.message_id);
             NSLog(@"messageObj.message_sender: %@", messageObj.message_sender);
             NSLog(@"messageObj.message_receiver: %@", messageObj.message_receiver);
             NSLog(@"messageObj.message_content: %@", messageObj.message_content);
             NSLog(@"messageObj.message_timesent: %@", messageObj.message_timesent);
             NSLog(@"messageObj.message_date: %@", messageObj.message_date);
-            NSLog(@"messageObj.message_seen: %@", messageObj.message_seen);
+            NSLog(@"messageObj.message_seen: %@", messageObj.message_seen);*/
             [relevantMessagesArray addObject:messageObj];
         }
     }
     
-    //set title
-    navBarItem.title = message.message_sender;
+    
     
     //set num of messages label here
     if(relevantMessagesArray.count == 1){
@@ -186,8 +265,6 @@
     else{
         num_messages_label.text = [NSString stringWithFormat:@"%lu messages", (unsigned long)relevantMessagesArray.count];
     }
-    
-    return relevantMessagesArray;
 }
 
 -(void)getMessages:(id)_message{
@@ -197,12 +274,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"messageCell" forIndexPath:indexPath];
-    
     messages * message_output;
-    message_output = [[self findRelevantMessages] objectAtIndex:indexPath.row];
+    message_output = [relevantMessagesArray objectAtIndex:indexPath.row];
     NSString * timeStamp = [NSString stringWithFormat:@"%@ on %@", message_output.message_timesent, message_output.message_date];
     if([message_output.message_sender isEqualToString:currentLoggedInUserName]){
+        //right align
         cell.detailTextLabel.text = [NSString stringWithFormat:@"you @ %@", timeStamp];
+        cell.textLabel.textAlignment = NSTextAlignmentRight;
+        cell.detailTextLabel.textAlignment = NSTextAlignmentRight;
     }
     else{
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ @ %@", message_output.message_sender, timeStamp];
