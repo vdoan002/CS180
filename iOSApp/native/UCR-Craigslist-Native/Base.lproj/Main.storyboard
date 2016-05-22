@@ -38,7 +38,18 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" title="Posts" id="fpF-sH-P1H"/>
+                    <navigationItem key="navigationItem" title="Posts" id="fpF-sH-P1H">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="VKE-Rh-c8S">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="eiS-6c-Evv">
+                                <rect key="frame" x="276" y="7" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="refresh"/>
+                                <connections>
+                                    <action selector="refreshButton:" destination="Isk-p5-1l4" eventType="touchUpInside" id="HM8-Oa-bEz"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="navBar" destination="E9F-yP-2bn" id="Hw1-5p-OoN"/>

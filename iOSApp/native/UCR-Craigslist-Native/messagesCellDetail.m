@@ -110,8 +110,9 @@
     
     [UIView commitAnimations];
 }
-
--(void)writeToDB{ //http://stackoverflow.com/a/15589721
+// http://stackoverflow.com/a/11515771
+// http://stackoverflow.com/a/15589721
+-(void)writeToDB{
     // Create your request string with parameter name as defined in PHP file
     NSString *myRequestString = [NSString stringWithFormat:@"content=%@&sender=%@&receiver=%@&", composeField.text, currentLoggedInUserName, message.message_sender];
     

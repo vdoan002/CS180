@@ -40,10 +40,10 @@
     userTF.attributedPlaceholder =[[NSAttributedString alloc] initWithString:@"enter a username" attributes:@{NSForegroundColorAttributeName:color}];
     passwdTF.attributedPlaceholder =[[NSAttributedString alloc] initWithString:@"enter a password" attributes:@{NSForegroundColorAttributeName:color}];
     
-    /*if(![dbArrays sharedInstance].imagesLoaded){ // images only loaded when app is first launched. optimization workaround
+    if(![dbArrays sharedInstance].imagesLoaded){ // images only loaded when app is first launched. optimization workaround
         [self retrieveImages];
         [dbArrays sharedInstance].imagesLoaded = true;
-    }*/
+    }
     
     [self retrieveUsers];
     [self retrievePosts];

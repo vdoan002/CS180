@@ -22,10 +22,14 @@
 @property (strong, nonatomic) NSString * price;
 @property (strong, nonatomic) NSString * desc;
 @property (strong, nonatomic) NSArray * categories;
+@property (strong, nonatomic) NSString * currentLoggedInUserName;
 
 - (IBAction)chooseButton:(id)sender;
 - (IBAction)takeButton:(id)sender;
 - (IBAction)submitButton:(id)sender;
-- (void)writeToDB;
+-(void)writeToDB;
+-(void)refreshAll;
+-(void)getUsers;
+
 
 @end
