@@ -48,6 +48,10 @@
     return [self findRelevantThreads].count;
 }
 
+- (IBAction)newButton:(id)sender {
+    
+}
+
 - (NSMutableArray*)findRelevantThreads{
     users * userObj;
     messages * message;
@@ -60,7 +64,7 @@
     
     for(int i  = 0; i < [dbArrays sharedInstance].usersArray.count; i++){
         userObj = [[dbArrays sharedInstance].usersArray objectAtIndex:i];
-        NSLog(@"userObj.loggedIn: %@", userObj.loggedIn);
+        //NSLog(@"userObj.loggedIn: %@", userObj.loggedIn);
         if([userObj.loggedIn isEqualToString:@"true"]){
             currentLoggedInUserName = userObj.username;
             currentLoggedInUserID = userObj.userID;

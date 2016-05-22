@@ -170,9 +170,58 @@
                     <view key="view" contentMode="scaleToFill" id="V2k-em-C9a">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bae-SG-1ID">
+                                <rect key="frame" x="20" y="256" width="335" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LpV-Cl-pvd">
+                                <rect key="frame" x="20" y="529" width="109" height="30"/>
+                                <state key="normal" title="Choose a Photo"/>
+                                <connections>
+                                    <action selector="chooseButton:" destination="aHO-vU-Lmh" eventType="touchUpInside" id="aLZ-tf-Eli"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UD6-QO-yrk">
+                                <rect key="frame" x="20" y="567" width="89" height="30"/>
+                                <state key="normal" title="Take a Photo"/>
+                                <connections>
+                                    <action selector="takeButton:" destination="aHO-vU-Lmh" eventType="touchUpInside" id="CQ3-3Q-KAd"/>
+                                </connections>
+                            </button>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rRl-aR-NH8">
+                                <rect key="frame" x="0.0" y="20" width="375" height="219"/>
+                            </pickerView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QHk-M8-4PS">
+                                <rect key="frame" x="20" y="218" width="335" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Zd-Ww-XGu">
+                                <rect key="frame" x="217" y="529" width="138" height="68"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                                <state key="normal" title="Submit"/>
+                                <connections>
+                                    <action selector="submitButton:" destination="aHO-vU-Lmh" eventType="touchUpInside" id="61j-7z-AON"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="enter a description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Lx8-cf-ehL">
+                                <rect key="frame" x="20" y="318" width="335" height="203"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Create Post" image="compose" id="iPc-c8-VhY"/>
+                    <connections>
+                        <outlet property="catPicker" destination="rRl-aR-NH8" id="ozf-wg-10h"/>
+                        <outlet property="descView" destination="Lx8-cf-ehL" id="P98-PB-Pu0"/>
+                        <outlet property="priceField" destination="bae-SG-1ID" id="0bE-j9-AWR"/>
+                        <outlet property="titleField" destination="QHk-M8-4PS" id="f6H-gu-jUq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zaB-EK-Pl1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -210,7 +259,18 @@
                             <outlet property="delegate" destination="6Gg-ti-9Zq" id="cAw-lO-mlz"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Messages" id="wxc-OE-lsV"/>
+                    <navigationItem key="navigationItem" title="Messages" id="wxc-OE-lsV">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="kgd-vc-mAc">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="tKA-DH-H1Y">
+                                <rect key="frame" x="276" y="7" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="new"/>
+                                <connections>
+                                    <action selector="newButton:" destination="6Gg-ti-9Zq" eventType="touchUpInside" id="pD2-rf-B7C"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="navBar" destination="wxc-OE-lsV" id="8fd-pH-Hd4"/>
@@ -274,7 +334,18 @@
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="Title" id="rW4-8h-QdI"/>
+                    <navigationItem key="navigationItem" title="Title" id="rW4-8h-QdI">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="hv3-E7-QV2">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="leH-2Q-vvr">
+                                <rect key="frame" x="276" y="7" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="refresh"/>
+                                <connections>
+                                    <action selector="refreshButton:" destination="pLg-ey-stz" eventType="touchUpInside" id="AC0-2r-Omf"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
@@ -282,6 +353,7 @@
                         <outlet property="navBarItem" destination="rW4-8h-QdI" id="m3l-wc-dqv"/>
                         <outlet property="num_messages_label" destination="Roj-Q2-FwT" id="vDO-Cq-Jwf"/>
                         <outlet property="sendButtonItem" destination="Vyr-QF-f5A" id="TjO-8h-Zoi"/>
+                        <outlet property="tableView" destination="1fK-tA-LAv" id="yke-8d-UFF"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Da8-TT-GA8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -503,11 +575,11 @@
             </objects>
             <point key="canvasLocation" x="-340.5" y="1212.5"/>
         </scene>
-        <!--Messages-->
+        <!--Chat-->
         <scene sceneID="hPS-SI-Zw5">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ewu-nX-UQr" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Messages" image="mail" id="5VK-2b-42d"/>
+                    <tabBarItem key="tabBarItem" title="Chat" image="mail" id="5VK-2b-42d"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vjE-q5-1GZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

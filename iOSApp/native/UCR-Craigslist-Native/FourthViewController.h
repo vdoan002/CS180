@@ -11,5 +11,6 @@
 @interface FourthViewController : UITableViewController
 @property (strong, nonatomic) IBOutlet UITextField *num_threads_label;
 @property (strong, nonatomic) IBOutlet UINavigationItem *navBar;
+- (IBAction)newButton:(id)sender;
 - (NSMutableArray*)findRelevantThreads;
 @end
