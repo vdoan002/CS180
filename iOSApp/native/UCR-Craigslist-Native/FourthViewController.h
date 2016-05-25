@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "loginPage.h"
 
-@interface FourthViewController : UITableViewController
+@interface FourthViewController : UITableViewController<UITabBarDelegate>
 @property (strong, nonatomic) IBOutlet UITextField *num_threads_label;
 @property (strong, nonatomic) IBOutlet UINavigationItem *navBar;
 @property (strong, nonatomic) NSMutableArray * relevantThreadsArray;

@@ -29,7 +29,5 @@
 - (IBAction)submitButton:(id)sender;
 -(void)writeToDB;
 -(void)refreshAll;
--(void)getUsers;
-
 
 @end

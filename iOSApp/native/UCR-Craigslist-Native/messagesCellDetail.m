@@ -27,10 +27,12 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
     loginPageObj = [[loginPage alloc] init];
     
     [self findRelevantMessages];
-    composeField = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 310, 32)];
+    composeField = [[UITextView alloc] initWithFrame:CGRectMake(0, 10, 310, 32)];
+    self.composeField.layer.cornerRadius = 10;
     UIBarButtonItem * textFieldItem = [[UIBarButtonItem alloc] initWithCustomView:composeField];
 
 
@@ -38,6 +40,12 @@
     NSMutableArray * newItems = [self.toolbarItems mutableCopy];
     [newItems addObject:sendButtonItem];
     self.toolbarItems = newItems;
+    
+    self.navigationController.toolbar.barTintColor = [UIColor blackColor];
+    [self.navigationController.toolbar setFrame:CGRectMake(self.navigationController.toolbar.frame.origin.x,
+                                                           self.navigationController.toolbar.frame.origin.y,
+                                                           self.navigationController.toolbar.frame.size.width,
+                                                           self.navigationController.toolbar.frame.size.height + 20)];
     
     // keyboard listener http://stackoverflow.com/questions/30879903/move-uitoolbar-with-keyboard-ios8
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -58,6 +66,7 @@
     self.navigationController.toolbarHidden = false;
     self.tableView.estimatedRowHeight = 100.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
+    loginPageObj = [[loginPage alloc] init];
 }
 
 -(void)dismissKeyboard { //http://stackoverflow.com/a/5711504
@@ -172,7 +181,7 @@
 - (IBAction)sendButton:(id)sender{
     if(![composeField.text isEqualToString:@""]){
         [self writeToDB]; //write to the database
-        [self refreshAll];
+        [self performSelector:@selector(refreshAll) withObject:self afterDelay:1.0];
         NSLog(@"composeField.text: %@", composeField.text);
         [composeField setText:@""];
     }
@@ -185,15 +194,6 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.tableView reloadData];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self.tableView reloadData];
-    //[composeField becomeFirstResponder];
-    //[self.view addSubview:composeField];
-    //[self.view bringSubviewToFront:composeField];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -265,6 +265,8 @@
     else{
         num_messages_label.text = [NSString stringWithFormat:@"%lu messages", (unsigned long)relevantMessagesArray.count];
     }
+    num_messages_label.textColor = [UIColor whiteColor];
+    num_messages_label.backgroundColor = [UIColor blackColor];
 }
 
 -(void)getMessages:(id)_message{
@@ -274,14 +276,15 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"messageCell" forIndexPath:indexPath];
+    
     messages * message_output;
     message_output = [relevantMessagesArray objectAtIndex:indexPath.row];
     NSString * timeStamp = [NSString stringWithFormat:@"%@ on %@", message_output.message_timesent, message_output.message_date];
     if([message_output.message_sender isEqualToString:currentLoggedInUserName]){
         //right align
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"you @ %@", timeStamp];
         cell.textLabel.textAlignment = NSTextAlignmentRight;
         cell.detailTextLabel.textAlignment = NSTextAlignmentRight;
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"you @ %@", timeStamp];
     }
     else{
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ @ %@", message_output.message_sender, timeStamp];
@@ -291,6 +294,9 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.numberOfLines = 0;
     [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
+    cell.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.detailTextLabel.textColor = [UIColor whiteColor];
     return cell;
 }
 

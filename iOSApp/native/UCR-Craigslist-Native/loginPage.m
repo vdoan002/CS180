@@ -15,6 +15,7 @@
 #import "images.h"
 #import "chat.h"
 #import "messages.h"
+#import "registerPage.h"
 #import "FirstViewController.h"
 
 #define getUsersURL @"http://practicemakesperfect.co.nf/getUsers.php"
@@ -29,7 +30,7 @@
 @end
 
 @implementation loginPage
-@synthesize  titleLabel, loginUIButton, user;
+@synthesize  titleLabel, loginUIButton, registerUIButton, user, userTF, passwdTF;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -37,19 +38,16 @@
     
     //set placeholder text color
     UIColor *color = [UIColor lightGrayColor];
-    userTF.attributedPlaceholder =[[NSAttributedString alloc] initWithString:@"enter a username" attributes:@{NSForegroundColorAttributeName:color}];
+    userTF.attributedPlaceholder =[[NSAttributedString alloc] initWithString:@"enter an username" attributes:@{NSForegroundColorAttributeName:color}];
     passwdTF.attributedPlaceholder =[[NSAttributedString alloc] initWithString:@"enter a password" attributes:@{NSForegroundColorAttributeName:color}];
     
-    if(![dbArrays sharedInstance].imagesLoaded){ // images only loaded when app is first launched. optimization workaround
+    /*if(![dbArrays sharedInstance].imagesLoaded){ // images only loaded when app is first launched. optimization workaround
         [self retrieveImages];
         [dbArrays sharedInstance].imagesLoaded = true;
-    }
+    }*/
     
     [self retrieveUsers];
-    [self retrievePosts];
-    [self retrieveReviews];
-    [self retrieveChat];
-    [self retrieveMessages];
+    [self setupKeyboard];
     
     /*NSLog(@"users: %@", [dbArrays sharedInstance].usersArray);
     NSLog(@"posts: %@", [dbArrays sharedInstance].postsArray);
@@ -58,22 +56,8 @@
     NSLog(@"chat: %@", [dbArrays sharedInstance].chatArray);
     NSLog(@"messages: %@", [dbArrays sharedInstance].messagesArray);*/
     
-    //keyboard dismiss: http://stackoverflow.com/a/5711504
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                          action:@selector(dismissKeyboard)];
-    [self.view addGestureRecognizer:tap];
-    
     userTF.delegate = self;
     passwdTF.delegate = self;
-    
-    //[self.view setNeedsDisplay];
-}
-
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -92,15 +76,38 @@
     [passwdTF resignFirstResponder];
 }
 
-/*
+- (void)setupKeyboard{
+    //keyboard dismiss: http://stackoverflow.com/a/5711504
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                          action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:tap];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    loginPage * loginPageObj = [[loginPage alloc] init];
+    loginPageObj.userTF = userTF;
+    loginPageObj.passwdTF = passwdTF;
+    if([[segue identifier] isEqualToString:@"registerSegue"]){
+        [[segue destinationViewController] getLoginPageObj:loginPageObj];
+    }
 }
-*/
+
 
 #pragma mark -
 #pragma mark Class Methods
@@ -243,29 +250,13 @@
     for(int i = 0; i < [dbArrays sharedInstance].usersArray.count && !matched; i++){
         
         if([userTF.text isEqualToString:[[[dbArrays sharedInstance].usersArray objectAtIndex:i] username]] && [passwdTF.text isEqualToString:[[[dbArrays sharedInstance].usersArray objectAtIndex:i] password]]){
-           
-             UIAlertController *alert = [UIAlertController
-                                         alertControllerWithTitle:[NSString stringWithFormat:@"Welcome, %@", userTF.text]
-                                              message:@"to UCR Craigslist!"
-                                              preferredStyle:UIAlertControllerStyleAlert];
-            
-            [self presentViewController:alert animated:YES completion:nil];
-            
-            //button creation and function (handler)
-            UIAlertAction* actionOk = [UIAlertAction
-                                       actionWithTitle:@"OK"
-                                       style:UIAlertActionStyleDefault
-                                       handler:^(UIAlertAction * action) {}];
-            
-            [alert addAction:actionOk];
-            
             user = [[dbArrays sharedInstance].usersArray objectAtIndex:i];
             user.loggedIn = @"true";
             matched = 1;
         }
     }
     
-    if(!matched){
+    if(!matched || [userTF.text isEqualToString:@""] || [passwdTF.text isEqualToString:@""]){
         UIAlertController *alert = [UIAlertController
                                           alertControllerWithTitle:@"Invalid login!"
                                           message:@"Please enter a correct username/password combination."
@@ -281,6 +272,21 @@
         [self presentViewController:alert animated:YES completion:nil];
     }
     else if(matched){
+        UIAlertController *alert = [UIAlertController
+                                         alertControllerWithTitle:[NSString stringWithFormat:@"Welcome, %@", userTF.text]
+                                              message:@"to UCR Craigslist!"
+                                              preferredStyle:UIAlertControllerStyleAlert];
+    
+        //button creation and function (handler)
+        UIAlertAction* actionOk = [UIAlertAction
+                                   actionWithTitle:@"OK"
+                                   style:UIAlertActionStyleDefault
+                                   handler:^(UIAlertAction * action) {}];
+        
+        [alert addAction:actionOk];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+        
         //source code: http://stackoverflow.com/a/21877460
         AppDelegate *appDelg = (AppDelegate*)[[UIApplication sharedApplication] delegate];
         appDelg.validLogin = 1;
@@ -290,6 +296,10 @@
     
 }
 
+- (IBAction)registerButton:(id)sender {
+    //[self dismissLoginAndShowRegistration];
+}
+
 -(void)getUser:(id)_user{
     user = _user;
 }
@@ -297,13 +307,13 @@
 //source code: http://stackoverflow.com/a/21877460
 #pragma mark - Dismissing Delegate Methods
 
-/*-(void) loginActionFinished:(NSNotification*)notification {
-    
-    AppDelegate *appDelg = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    appDelg.validLogin = 1;
-    
-    [self dismissLoginAndShowProfile];
-}*/
+- (void)dismissLoginAndShowRegistration{
+    [self dismissViewControllerAnimated:YES completion:^{
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UITabBarController *registerPage = [storyboard instantiateViewControllerWithIdentifier:@"registerPage"];
+        [self presentViewController:registerPage animated:YES completion:nil];
+    }];
+}
 
 - (void)dismissLoginAndShowTabs {
     [self dismissViewControllerAnimated:YES completion:^{
@@ -311,8 +321,6 @@
         UITabBarController *tabView = [storyboard instantiateViewControllerWithIdentifier:@"tabView"];
         [self presentViewController:tabView animated:YES completion:nil];
     }];
-    /*FirstViewController * firstObj = [[firstObj alloc] initWithNibName:nil bundle:nil];
-    [self presentViewController:firstObj animated:YES completion:NULL];*/
 }
 //end source code
 @end

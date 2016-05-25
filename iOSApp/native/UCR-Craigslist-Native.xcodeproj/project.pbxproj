@@ -19,6 +19,7 @@
 		0018DA351CCDA0E20026E5B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0018DA331CCDA0E20026E5B5 /* LaunchScreen.storyboard */; };
 		0018DA401CCDA0E20026E5B5 /* UCR_Craigslist_NativeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0018DA3F1CCDA0E20026E5B5 /* UCR_Craigslist_NativeTests.m */; };
 		0018DA4B1CCDA0E20026E5B5 /* UCR_Craigslist_NativeUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0018DA4A1CCDA0E20026E5B5 /* UCR_Craigslist_NativeUITests.m */; };
+		004A72DD1CF578AB00359447 /* registerPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 004A72DC1CF578AB00359447 /* registerPage.m */; };
 		005674481CE96E82004F359F /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 005674471CE96E82004F359F /* FirstViewController.m */; };
 		006FCDC31CE98E1F000D3004 /* dbArrays.m in Sources */ = {isa = PBXBuildFile; fileRef = 006FCDC21CE98E1F000D3004 /* dbArrays.m */; };
 		007A332B1CEF826800052223 /* FourthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 007A332A1CEF826800052223 /* FourthViewController.m */; };
@@ -74,6 +75,8 @@
 		0018DA461CCDA0E20026E5B5 /* UCR-Craigslist-NativeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UCR-Craigslist-NativeUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0018DA4A1CCDA0E20026E5B5 /* UCR_Craigslist_NativeUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UCR_Craigslist_NativeUITests.m; sourceTree = "<group>"; };
 		0018DA4C1CCDA0E20026E5B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		004A72DB1CF578AB00359447 /* registerPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = registerPage.h; sourceTree = "<group>"; };
+		004A72DC1CF578AB00359447 /* registerPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = registerPage.m; sourceTree = "<group>"; };
 		005674461CE96E82004F359F /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
 		005674471CE96E82004F359F /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
 		006FCDC11CE98E1F000D3004 /* dbArrays.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dbArrays.h; sourceTree = "<group>"; };
@@ -162,6 +165,8 @@
 				006FCDC21CE98E1F000D3004 /* dbArrays.m */,
 				00D742991CE8281300471EC9 /* loginPage.h */,
 				00D7429A1CE8281300471EC9 /* loginPage.m */,
+				004A72DB1CF578AB00359447 /* registerPage.h */,
+				004A72DC1CF578AB00359447 /* registerPage.m */,
 				007A332C1CEF83FE00052223 /* messages.h */,
 				007A332D1CEF83FE00052223 /* messages.m */,
 				00D7429F1CE84CDB00471EC9 /* users.h */,
@@ -363,6 +368,7 @@
 				00D742A11CE84CDB00471EC9 /* users.m in Sources */,
 				007A332E1CEF83FE00052223 /* messages.m in Sources */,
 				006FCDC31CE98E1F000D3004 /* dbArrays.m in Sources */,
+				004A72DD1CF578AB00359447 /* registerPage.m in Sources */,
 				0082BFB91CE9361F00F0C555 /* images.m in Sources */,
 				0018DA241CCDA0E20026E5B5 /* main.m in Sources */,
 				000AD0D81CE9A5CA002EDD65 /* postCellDetail.m in Sources */,

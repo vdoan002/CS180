@@ -27,8 +27,11 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
+    
     loginPageObj = [[loginPage alloc] init];
-   self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [loginPageObj retrieveMessages];
     
     NSLog(@"FirstViewController: users: %@", [dbArrays sharedInstance].usersArray);
     
@@ -39,6 +42,9 @@
     else{
         num_posts_label.text = [NSString stringWithFormat:@"%lu posts", [dbArrays sharedInstance].postsArray.count];
     }
+    num_posts_label.textColor = [UIColor whiteColor];
+    num_posts_label.backgroundColor = [UIColor blackColor];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,6 +71,13 @@
     }
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -84,11 +97,15 @@
     post = [[dbArrays sharedInstance].postsArray objectAtIndex:indexPath.row];
     cell.textLabel.text = post.post_title;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.highlightedTextColor = [UIColor blackColor];
     return cell;
 }
 
 - (IBAction)refreshButton:(id)sender {
     NSLog(@"refreshButton pressed!");
+    [loginPageObj retrieveImages];
     [self refreshAll];
 }
 /*-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
