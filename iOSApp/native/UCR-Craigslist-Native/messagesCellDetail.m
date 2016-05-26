@@ -18,7 +18,7 @@
 @end
 
 @implementation messagesCellDetail
-@synthesize message, navBarItem, currentLoggedInUserName, num_messages_label, barButtonItem, composeField, sendButtonItem, loginPageObj, relevantMessagesArray;
+@synthesize message, navBarItem, num_messages_label, barButtonItem, composeField, sendButtonItem, loginPageObj, relevantMessagesArray;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -66,7 +66,6 @@
     self.navigationController.toolbarHidden = false;
     self.tableView.estimatedRowHeight = 100.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-    loginPageObj = [[loginPage alloc] init];
 }
 
 -(void)dismissKeyboard { //http://stackoverflow.com/a/5711504
@@ -119,13 +118,14 @@
     
     [UIView commitAnimations];
 }
+
 // http://stackoverflow.com/a/11515771
 // http://stackoverflow.com/a/15589721
 -(void)writeToDB{
     // Create your request string with parameter name as defined in PHP file
     NSString * messageUser;
     NSString * messageFriend;
-    if([message.message_sender isEqualToString:currentLoggedInUserName]){
+    if([message.message_sender isEqualToString:[dbArrays sharedInstance].currentLoggedInUserName]){
         messageUser = message.message_sender;
         messageFriend = message.message_receiver;
     }
@@ -154,17 +154,6 @@
         NSString *requestReply = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
         NSLog(@"requestReply: %@", requestReply);
     }] resume];
-    
-    /*NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
-    NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:request fromData:data completionHandler:^(NSData *data,NSURLResponse *response, NSError *error) {
-        NSLog(@"response: %@", response);
-    }];
-    [uploadTask resume];*/
-    //NSData * returnData = [NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil];
-    // Log Response
-    //NSString * response = [[NSString alloc] initWithBytes:[returnSession bytes] length:[returnData length] encoding:NSUTF8StringEncoding];
-    //NSLog(@"response: %@",response);
 }
 
 -(void)refreshAll{
@@ -222,7 +211,7 @@
         userObj = [[dbArrays sharedInstance].usersArray objectAtIndex:i];
         NSLog(@"userObj.loggedIn: %@", userObj.loggedIn);
         if([userObj.loggedIn isEqualToString:@"true"]){
-            currentLoggedInUserName = userObj.username;
+            [dbArrays sharedInstance].currentLoggedInUserName = userObj.username;
             currentLoggedInUserID = userObj.userID;
         }
     }
@@ -231,7 +220,7 @@
         NSString * messageUser;
         NSString * messageFriend;
         messageObj = [[dbArrays sharedInstance].messagesArray objectAtIndex:i];
-        if([message.message_sender isEqualToString:currentLoggedInUserName]){
+        if([message.message_sender isEqualToString:[dbArrays sharedInstance].currentLoggedInUserName]){
             messageUser = message.message_sender;
             messageFriend = message.message_receiver;
         }
@@ -243,7 +232,7 @@
         //set title
         navBarItem.title = messageFriend;
         
-        if(([messageObj.message_receiver isEqualToString:currentLoggedInUserName] && [messageObj.message_sender isEqualToString:messageFriend]) || ([messageObj.message_sender isEqualToString:currentLoggedInUserName] && [messageObj.message_receiver isEqualToString:messageFriend])){
+        if(([messageObj.message_receiver isEqualToString:[dbArrays sharedInstance].currentLoggedInUserName] && [messageObj.message_sender isEqualToString:messageFriend]) || ([messageObj.message_sender isEqualToString:[dbArrays sharedInstance].currentLoggedInUserName] && [messageObj.message_receiver isEqualToString:messageFriend])){
             /*NSLog(@"message ADDED!!!!!!!!!!!!!!!!!");
             NSLog(@"messageObj.message_id: %@", messageObj.message_id);
             NSLog(@"messageObj.message_sender: %@", messageObj.message_sender);
@@ -255,8 +244,6 @@
             [relevantMessagesArray addObject:messageObj];
         }
     }
-    
-    
     
     //set num of messages label here
     if(relevantMessagesArray.count == 1){
@@ -280,7 +267,7 @@
     messages * message_output;
     message_output = [relevantMessagesArray objectAtIndex:indexPath.row];
     NSString * timeStamp = [NSString stringWithFormat:@"%@ on %@", message_output.message_timesent, message_output.message_date];
-    if([message_output.message_sender isEqualToString:currentLoggedInUserName]){
+    if([message_output.message_sender isEqualToString:[dbArrays sharedInstance].currentLoggedInUserName]){
         //right align
         cell.textLabel.textAlignment = NSTextAlignmentRight;
         cell.detailTextLabel.textAlignment = NSTextAlignmentRight;

@@ -12,13 +12,14 @@
 #import "dbArrays.h"
 #import "users.h"
 #import "messagesCellDetail.h"
+#import "newMessageViewController.h"
 
 @interface FourthViewController ()
 
 @end
 
 @implementation FourthViewController
-@synthesize navBar, num_threads_label, loginPageObj, relevantThreadsArray, currentLoggedInUserName;
+@synthesize navBar, num_threads_label, loginPageObj, friends;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -54,11 +55,17 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return relevantThreadsArray.count;
+    return [dbArrays sharedInstance].relevantThreadsArray.count;
+}
+
+- (void)dismissThreadsAndShowComposer{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *newMessageViewController = [storyboard instantiateViewControllerWithIdentifier:@"newMessageViewController"];
+    [self presentViewController:newMessageViewController animated:YES completion:nil];
 }
 
 - (IBAction)newButton:(id)sender {
-    
+    [self dismissThreadsAndShowComposer];
 }
 
 - (void)findRelevantThreads{
@@ -66,50 +73,50 @@
     messages * message;
     //NSUInteger reviewCnt = 0;
     
-    NSMutableArray * relevantThreadsArraySender = [NSMutableArray new];
-    relevantThreadsArray = [NSMutableArray new];
+    [dbArrays sharedInstance].relevantThreadsArraySender = [NSMutableArray new];
+    [dbArrays sharedInstance].relevantThreadsArray = [NSMutableArray new];
     NSString * currentLoggedInUserID;
     
     for(int i  = 0; i < [dbArrays sharedInstance].usersArray.count; i++){
         userObj = [[dbArrays sharedInstance].usersArray objectAtIndex:i];
         //NSLog(@"userObj.loggedIn: %@", userObj.loggedIn);
         if([userObj.loggedIn isEqualToString:@"true"]){
-            currentLoggedInUserName = userObj.username;
+            [dbArrays sharedInstance].currentLoggedInUserName = userObj.username;
             currentLoggedInUserID = userObj.userID;
         }
     }
     
     for(int i = 0; i < [dbArrays sharedInstance].messagesArray.count; i++){
         message = [[dbArrays sharedInstance].messagesArray objectAtIndex:i];
-        NSLog(@"message.message_id: %@", message.message_id);
+        /*NSLog(@"message.message_id: %@", message.message_id);
         NSLog(@"message.message_sender: %@", message.message_sender);
         NSLog(@"message.message_receiver: %@", message.message_receiver);
         NSLog(@"message.message_content: %@", message.message_content);
         NSLog(@"message.message_timesent: %@", message.message_timesent);
         NSLog(@"message.message_date: %@", message.message_date);
-        NSLog(@"message.message_seen: %@", message.message_seen);
+        NSLog(@"message.message_seen: %@", message.message_seen);*/
 
-        if([message.message_receiver isEqualToString:currentLoggedInUserName] && ![relevantThreadsArraySender containsObject:message.message_sender]){
-            NSLog(@"thread ADDED!!!!!!!!!!!!!!!!!");
-            [relevantThreadsArray addObject:message];
-            [relevantThreadsArraySender addObject:message.message_sender];
+        if([message.message_receiver isEqualToString:[dbArrays sharedInstance].currentLoggedInUserName] && ![[dbArrays sharedInstance].relevantThreadsArraySender containsObject:message.message_sender]){
+            //NSLog(@"thread ADDED!!!!!!!!!!!!!!!!!");
+            [[dbArrays sharedInstance].relevantThreadsArray addObject:message];
+            [[dbArrays sharedInstance].relevantThreadsArraySender addObject:message.message_sender];
         }
-        else if([message.message_sender isEqualToString:currentLoggedInUserName] && ![relevantThreadsArraySender containsObject:message.message_receiver]){
-            NSLog(@"thread ADDED!!!!!!!!!!!!!!!!!");
-            [relevantThreadsArray addObject:message];
-            [relevantThreadsArraySender addObject:message.message_receiver];
+        else if([message.message_sender isEqualToString:[dbArrays sharedInstance].currentLoggedInUserName] && ![[dbArrays sharedInstance].relevantThreadsArraySender containsObject:message.message_receiver]){
+            //NSLog(@"thread ADDED!!!!!!!!!!!!!!!!!");
+            [[dbArrays sharedInstance].relevantThreadsArray addObject:message];
+            [[dbArrays sharedInstance].relevantThreadsArraySender addObject:message.message_receiver];
         }
     }
     
     //set num of threads label here
-    if(relevantThreadsArray.count == 0){
+    if([dbArrays sharedInstance].relevantThreadsArray.count == 0){
        num_threads_label.text = @"You need friends";
     }
-    else if(relevantThreadsArray.count == 1){
+    else if([dbArrays sharedInstance].relevantThreadsArray.count == 1){
         num_threads_label.text = @"1 thread";
     }
     else{
-        num_threads_label.text = [NSString stringWithFormat:@"%lu threads", (unsigned long)relevantThreadsArray.count];
+        num_threads_label.text = [NSString stringWithFormat:@"%lu threads", (unsigned long)[dbArrays sharedInstance].relevantThreadsArray.count];
     }
     num_threads_label.textColor = [UIColor whiteColor];
     num_threads_label.backgroundColor = [UIColor blackColor];
@@ -123,8 +130,8 @@
     // Configure the cell...
     
     //messages * message;
-    messages * message = [relevantThreadsArray objectAtIndex:indexPath.row];
-    if([message.message_sender isEqualToString:currentLoggedInUserName]){
+    messages * message = [[dbArrays sharedInstance].relevantThreadsArray objectAtIndex:indexPath.row];
+    if([message.message_sender isEqualToString:[dbArrays sharedInstance].currentLoggedInUserName]){
         cell.textLabel.text = message.message_receiver;
     }
     else{
@@ -200,10 +207,15 @@
         NSIndexPath * indexPath = [self.tableView indexPathForSelectedRow];
         
         //get obj for selected row
-        messages * message = [relevantThreadsArray objectAtIndex:indexPath.row];
+        messages * message = [[dbArrays sharedInstance].relevantThreadsArray objectAtIndex:indexPath.row];
         
         [[segue destinationViewController] getMessages:message];
     }
+    /*else if([[segue identifier] isEqualToString:@"newMsgSegue"]){
+        [self setupFriends];
+        NSLog(@"FourthViewController.friends.count: %lu", friends.count);
+        [[segue destinationViewController] getFriends:friends];
+    }*/
 }
 
 @end

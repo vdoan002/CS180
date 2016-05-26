@@ -44,7 +44,7 @@
     [[UITableViewCell appearance] setSeparatorInset:UIEdgeInsetsZero];
     [[UITableViewCell appearance] setBackgroundColor:[UIColor darkGrayColor]];
     [[UITextField appearance] setClearButtonMode:UITextFieldViewModeAlways];
-
+    
     return YES;
 }
 

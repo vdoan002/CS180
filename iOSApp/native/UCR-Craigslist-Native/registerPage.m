@@ -23,6 +23,9 @@
     // Do any additional setup after loading the view.
     [self setupTextFields];
     [self setupKeyboard];
+    emailTextField.delegate = self;
+    userTextField.delegate = self;
+    passwordTextField.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,9 +73,6 @@
     
     userTextField.text = loginPageObj.userTF.text;
     passwordTextField.text = loginPageObj.passwdTF.text;
-    
-    NSLog(@"loginPageObj.userTF.text: %@", loginPageObj.userTF.text);
-    NSLog(@"loginPageObj.passwdTF.text: %@", loginPageObj.passwdTF.text);
 }
 
 - (void)presentPopup:(NSString *)titleText message: (NSString *)message{
@@ -103,11 +103,6 @@
     // Create Data from request
     NSData *data = [NSData dataWithBytes: [myRequestString UTF8String] length: [myRequestString length]];
     NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[data length]];
-    /*NSDictionary *dictionary = @{@"content": composeField.text, @"sender": currentLoggedInUserName, @"receiver": message.message_sender};
-     NSError *error = nil;
-     NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary
-     options:kNilOptions error:&error];*/
-    
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString: @"http://www.practicemakesperfect.co.nf/setRegistration.php"]];
     
     [request setHTTPMethod: @"POST"];
@@ -132,6 +127,17 @@
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
+}
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if([[segue identifier] isEqualToString:@"backToLoginSegue"]){
+        [segue destinationViewController];
+    }
 }
 
 - (IBAction)registerButton:(id)sender {
@@ -187,6 +193,6 @@
 }
 
 - (IBAction)backToLoginButton:(id)sender {
-    [self dismissRegistrationAndShowLogin];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end

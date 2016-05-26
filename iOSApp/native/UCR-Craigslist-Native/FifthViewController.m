@@ -75,7 +75,10 @@
                                actionWithTitle:@"Logout"
                                style:UIAlertActionStyleDefault
                                handler:^(UIAlertAction * action) {
-                                   [self dismissProfileAndShowLogin];
+                                   [dbArrays sharedInstance].usersLoaded = false;
+                                   NSLog(@"[dbArrays sharedInstance].usersLoaded: %d", [dbArrays sharedInstance].usersLoaded);
+                                   //[self dismissProfileAndShowLogin];
+                                   [self dismissViewControllerAnimated:YES completion:nil];
                                }];
     
     [alert addAction:logout];
@@ -95,7 +98,6 @@
     //NSUInteger reviewCnt = 0;
     
     NSMutableArray * relevantReviewsArray = [NSMutableArray new];
-    NSString * currentLoggedInUserName;
     NSString * currentLoggedInUserID;
     NSString * currentLoggedInUserRating;
     NSString * currentLoggedInUserNumOfRatings;
@@ -105,22 +107,23 @@
         userObj = [[dbArrays sharedInstance].usersArray objectAtIndex:i];
         NSLog(@"userObj.loggedIn: %@", userObj.loggedIn);
         if([userObj.loggedIn isEqualToString:@"true"]){
-            currentLoggedInUserName = userObj.username;
+            [dbArrays sharedInstance].currentLoggedInUserName = userObj.username;
             currentLoggedInUserID = userObj.userID;
             currentLoggedInUserRatingFloat = [userObj.total_rating floatValue] / [userObj.num_reviews floatValue];
             currentLoggedInUserRating = [NSString stringWithFormat:@"%.1f", currentLoggedInUserRatingFloat];
             currentLoggedInUserNumOfRatings = userObj.num_reviews;
         }
-        
     }
+    
+    NSLog(@"currentLoggedInUserID: %@", currentLoggedInUserID);
+    NSLog(@"currentLoggedInUserName: %@", [dbArrays sharedInstance].currentLoggedInUserName);
+    NSLog(@"currentLoggedInUserRating: %@", currentLoggedInUserRating);
+    NSLog(@"currentLoggedInUserNumOfRatings: %@", currentLoggedInUserNumOfRatings);
     
     for(int i = 0; i < [dbArrays sharedInstance].reviewsArray.count; i++){
         reviewObj = [[dbArrays sharedInstance].reviewsArray objectAtIndex:i];
         NSLog(@"reviewObj.user_id: %@", reviewObj.user_id);
-        NSLog(@"currentLoggedInUserID: %@", currentLoggedInUserID);
-        NSLog(@"currentLoggedInUserName: %@", currentLoggedInUserName);
-        NSLog(@"currentLoggedInUserRating: %@", currentLoggedInUserRating);
-        NSLog(@"currentLoggedInUserNumOfRatings: %@", currentLoggedInUserNumOfRatings);
+      
  
         
         if([reviewObj.user_id isEqualToString:currentLoggedInUserID]){
@@ -132,11 +135,15 @@
     
     //set rating to 0 if null
     if(isnan(currentLoggedInUserRatingFloat)){
-        navBar.title = [NSString stringWithFormat:@"%@", currentLoggedInUserName];
+        navBar.title = [NSString stringWithFormat:@"%@", [dbArrays sharedInstance].currentLoggedInUserName];
     }
-    if(currentLoggedInUserRatingFloat == (int)currentLoggedInUserRatingFloat){
+    else if(currentLoggedInUserRatingFloat == (int)currentLoggedInUserRatingFloat){
         currentLoggedInUserRating = [NSString stringWithFormat:@"%d", (int)currentLoggedInUserRatingFloat];
-        navBar.title = [NSString stringWithFormat:@"%@: %@/5", currentLoggedInUserName, currentLoggedInUserRating];
+        navBar.title = [NSString stringWithFormat:@"%@: %@/5", [dbArrays sharedInstance].currentLoggedInUserName, currentLoggedInUserRating];
+    }
+    else{
+        currentLoggedInUserRating = [NSString stringWithFormat:@"%.1f", currentLoggedInUserRatingFloat];
+        navBar.title = [NSString stringWithFormat:@"%@: %@/5", [dbArrays sharedInstance].currentLoggedInUserName, currentLoggedInUserRating];
     }
     
     //set num of ratings label here

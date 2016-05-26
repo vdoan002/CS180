@@ -30,7 +30,7 @@
 @end
 
 @implementation loginPage
-@synthesize  titleLabel, loginUIButton, registerUIButton, user, userTF, passwdTF;
+@synthesize  titleLabel, loginUIButton, registerUIButton, user, userTF, passwdTF, matched;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,7 +45,10 @@
         [self retrieveImages];
         [dbArrays sharedInstance].imagesLoaded = true;
     }*/
-    
+    /*if(![dbArrays sharedInstance].usersLoaded){ // users only loaded when app is first launched. optimization workaround
+        [self retrieveUsers];
+        [dbArrays sharedInstance].usersLoaded = true;
+    }*/
     [self retrieveUsers];
     [self setupKeyboard];
     
@@ -58,6 +61,10 @@
     
     userTF.delegate = self;
     passwdTF.delegate = self;
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [self retrieveUsers];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -103,6 +110,12 @@
     loginPage * loginPageObj = [[loginPage alloc] init];
     loginPageObj.userTF = userTF;
     loginPageObj.passwdTF = passwdTF;
+    NSLog(@"Before segue execution: matched: %d", matched);
+    //AppDelegate *appDelg = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    /*if([[segue identifier] isEqualToString:@"tabSegue"] && matched){
+        
+        
+    }*/
     if([[segue identifier] isEqualToString:@"registerSegue"]){
         [[segue destinationViewController] getLoginPageObj:loginPageObj];
     }
@@ -245,14 +258,16 @@
 - (IBAction)loginButton:(id)sender {
     [[self view] endEditing:YES]; 
     //trying to match inputted text with database
-    BOOL matched = 0;
+    matched = false;
     NSLog(@"usersArray.count: %lu", (unsigned long)[dbArrays sharedInstance].usersArray.count);
     for(int i = 0; i < [dbArrays sharedInstance].usersArray.count && !matched; i++){
         
         if([userTF.text isEqualToString:[[[dbArrays sharedInstance].usersArray objectAtIndex:i] username]] && [passwdTF.text isEqualToString:[[[dbArrays sharedInstance].usersArray objectAtIndex:i] password]]){
             user = [[dbArrays sharedInstance].usersArray objectAtIndex:i];
+            NSLog(@"user.username that logged in: %@", user.username);
+            
             user.loggedIn = @"true";
-            matched = 1;
+            matched = true;
         }
     }
     
@@ -273,15 +288,19 @@
     }
     else if(matched){
         UIAlertController *alert = [UIAlertController
-                                         alertControllerWithTitle:[NSString stringWithFormat:@"Welcome, %@", userTF.text]
-                                              message:@"to UCR Craigslist!"
-                                              preferredStyle:UIAlertControllerStyleAlert];
-    
+                                    alertControllerWithTitle:[NSString stringWithFormat:@"Welcome, %@", userTF.text]
+                                    message:@"to UCR Craigslist!"
+                                    preferredStyle:UIAlertControllerStyleAlert];
+        
         //button creation and function (handler)
         UIAlertAction* actionOk = [UIAlertAction
                                    actionWithTitle:@"OK"
                                    style:UIAlertActionStyleDefault
-                                   handler:^(UIAlertAction * action) {}];
+                                   handler:^(UIAlertAction * actionOK) {
+                                       UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                                       UITabBarController * tabView = [storyboard instantiateViewControllerWithIdentifier:@"tabView"];
+                                       [self presentViewController:tabView animated:YES completion:nil];
+                                   }];
         
         [alert addAction:actionOk];
         
@@ -290,7 +309,6 @@
         //source code: http://stackoverflow.com/a/21877460
         AppDelegate *appDelg = (AppDelegate*)[[UIApplication sharedApplication] delegate];
         appDelg.validLogin = 1;
-        [self dismissLoginAndShowTabs];
         //end source code
     }
     
@@ -310,7 +328,7 @@
 - (void)dismissLoginAndShowRegistration{
     [self dismissViewControllerAnimated:YES completion:^{
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UITabBarController *registerPage = [storyboard instantiateViewControllerWithIdentifier:@"registerPage"];
+        UIViewController *registerPage = [storyboard instantiateViewControllerWithIdentifier:@"registerPage"];
         [self presentViewController:registerPage animated:YES completion:nil];
     }];
 }

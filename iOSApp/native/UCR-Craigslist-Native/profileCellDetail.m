@@ -37,6 +37,8 @@
     
     rating_label.text = [NSString stringWithFormat:@"rating: %@/5", review.rating];
     review_label.text = review.review;
+    rating_label.textColor = [UIColor whiteColor];
+    review_label.textColor = [UIColor whiteColor];
 }
 
 

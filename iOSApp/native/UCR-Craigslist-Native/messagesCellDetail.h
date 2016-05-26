@@ -19,7 +19,6 @@
 @property (strong, nonatomic) IBOutlet UINavigationItem *navBarItem;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *barButtonItem;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *sendButtonItem;
-@property (strong, nonatomic) NSString * currentLoggedInUserName;
 @property (strong, nonatomic) UITextView * composeField;
 @property (strong, nonatomic) NSMutableArray * relevantMessagesArray;
 - (IBAction)sendButton:(id)sender;

@@ -24,6 +24,7 @@
 //@property (nonatomic, retain) LoginViewController * loginView;
 
 @property (nonatomic, retain) IBOutlet UILabel *titleLabel;
+@property (nonatomic) BOOL matched;
 @property(nonatomic, strong) users * user;
 
 #pragma mark - 

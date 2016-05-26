@@ -17,7 +17,11 @@
 @property (nonatomic, strong) NSMutableArray * imagesArray;
 @property (nonatomic, strong) NSMutableArray * chatArray;
 @property (nonatomic, strong) NSMutableArray * messagesArray;
+@property (strong, nonatomic) NSMutableArray * relevantThreadsArray;
+@property (strong, nonatomic) NSMutableArray * relevantThreadsArraySender;
+@property (nonatomic, strong) NSString * currentLoggedInUserName;
 @property (nonatomic) BOOL imagesLoaded;
+@property (nonatomic) BOOL usersLoaded;
 + (dbArrays*) sharedInstance;
 
 @end

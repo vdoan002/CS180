@@ -16,7 +16,7 @@
 @end
 
 @implementation ThirdViewController
-@synthesize catPicker, titleField, priceField, descView, categories, category, titleName, price, desc, currentLoggedInUserName;
+@synthesize catPicker, titleField, priceField, descView, categories, category, titleName, price, desc;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -47,6 +47,7 @@
     catPicker.dataSource = self;
     
     categories = @[@"Books", @"Clothing", @"Electronics", @"Furniture", @"Household", @"Leases", @"Music", @"Pets", @"Services", @"Tickets", @"Vehicles", @"Other"];
+    category = categories[0];
     
     //self.descView.layer.borderWidth = 5.0f;
     //self.descView.layer.borderColor = [[UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0] CGColor]
@@ -76,7 +77,7 @@
         userObj = [[dbArrays sharedInstance].usersArray objectAtIndex:i];
         //NSLog(@"userObj.loggedIn: %@", userObj.loggedIn);
         if([userObj.loggedIn isEqualToString:@"true"]){
-            currentLoggedInUserName = userObj.username;
+            [dbArrays sharedInstance].currentLoggedInUserName = userObj.username;
         }
     }
 }
@@ -168,7 +169,7 @@
 // http://stackoverflow.com/a/15589721
 -(void)writeToDB{
     // Create your request string with parameter name as defined in PHP file®
-    NSString *myRequestString = [NSString stringWithFormat:@"user=%@&category=%@&title=%@&price=%@&description=%@", currentLoggedInUserName, category, titleName, price, desc];
+    NSString *myRequestString = [NSString stringWithFormat:@"user=%@&category=%@&title=%@&price=%@&description=%@", [dbArrays sharedInstance].currentLoggedInUserName, category, titleName, price, desc];
     NSLog(@"%@", myRequestString);
     
     // Create Data from request

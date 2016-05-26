@@ -12,7 +12,7 @@
 static NSString * _loggedIn;
 
 @implementation dbArrays
-@synthesize usersArray, postsArray, reviewsArray, imagesArray, chatArray, messagesArray, jsonArray, imagesLoaded;
+@synthesize usersArray, postsArray, reviewsArray, imagesArray, chatArray, messagesArray, jsonArray, imagesLoaded, currentLoggedInUserName, relevantThreadsArray, relevantThreadsArraySender, usersLoaded;
 
 // singleton: http://stackoverflow.com/questions/10649370/simple-passing-of-variables-between-classes-in-xcode
 + (dbArrays*) sharedInstance {
@@ -26,7 +26,11 @@ static NSString * _loggedIn;
         myInstance.imagesArray = [NSMutableArray arrayWithObject:@""];
         myInstance.chatArray = [NSMutableArray arrayWithObject:@""];
         myInstance.messagesArray = [NSMutableArray arrayWithObject:@""];
+        myInstance.relevantThreadsArray = [NSMutableArray arrayWithObject:@""];
+        myInstance.relevantThreadsArraySender = [NSMutableArray arrayWithObject:@""];
         myInstance.imagesLoaded = false;
+        myInstance.usersLoaded = false;
+        myInstance.currentLoggedInUserName = @"";
     }
     return myInstance;
 }
