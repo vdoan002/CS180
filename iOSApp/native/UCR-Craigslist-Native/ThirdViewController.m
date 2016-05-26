@@ -23,7 +23,7 @@
     // Do any additional setup after loading the view.
     //keyboard dismiss: http://stackoverflow.com/a/5711504
     [self getUserName];
-    
+    self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                           action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
@@ -47,6 +47,15 @@
     catPicker.dataSource = self;
     
     categories = @[@"Books", @"Clothing", @"Electronics", @"Furniture", @"Household", @"Leases", @"Music", @"Pets", @"Services", @"Tickets", @"Vehicles", @"Other"];
+    
+    //self.descView.layer.borderWidth = 5.0f;
+    //self.descView.layer.borderColor = [[UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0] CGColor]
+    self.descView.layer.cornerRadius = 5;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,6 +94,14 @@
 
 - (NSString *)pickerView:(UIPickerView *)thePickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     return categories[row];
+}
+
+// changing pickerView text color http://stackoverflow.com/q/20698547
+- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    NSString *title = categories[row];
+    NSAttributedString *attString = [[NSAttributedString alloc] initWithString:title attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
+    return attString;
 }
 
 #pragma mark -
@@ -143,7 +160,6 @@
     
     [alert addAction:actionOk];
 
-    
     [picker dismissViewControllerAnimated:YES completion:nil];
     //UIImage *newImage = image;
 }

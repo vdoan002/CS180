@@ -10,8 +10,8 @@
 
 @interface FifthViewController : UITableViewController
 @property (strong, nonatomic) IBOutlet UINavigationItem *navBar;
-- (IBAction)logoutButton:(id)sender;
 @property (strong, nonatomic) IBOutlet UITextField *num_reviews_label;
+- (IBAction)logoutButton:(id)sender;
 
 - (NSMutableArray*)findRelevantReviews;
 

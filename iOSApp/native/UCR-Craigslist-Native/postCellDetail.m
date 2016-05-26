@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
     [self setLabels];
     [self displayImages];
 }
@@ -85,6 +85,16 @@
     post_date_label.text = [NSString stringWithFormat:@"Posted on %@ at %@", post.post_date, post.post_time];
     post_photos_label.text = post.post_photos;
     post_photo_id_label.text = post.post_photo_id;
+    
+    post_id_label.textColor = [UIColor whiteColor];
+    post_username_label.textColor = [UIColor whiteColor];
+    post_price_label.textColor = [UIColor whiteColor];
+    post_category_label.textColor = [UIColor whiteColor];
+    post_description_label.textColor = [UIColor whiteColor];
+    post_date_label.textColor = [UIColor whiteColor];
+    post_photos_label.textColor = [UIColor whiteColor];
+    post_photo_id_label.textColor = [UIColor whiteColor];;
+    
 }
     
 @end

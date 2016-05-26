@@ -29,8 +29,22 @@
     users * user = [[users alloc] init];
     self.validLogin = [user validUser];
     
-    NSLog(@"hello world!");
+    [self.window setTintColor:[UIColor whiteColor]];
     
+    //set tab bar color
+    [[UITabBar appearance] setBackgroundColor:[UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0]];
+    [[UITabBar appearance] setBarTintColor:[UIColor blackColor]];
+    [[UITextField appearance] setTintColor:[UIColor darkGrayColor]];
+    [[UITextView appearance] setTintColor:[UIColor darkGrayColor]];
+    [[UITableViewCell appearance] setSelectionStyle:UITableViewCellSelectionStyleGray];
+    [[UITableView appearance] setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UITableViewCell appearance] setLayoutMargins:UIEdgeInsetsZero];
+    [[UITableViewCell appearance] setSeparatorInset:UIEdgeInsetsZero];
+    [[UITableViewCell appearance] setBackgroundColor:[UIColor darkGrayColor]];
+    [[UITextField appearance] setClearButtonMode:UITextFieldViewModeAlways];
+
     return YES;
 }
 

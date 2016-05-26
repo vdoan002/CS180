@@ -28,9 +28,10 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    NSLog(@"FifthViewController: reviews: %@", [dbArrays sharedInstance].reviewsArray);
+    self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
     num_reviews_label.userInteractionEnabled = false;
+    
+    [self refreshAll];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,14 +39,53 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)logoutButton:(id)sender {
-    //loginPage * loginPageObj = [[loginPage alloc] initWithNibName:nil bundle:nil];
-    //[self presentViewController:loginPageObj animated:YES completion:NULL];
-    [self dismissViewControllerAnimated:NO completion:^{
+- (void) viewWillAppear:(BOOL)animated {
+    [self refreshAll];
+}
+
+- (void)refreshAll{
+    loginPage * loginPageObj = [[loginPage alloc] init];
+    [loginPageObj retrieveReviews];
+    [self findRelevantReviews];
+    [self.tableView reloadData];
+}
+
+- (void)dismissProfileAndShowLogin{
+    [self dismissViewControllerAnimated:YES completion:^{
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UITabBarController *loginPage = [storyboard instantiateViewControllerWithIdentifier:@"loginPage"];
         [self presentViewController:loginPage animated:YES completion:nil];
     }];
+}
+
+- (void)presentOptionPopup:(NSString *)titleText message: (NSString *)message{
+    //courtesy popup
+    UIAlertController *alert = [UIAlertController
+                                alertControllerWithTitle:titleText
+                                message:message
+                                preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction * cancel = [UIAlertAction
+                                   actionWithTitle:@"Cancel"
+                                   style:UIAlertActionStyleCancel
+                                   handler:^(UIAlertAction *action) {}];
+    
+    //button creation and function (handler)
+    UIAlertAction * logout = [UIAlertAction
+                               actionWithTitle:@"Logout"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action) {
+                                   [self dismissProfileAndShowLogin];
+                               }];
+    
+    [alert addAction:logout];
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (IBAction)logoutButton:(id)sender {
+    [self presentOptionPopup:@"Logout" message:@"Are you sure you want to logout?"];
 }
 
 - (NSMutableArray*)findRelevantReviews{
@@ -92,14 +132,12 @@
     
     //set rating to 0 if null
     if(isnan(currentLoggedInUserRatingFloat)){
-        currentLoggedInUserRating = @"0";
+        navBar.title = [NSString stringWithFormat:@"%@", currentLoggedInUserName];
     }
     if(currentLoggedInUserRatingFloat == (int)currentLoggedInUserRatingFloat){
         currentLoggedInUserRating = [NSString stringWithFormat:@"%d", (int)currentLoggedInUserRatingFloat];
+        navBar.title = [NSString stringWithFormat:@"%@: %@/5", currentLoggedInUserName, currentLoggedInUserRating];
     }
-    
-    //set table title here
-    navBar.title = [NSString stringWithFormat:@"%@: %@/5", currentLoggedInUserName, currentLoggedInUserRating];
     
     //set num of ratings label here
     if([currentLoggedInUserNumOfRatings isEqualToString:@"0"]){
@@ -108,9 +146,16 @@
     else{
         num_reviews_label.text = [NSString stringWithFormat:@"%@ reviews", currentLoggedInUserNumOfRatings];
     }
+    num_reviews_label.textColor = [UIColor whiteColor];
+    num_reviews_label.backgroundColor = [UIColor blackColor];
     
     NSLog(@"END OF findRelevantReviews; relevantReviewsArray.count: %lu", (unsigned long)relevantReviewsArray.count);
     return relevantReviewsArray;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 
 #pragma mark - Table view data source
@@ -136,6 +181,9 @@
     review = [[self findRelevantReviews] objectAtIndex:indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"Review by %@", review.reviewer];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.highlightedTextColor = [UIColor blackColor];
     return cell;
 }
 

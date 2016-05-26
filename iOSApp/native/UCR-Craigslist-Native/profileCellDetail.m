@@ -15,11 +15,11 @@
 @end
 
 @implementation profileCellDetail
-@synthesize review, review_label, rating_label, navBarItem;
+@synthesize review, review_label, rating_label, navBarItem, loginPageObj;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
     [self setLabels];
 }
 
@@ -29,8 +29,6 @@
 }
 
 -(void)getReview:(id)_review{
-    //FifthViewController * fifthObj;
-    //review = [fifthObj findRelevantReviews];
     review = _review;
 }
 

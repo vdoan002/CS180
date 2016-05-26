@@ -28,16 +28,23 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
+    self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
     num_threads_label.userInteractionEnabled = false;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self findRelevantThreads];
     loginPageObj = [[loginPage alloc] init];
+    
+    [loginPageObj retrieveMessages];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 
 #pragma mark - Table view data source
@@ -70,7 +77,6 @@
             currentLoggedInUserName = userObj.username;
             currentLoggedInUserID = userObj.userID;
         }
-        
     }
     
     for(int i = 0; i < [dbArrays sharedInstance].messagesArray.count; i++){
@@ -105,6 +111,9 @@
     else{
         num_threads_label.text = [NSString stringWithFormat:@"%lu threads", (unsigned long)relevantThreadsArray.count];
     }
+    num_threads_label.textColor = [UIColor whiteColor];
+    num_threads_label.backgroundColor = [UIColor blackColor];
+    self.num_threads_label.textAlignment = NSTextAlignmentCenter;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -122,6 +131,9 @@
         cell.textLabel.text = message.message_sender;
     }
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.highlightedTextColor = [UIColor blackColor];
     
     return cell;
 }
@@ -130,11 +142,18 @@
     [loginPageObj retrieveMessages]; //reload database retrieval
     [self findRelevantThreads];
     [self.tableView reloadData];
+    self.navigationController.toolbarHidden = true;
 }
+
+/*-(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
+    if(item.tag == 4) {
+        NSLog(@"YOU GOT ME!");
+        [self refreshAll];
+    }
+}*/
 
 - (void) viewWillAppear:(BOOL)animated {
     [self refreshAll];
-    self.navigationController.toolbarHidden = true;
 }
 /*
 // Override to support conditional editing of the table view.

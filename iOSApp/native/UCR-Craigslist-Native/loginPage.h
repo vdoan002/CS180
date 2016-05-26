@@ -10,13 +10,15 @@
 #import "users.h"
 
 @interface loginPage : UIViewController<UITextFieldDelegate> {
-    IBOutlet UITextField *userTF;
-    IBOutlet UITextField *passwdTF;
 }
 
+@property (strong, nonatomic) IBOutlet UITextField *userTF;
+@property (strong, nonatomic) IBOutlet UITextField *passwdTF;
 @property (strong, nonatomic) IBOutlet UIButton *loginUIButton;
+@property (strong, nonatomic) IBOutlet UIButton *registerUIButton;
 
 - (IBAction)loginButton:(id)sender;
+- (IBAction)registerButton:(id)sender;
 
 //@property (nonatomic, weak) id <LoginViewProtocl> delegate;
 //@property (nonatomic, retain) LoginViewController * loginView;
