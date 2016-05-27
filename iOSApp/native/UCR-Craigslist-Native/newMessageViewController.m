@@ -23,14 +23,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self setupFriends];
+    [self setupData];
     [self setupKeyboard];
-    self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
-    self.msgView.layer.cornerRadius = 5;
-    msgView.delegate = self;
-    usersPicker.delegate = self;
-    usersPicker.dataSource = self;
-    [navBar setFrame:CGRectMake(0, 0, self.view.frame.size.width, 64.0)];
+    [self setupUI];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,14 +44,27 @@
     [self.view addGestureRecognizer:tap];
 }
 
-- (void)setupFriends{
+- (void)setupData{
+    [self setupFriends];
+    msgView.delegate = self;
+    usersPicker.delegate = self;
+    usersPicker.dataSource = self;
+}
+
+- (void)setupUI{
+    self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
+    self.msgView.layer.cornerRadius = 5;
+    [navBar setFrame:CGRectMake(0, 0, self.view.frame.size.width, 64.0)];
+}
+
+- (void)setupFriends{ //get list of friends that have not been messaged yet
     friends = [[NSMutableArray alloc] init];
     for(int i = 0; i < [dbArrays sharedInstance].usersArray.count; i++){
         users * userObj = [[dbArrays sharedInstance].usersArray objectAtIndex:i];
         BOOL alreadyMessaged = false;
         
-        // skip currentLoggedInUserName check
-        if([userObj.username isEqualToString:[dbArrays sharedInstance].currentLoggedInUserName]){
+        // skip user.username check
+        if([userObj.username isEqualToString:[dbArrays sharedInstance].user.username]){
             alreadyMessaged = true;
         }
         
@@ -95,7 +103,7 @@
     return UIStatusBarStyleLightContent;
 }
 
-- (void)getFriends:(id)_friends{
+- (void)getFriends:(id)_friends{ //pasover method from FourthViewController
     friends = _friends;
 }
 
@@ -118,52 +126,25 @@
 - (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component {
     NSString * friend = friends[row];
     NSAttributedString * attString = [[NSAttributedString alloc] initWithString:friend attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    
     return attString;
 }
 
 #pragma mark -
 #pragma mark PickerView Delegate
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row
-      inComponent:(NSInteger)component
-{
+      inComponent:(NSInteger)component{
     xingFriend = friends[row];
-}
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    /*if([[segue identifier] isEqualToString:@"doneComposeSegue"]){
-        messages * message = [[messages alloc] init];
-        message.message_content = msgView.text;
-        message.message_seen = 0;
-        message.message_sender = [dbArrays sharedInstance].currentLoggedInUserName;
-        message.message_receiver = xingFriend;
-        
-        [[segue destinationViewController] getMessages:message];
-    }*/
-    if([[segue identifier] isEqualToString:@"backSegue"]){
-        [segue destinationViewController];
-    }
 }
 
 // http://stackoverflow.com/a/11515771
 // http://stackoverflow.com/a/15589721
 -(void)writeToDB{
     // Create your request string with parameter name as defined in PHP file
-    NSString *myRequestString = [NSString stringWithFormat:@"content=%@&sender=%@&receiver=%@&", msgView.text, [dbArrays sharedInstance].currentLoggedInUserName, xingFriend];
+    NSString *myRequestString = [NSString stringWithFormat:@"content=%@&sender=%@&receiver=%@&", msgView.text, [dbArrays sharedInstance].user.username, xingFriend];
     
     // Create Data from request
     NSData *data = [NSData dataWithBytes: [myRequestString UTF8String] length: [myRequestString length]];
     NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[data length]];
-    /*NSDictionary *dictionary = @{@"content": composeField.text, @"sender": currentLoggedInUserName, @"receiver": message.message_sender};
-     NSError *error = nil;
-     NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary
-     options:kNilOptions error:&error];*/
-    
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString: @"http://www.practicemakesperfect.co.nf/setMessage.php"]];
     
     [request setHTTPMethod: @"POST"];
@@ -171,19 +152,14 @@
     [request setHTTPBody: data];
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-    [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSString *requestReply = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-        NSLog(@"requestReply: %@", requestReply);
-    }] resume];
+    [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {}] resume];
 }
 
-/*- (void)dismissComposeAndShowMessages{
-    [self dismissViewControllerAnimated:YES completion:^{
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *ViewController = [storyboard instantiateViewControllerWithIdentifier:@"newMessageViewController"];
-        [self presentViewController:newMessageViewController animated:YES completion:nil];
-    }];
-}*/
+- (void)dismissComposeAndShowMessages{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UITableViewController * messagesCellDetail = [storyboard instantiateViewControllerWithIdentifier:@"messagesCellDetail"];
+    [self presentViewController:messagesCellDetail animated:YES completion:nil];
+}
 
 - (void)presentPopup:(NSString *)titleText message: (NSString *)message{
     //courtesy popup
@@ -206,18 +182,12 @@
 - (IBAction)sendButton:(id)sender {
     if(![msgView.text isEqualToString:@""] && ![msgView.text isEqualToString:@"enter a message"]){
         [self writeToDB]; //write to the database
-        //[self performSelector:@selector(refreshAll) withObject:self afterDelay:1.0];
-        //NSLog(@"composeField.text: %@", composeField.text);
-        //[composeField setText:@""];
-        //transition to message view
-        //[self dismissComposeAndShowMessages];
+ 
         //courtesy popup
         UIAlertController *alert = [UIAlertController
                                     alertControllerWithTitle:@"Message sent!"
                                     message:@"You have made a new friend."
                                     preferredStyle:UIAlertControllerStyleAlert];
-        
-        [self presentViewController:alert animated:YES completion:nil];
         
         //button creation and function (handler)
         UIAlertAction* actionOk = [UIAlertAction
@@ -225,16 +195,20 @@
                                    style:UIAlertActionStyleDefault
                                    handler:^(UIAlertAction * action) {
                                        [self dismissViewControllerAnimated:YES completion:nil];
+                                       [dbArrays sharedInstance].transition = true;
                                    }];
         
         [alert addAction:actionOk];
+        
+        [self presentViewController:alert animated:YES completion:nil];
     }
     else{
         [self presentPopup:@"Empty message!" message:@"Please enter a message."];
     }
 }
 
-- (IBAction)backButton:(id)sender {
+- (IBAction)cancelButton:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 @end

@@ -12,13 +12,12 @@
 
 @interface profileCellDetail : UIViewController
 
-@property(nonatomic, strong) IBOutlet UILabel * reviewer_label;
-@property(nonatomic, strong) IBOutlet UILabel * rating_label;
-@property(nonatomic, strong) IBOutlet UILabel * review_label;
+@property (nonatomic, strong) IBOutlet UINavigationItem *navBarItem;
+@property (nonatomic, strong) IBOutlet UILabel * rating_label;
+@property (nonatomic, strong) IBOutlet UILabel * review_label;
 
-@property(nonatomic, strong) reviews * review;
-@property(nonatomic, strong) loginPage * loginPageObj;
-@property (strong, nonatomic) IBOutlet UINavigationItem *navBarItem;
+@property (nonatomic, strong) reviews * review;
+@property (nonatomic, strong) loginPage * loginPageObj;
 
 #pragma mark -
 #pragma mark Methods

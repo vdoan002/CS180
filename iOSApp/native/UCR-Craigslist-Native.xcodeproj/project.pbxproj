@@ -19,6 +19,7 @@
 		0018DA351CCDA0E20026E5B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0018DA331CCDA0E20026E5B5 /* LaunchScreen.storyboard */; };
 		0018DA401CCDA0E20026E5B5 /* UCR_Craigslist_NativeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0018DA3F1CCDA0E20026E5B5 /* UCR_Craigslist_NativeTests.m */; };
 		0018DA4B1CCDA0E20026E5B5 /* UCR_Craigslist_NativeUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0018DA4A1CCDA0E20026E5B5 /* UCR_Craigslist_NativeUITests.m */; };
+		002ECDC61CF7E19A0023EA0E /* CategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 002ECDC51CF7E19A0023EA0E /* CategoryTableViewController.m */; };
 		004A72DD1CF578AB00359447 /* registerPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 004A72DC1CF578AB00359447 /* registerPage.m */; };
 		005674481CE96E82004F359F /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 005674471CE96E82004F359F /* FirstViewController.m */; };
 		006FCDC31CE98E1F000D3004 /* dbArrays.m in Sources */ = {isa = PBXBuildFile; fileRef = 006FCDC21CE98E1F000D3004 /* dbArrays.m */; };
@@ -28,7 +29,6 @@
 		0082BFB01CE9227800F0C555 /* posts.m in Sources */ = {isa = PBXBuildFile; fileRef = 0082BFAF1CE9227800F0C555 /* posts.m */; };
 		0082BFB31CE935F700F0C555 /* reviews.m in Sources */ = {isa = PBXBuildFile; fileRef = 0082BFB21CE935F700F0C555 /* reviews.m */; };
 		0082BFB91CE9361F00F0C555 /* images.m in Sources */ = {isa = PBXBuildFile; fileRef = 0082BFB81CE9361F00F0C555 /* images.m */; };
-		0082BFBC1CE9362500F0C555 /* chat.m in Sources */ = {isa = PBXBuildFile; fileRef = 0082BFBB1CE9362500F0C555 /* chat.m */; };
 		009D01DC1CF69AF700F3E162 /* newMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 009D01DB1CF69AF700F3E162 /* newMessageViewController.m */; };
 		00D7429B1CE8281300471EC9 /* loginPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D7429A1CE8281300471EC9 /* loginPage.m */; };
 		00D742A11CE84CDB00471EC9 /* users.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D742A01CE84CDB00471EC9 /* users.m */; };
@@ -76,6 +76,8 @@
 		0018DA461CCDA0E20026E5B5 /* UCR-Craigslist-NativeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UCR-Craigslist-NativeUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0018DA4A1CCDA0E20026E5B5 /* UCR_Craigslist_NativeUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UCR_Craigslist_NativeUITests.m; sourceTree = "<group>"; };
 		0018DA4C1CCDA0E20026E5B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		002ECDC41CF7E19A0023EA0E /* CategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryTableViewController.h; sourceTree = "<group>"; };
+		002ECDC51CF7E19A0023EA0E /* CategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryTableViewController.m; sourceTree = "<group>"; };
 		004A72DB1CF578AB00359447 /* registerPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = registerPage.h; sourceTree = "<group>"; };
 		004A72DC1CF578AB00359447 /* registerPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = registerPage.m; sourceTree = "<group>"; };
 		005674461CE96E82004F359F /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
@@ -94,8 +96,6 @@
 		0082BFB21CE935F700F0C555 /* reviews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = reviews.m; sourceTree = "<group>"; };
 		0082BFB71CE9361F00F0C555 /* images.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = images.h; sourceTree = "<group>"; };
 		0082BFB81CE9361F00F0C555 /* images.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = images.m; sourceTree = "<group>"; };
-		0082BFBA1CE9362500F0C555 /* chat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chat.h; sourceTree = "<group>"; };
-		0082BFBB1CE9362500F0C555 /* chat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = chat.m; sourceTree = "<group>"; };
 		009D01DA1CF69AF700F3E162 /* newMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = newMessageViewController.h; sourceTree = "<group>"; };
 		009D01DB1CF69AF700F3E162 /* newMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = newMessageViewController.m; sourceTree = "<group>"; };
 		00D742991CE8281300471EC9 /* loginPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loginPage.h; sourceTree = "<group>"; };
@@ -154,6 +154,10 @@
 			children = (
 				0018DA251CCDA0E20026E5B5 /* AppDelegate.h */,
 				0018DA261CCDA0E20026E5B5 /* AppDelegate.m */,
+				006FCDC11CE98E1F000D3004 /* dbArrays.h */,
+				006FCDC21CE98E1F000D3004 /* dbArrays.m */,
+				002ECDC41CF7E19A0023EA0E /* CategoryTableViewController.h */,
+				002ECDC51CF7E19A0023EA0E /* CategoryTableViewController.m */,
 				005674461CE96E82004F359F /* FirstViewController.h */,
 				005674471CE96E82004F359F /* FirstViewController.m */,
 				0018DA2B1CCDA0E20026E5B5 /* SecondViewController.h */,
@@ -168,8 +172,6 @@
 				009D01DB1CF69AF700F3E162 /* newMessageViewController.m */,
 				00D742991CE8281300471EC9 /* loginPage.h */,
 				00D7429A1CE8281300471EC9 /* loginPage.m */,
-				006FCDC11CE98E1F000D3004 /* dbArrays.h */,
-				006FCDC21CE98E1F000D3004 /* dbArrays.m */,
 				004A72DB1CF578AB00359447 /* registerPage.h */,
 				004A72DC1CF578AB00359447 /* registerPage.m */,
 				007A332C1CEF83FE00052223 /* messages.h */,
@@ -182,8 +184,6 @@
 				0082BFB21CE935F700F0C555 /* reviews.m */,
 				0082BFB71CE9361F00F0C555 /* images.h */,
 				0082BFB81CE9361F00F0C555 /* images.m */,
-				0082BFBB1CE9362500F0C555 /* chat.m */,
-				0082BFBA1CE9362500F0C555 /* chat.h */,
 				007A33321CEF92EC00052223 /* messagesCellDetail.h */,
 				007A33331CEF92EC00052223 /* messagesCellDetail.m */,
 				000AD0D61CE9A5CA002EDD65 /* postCellDetail.h */,
@@ -359,6 +359,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0082BFB01CE9227800F0C555 /* posts.m in Sources */,
+				002ECDC61CF7E19A0023EA0E /* CategoryTableViewController.m in Sources */,
 				000E20B81CEBDA5B00BCF8E0 /* profileCellDetail.m in Sources */,
 				0082BFB31CE935F700F0C555 /* reviews.m in Sources */,
 				000E20B01CEBD8B300BCF8E0 /* FifthViewController.m in Sources */,
@@ -369,7 +370,6 @@
 				007A33341CEF92EC00052223 /* messagesCellDetail.m in Sources */,
 				00D7429B1CE8281300471EC9 /* loginPage.m in Sources */,
 				007A332B1CEF826800052223 /* FourthViewController.m in Sources */,
-				0082BFBC1CE9362500F0C555 /* chat.m in Sources */,
 				005674481CE96E82004F359F /* FirstViewController.m in Sources */,
 				00D742A11CE84CDB00471EC9 /* users.m in Sources */,
 				007A332E1CEF83FE00052223 /* messages.m in Sources */,

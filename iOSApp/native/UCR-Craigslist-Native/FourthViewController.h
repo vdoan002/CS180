@@ -10,11 +10,15 @@
 #import "loginPage.h"
 
 @interface FourthViewController : UITableViewController<UITabBarDelegate>
+
 @property (strong, nonatomic) IBOutlet UITextField *num_threads_label;
 @property (strong, nonatomic) IBOutlet UINavigationItem *navBar;
 @property(nonatomic, strong) loginPage * loginPageObj;
 @property(nonatomic, strong) NSMutableArray * friends;
+
+- (void)getRelevantThreads;
+- (void)refreshAll;
+
 - (IBAction)newButton:(id)sender;
-- (void)findRelevantThreads;
--(void)refreshAll;
+
 @end

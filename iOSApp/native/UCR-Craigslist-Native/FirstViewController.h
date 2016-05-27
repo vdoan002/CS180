@@ -12,8 +12,13 @@
 @interface FirstViewController : UITableViewController
 @property (strong, nonatomic) IBOutlet UITableView *navBar;
 @property (strong, nonatomic) IBOutlet UITextField *num_posts_label;
-@property (strong, nonatomic) loginPage * loginPageObj;
-- (IBAction)refreshButton:(id)sender;
--(void)refreshAll;
+@property (strong, nonatomic) NSString * category;
+@property (strong, nonatomic) NSMutableArray * relevantPostsArray;
+
+- (void)refreshAll;
+- (void)getCategory:(id)_category;
+- (void)getRelevantPostsArray;
+
+- (IBAction)newButton:(id)sender;
 
 @end

@@ -16,11 +16,11 @@
 
 @implementation profileCellDetail
 @synthesize review, review_label, rating_label, navBarItem, loginPageObj;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
-    [self setLabels];
+    
+    [self setupUI];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,7 +32,8 @@
     review = _review;
 }
 
--(void)setLabels{
+-(void)setupUI{
+    self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
     navBarItem.title = [NSString stringWithFormat:@"Review by %@", review.reviewer];
     
     rating_label.text = [NSString stringWithFormat:@"rating: %@/5", review.rating];
@@ -40,7 +41,5 @@
     rating_label.textColor = [UIColor whiteColor];
     review_label.textColor = [UIColor whiteColor];
 }
-
-
 
 @end

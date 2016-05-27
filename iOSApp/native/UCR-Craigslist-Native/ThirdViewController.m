@@ -20,66 +20,58 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    //keyboard dismiss: http://stackoverflow.com/a/5711504
-    [self getUserName];
-    self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                          action:@selector(dismissKeyboard)];
-    [self.view addGestureRecognizer:tap];
     
-    //set UITextField and UITextView BG Color
-    //[titleField setBackgroundColor:[UIColor blackColor]];
-    //[priceField setBackgroundColor:[UIColor blackColor]];
-    //[descView setBackgroundColor:[UIColor blackColor]];
-    
-    //set placeholder text color
-    UIColor *color = [UIColor lightGrayColor];
-    titleField.attributedPlaceholder =[[NSAttributedString alloc] initWithString:@"enter a title" attributes:@{NSForegroundColorAttributeName:color}];
-    priceField.attributedPlaceholder =[[NSAttributedString alloc] initWithString:@"enter a price" attributes:@{NSForegroundColorAttributeName:color}];
+    [self setupKeyboard];
+    [self setupData];
+    [self setupUI];
+}
+
+- (void)setupData{
+    categories = @[@"Books", @"Clothing", @"Electronics", @"Furniture", @"Household", @"Leases", @"Music", @"Pets", @"Services", @"Tickets", @"Vehicles", @"Other"];
+    category = categories[0];
     
     //set delegates
     titleField.delegate = self;
     priceField.delegate = self;
     descView.delegate = self;
-    
     catPicker.delegate = self;
     catPicker.dataSource = self;
-    
-    categories = @[@"Books", @"Clothing", @"Electronics", @"Furniture", @"Household", @"Leases", @"Music", @"Pets", @"Services", @"Tickets", @"Vehicles", @"Other"];
-    category = categories[0];
-    
-    //self.descView.layer.borderWidth = 5.0f;
-    //self.descView.layer.borderColor = [[UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0] CGColor]
-    self.descView.layer.cornerRadius = 5;
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
+- (void)setupKeyboard{
+    //keyboard dismiss: http://stackoverflow.com/a/5711504
+    self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                          action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:tap];
+}
+
+- (void)setupUI{
+    //set placeholder text color
+    UIColor *color = [UIColor lightGrayColor];
+    titleField.attributedPlaceholder =[[NSAttributedString alloc] initWithString:@"enter a title" attributes:@{NSForegroundColorAttributeName:color}];
+    priceField.attributedPlaceholder =[[NSAttributedString alloc] initWithString:@"enter a price" attributes:@{NSForegroundColorAttributeName:color}];
+    
+    //give textView a rounded border
+    self.descView.layer.cornerRadius = 5;
+    
+    //dynamically sized imageView
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(void)dismissKeyboard { //http://stackoverflow.com/a/5711504
     [titleField resignFirstResponder];
     [priceField resignFirstResponder];
     [descView resignFirstResponder];
-}
-
--(void)getUserName{
-    users * userObj;
-    
-    for(int i  = 0; i < [dbArrays sharedInstance].usersArray.count; i++){
-        userObj = [[dbArrays sharedInstance].usersArray objectAtIndex:i];
-        //NSLog(@"userObj.loggedIn: %@", userObj.loggedIn);
-        if([userObj.loggedIn isEqualToString:@"true"]){
-            [dbArrays sharedInstance].currentLoggedInUserName = userObj.username;
-        }
-    }
 }
 
 //UIPickerView setup http://stackoverflow.com/questions/13756591/how-would-i-set-up-a-uipickerview
@@ -90,7 +82,7 @@
 
 - (NSInteger)pickerView:(UIPickerView *)thePickerView numberOfRowsInComponent:(NSInteger)component {
     
-    return 12;
+    return categories.count;
 }
 
 - (NSString *)pickerView:(UIPickerView *)thePickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
@@ -107,17 +99,17 @@
 
 #pragma mark -
 #pragma mark PickerView Delegate
--(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row
-      inComponent:(NSInteger)component
-{
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row
+      inComponent:(NSInteger)component{
     category = categories[row];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if (textField == titleField) {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    if (textField == titleField){
         [textField resignFirstResponder];
         [priceField becomeFirstResponder];
-    } else if (textField == priceField) {
+    }
+    else if (textField == priceField){
         [textField resignFirstResponder];
         [descView becomeFirstResponder];
     }
@@ -125,61 +117,61 @@
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView{
-    NSLog(@"descView.text: %@", descView.text);
+    //NSLog(@"descView.text: %@", descView.text);
     if(textView == descView && [descView.text isEqualToString:@"enter a description"]){
-        NSLog(@"descView.text: %@", descView.text);
+        //NSLog(@"descView.text: %@", descView.text);
         descView.text = @"";
     }
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-- (void)imagePickerController:(UIImagePickerController *)picker
-        didFinishPickingImage:(UIImage *)image
-                  editingInfo:(NSDictionary *)editingInfo
-{
+- (void)presentPopup:(NSString *)titleText message: (NSString *)message{
     //courtesy popup
     UIAlertController *alert = [UIAlertController
-                                alertControllerWithTitle:[NSString stringWithFormat:@"Photo chosen!"]
-                                message:@"Please continue with your submission."
+                                alertControllerWithTitle:titleText
+                                message:message
                                 preferredStyle:UIAlertControllerStyleAlert];
-    
-    [self presentViewController:alert animated:YES completion:nil];
     
     //button creation and function (handler)
     UIAlertAction* actionOk = [UIAlertAction
-                               actionWithTitle:@"OK"
+                               actionWithTitle:@"Ok"
                                style:UIAlertActionStyleDefault
                                handler:^(UIAlertAction * action) {}];
     
     [alert addAction:actionOk];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
 
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    CGFloat width = image.size.width;
+    CGFloat height = image.size.height;
+    [imageView setImage:image];
+    imageView.frame = CGRectMake(67, 490, width, height);
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker
+        didFinishPickingImage:(UIImage *)image
+                  editingInfo:(NSDictionary *)editingInfo{
+    [self presentPopup:@"Photo chosen!" message:@"Please continue with your submission."];
     [picker dismissViewControllerAnimated:YES completion:nil];
-    //UIImage *newImage = image;
 }
 
 // http://stackoverflow.com/a/11515771
 // http://stackoverflow.com/a/15589721
 -(void)writeToDB{
-    // Create your request string with parameter name as defined in PHP file®
-    NSString *myRequestString = [NSString stringWithFormat:@"user=%@&category=%@&title=%@&price=%@&description=%@", [dbArrays sharedInstance].currentLoggedInUserName, category, titleName, price, desc];
+    // Create your request string with parameter name as defined in PHP file
+    NSString *myRequestString = [NSString stringWithFormat:@"user=%@&category=%@&title=%@&price=%@&description=%@", [dbArrays sharedInstance].user.username, category, titleName, price, desc];
     NSLog(@"%@", myRequestString);
     
     // Create Data from request
     NSData *data = [NSData dataWithBytes: [myRequestString UTF8String] length: [myRequestString length]];
     NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[data length]];
-    /*NSDictionary *dictionary = @{@"content": composeField.text, @"sender": currentLoggedInUserName, @"receiver": message.message_sender};
-     NSError *error = nil;
-     NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary
-     options:kNilOptions error:&error];*/
-    
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString: @"http://www.practicemakesperfect.co.nf/setPost.php"]];
     
     [request setHTTPMethod: @"POST"];
@@ -191,28 +183,13 @@
         NSString *requestReply = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
         NSLog(@"requestReply: %@", requestReply);
     }] resume];
-    
-    /*NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-     NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
-     NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:request fromData:data completionHandler:^(NSData *data,NSURLResponse *response, NSError *error) {
-     NSLog(@"response: %@", response);
-     }];
-     [uploadTask resume];*/
-    //NSData * returnData = [NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil];
-    // Log Response
-    //NSString * response = [[NSString alloc] initWithBytes:[returnSession bytes] length:[returnData length] encoding:NSUTF8StringEncoding];
-    //NSLog(@"response: %@",response);
-}
-
--(void)refreshAll{
-    
 }
 
 - (IBAction)chooseButton:(id)sender {
-    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc]init];
+    UIImagePickerController * imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.delegate = self;
     imagePickerController.sourceType =  UIImagePickerControllerSourceTypePhotoLibrary;
-    [self presentModalViewController:imagePickerController animated:YES];
+    [self presentViewController:imagePickerController animated:YES completion:nil];
 }
 
 - (IBAction)takeButton:(id)sender {
@@ -228,6 +205,7 @@
         titleName = titleField.text;
         price = priceField.text;
         desc = descView.text;
+        
         [self writeToDB];
         
         titleField.text = @"";
@@ -240,43 +218,25 @@
                                     message:@"Thank you for your submission."
                                     preferredStyle:UIAlertControllerStyleAlert];
         
-        [self presentViewController:alert animated:YES completion:nil];
-        
         //button creation and function (handler)
         UIAlertAction* actionOk = [UIAlertAction
                                    actionWithTitle:@"OK"
                                    style:UIAlertActionStyleDefault
-                                   handler:^(UIAlertAction * action) {}];
+                                   handler:^(UIAlertAction * action) {
+                                       [self dismissViewControllerAnimated:YES completion:nil];
+                                   }];
         
         [alert addAction:actionOk];
+        
+        [self presentViewController:alert animated:YES completion:nil];
     }
     else{
-        //courtesy popup
-        UIAlertController *alert = [UIAlertController
-                                    alertControllerWithTitle:[NSString stringWithFormat:@"Not submitted!"]
-                                    message:@"Please enter a valid submission."
-                                    preferredStyle:UIAlertControllerStyleAlert];
-        
-        [self presentViewController:alert animated:YES completion:nil];
-        
-        //button creation and function (handler)
-        UIAlertAction* actionOk = [UIAlertAction
-                                   actionWithTitle:@"OK"
-                                   style:UIAlertActionStyleDefault
-                                   handler:^(UIAlertAction * action) {}];
-        
-        [alert addAction:actionOk];
+        [self presentPopup:@"Not submitted!" message:@"Ok"];
     }
 }
 
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
-    // store image here into blob data
-    //image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-    //[imageView setImage:image];
-    [self dismissViewControllerAnimated:YES completion:NULL];
+- (IBAction)cancelButton:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    [self dismissViewControllerAnimated:YES completion:NULL];
-}
 @end

@@ -13,7 +13,6 @@
 #import "posts.h"
 #import "reviews.h"
 #import "images.h"
-#import "chat.h"
 #import "messages.h"
 #import "registerPage.h"
 #import "FirstViewController.h"
@@ -30,37 +29,27 @@
 @end
 
 @implementation loginPage
-@synthesize  titleLabel, loginUIButton, registerUIButton, user, userTF, passwdTF, matched;
+@synthesize  titleLabel, loginUIButton, user, userTF, passwdTF, matched;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    //set placeholder text color
-    UIColor *color = [UIColor lightGrayColor];
-    userTF.attributedPlaceholder =[[NSAttributedString alloc] initWithString:@"enter an username" attributes:@{NSForegroundColorAttributeName:color}];
-    passwdTF.attributedPlaceholder =[[NSAttributedString alloc] initWithString:@"enter a password" attributes:@{NSForegroundColorAttributeName:color}];
-    
-    /*if(![dbArrays sharedInstance].imagesLoaded){ // images only loaded when app is first launched. optimization workaround
-        [self retrieveImages];
-        [dbArrays sharedInstance].imagesLoaded = true;
-    }*/
-    /*if(![dbArrays sharedInstance].usersLoaded){ // users only loaded when app is first launched. optimization workaround
-        [self retrieveUsers];
-        [dbArrays sharedInstance].usersLoaded = true;
-    }*/
-    [self retrieveUsers];
+  
+    [self setupData];
+    [self setupUI];
     [self setupKeyboard];
-    
-    /*NSLog(@"users: %@", [dbArrays sharedInstance].usersArray);
-    NSLog(@"posts: %@", [dbArrays sharedInstance].postsArray);
-    NSLog(@"reviews: %@", [dbArrays sharedInstance].reviewsArray);
-    NSLog(@"images: %@", [dbArrays sharedInstance].imagesArray);
-    NSLog(@"chat: %@", [dbArrays sharedInstance].chatArray);
-    NSLog(@"messages: %@", [dbArrays sharedInstance].messagesArray);*/
-    
+}
+
+- (void)setupData{
+    [self retrieveUsers];
     userTF.delegate = self;
     passwdTF.delegate = self;
+}
+
+- (void)setupUI{
+    //set placeholder text color
+    UIColor *color = [UIColor lightGrayColor];
+    userTF.attributedPlaceholder =[[NSAttributedString alloc] initWithString:@"enter a username" attributes:@{NSForegroundColorAttributeName:color}];
+    passwdTF.attributedPlaceholder =[[NSAttributedString alloc] initWithString:@"enter a password" attributes:@{NSForegroundColorAttributeName:color}];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -71,7 +60,8 @@
     if (textField == userTF) {
         [textField resignFirstResponder];
         [passwdTF becomeFirstResponder];
-    } else if (textField == passwdTF) {
+    }
+    else if (textField == passwdTF) {
         [textField resignFirstResponder];
         [loginUIButton sendActionsForControlEvents:UIControlEventTouchUpInside];
     }
@@ -92,7 +82,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -100,40 +89,28 @@
     return UIStatusBarStyleLightContent;
 }
 
-
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
     loginPage * loginPageObj = [[loginPage alloc] init];
     loginPageObj.userTF = userTF;
     loginPageObj.passwdTF = passwdTF;
-    NSLog(@"Before segue execution: matched: %d", matched);
-    //AppDelegate *appDelg = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    /*if([[segue identifier] isEqualToString:@"tabSegue"] && matched){
-        
-        
-    }*/
     if([[segue identifier] isEqualToString:@"registerSegue"]){
-        [[segue destinationViewController] getLoginPageObj:loginPageObj];
+        [[segue destinationViewController] getLoginPageObj:loginPageObj]; //pass on filled in fields to registration page
     }
 }
-
 
 #pragma mark -
 #pragma mark Class Methods
     
-- (void)retrieveUsers { //referenced from: http://youtu.be/nqnohLXQRW4 . database linking
+- (void)retrieveUsers { //referenced from: http://youtu.be/nqnohLXQRW4 - database linking
     NSURL * url = [NSURL URLWithString:getUsersURL];
     NSData * data = [NSData dataWithContentsOfURL:url];
     
     [dbArrays sharedInstance].jsonArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-    
     [dbArrays sharedInstance].usersArray = [[NSMutableArray alloc] init];
     
-    NSLog(@"retrieveUsers jsonArray.count: %lu", (unsigned long)[dbArrays sharedInstance].jsonArray.count);
+    //NSLog(@"retrieveUsers jsonArray.count: %lu", (unsigned long)[dbArrays sharedInstance].jsonArray.count);
     for(int i = 0; i < [dbArrays sharedInstance].jsonArray.count; i++){
         NSString * userID = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"id"];
         NSString * email = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"email"];
@@ -141,22 +118,20 @@
         NSString * password = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"password"];
         NSString * num_reviews = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"num_reviews"];
         NSString * total_rating = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"total_rating"];
-        NSString * loggedIn = @"false";
+        BOOL loggedIn = false;
         
         [[dbArrays sharedInstance].usersArray addObject:[[users alloc]initWithUsers:userID email:email username:username password:password num_reviews:num_reviews total_rating:total_rating loggedIn:loggedIn]];
     }
 }
 
-- (void) retrievePosts
-{
+- (void) retrievePosts{
     NSURL * url = [NSURL URLWithString:getPostsURL];
     NSData * data = [NSData dataWithContentsOfURL:url];
     
     [dbArrays sharedInstance].jsonArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-    
     [dbArrays sharedInstance].postsArray = [[NSMutableArray alloc] init];
     
-    NSLog(@"retrievePosts jsonArray.count: %lu", (unsigned long)[dbArrays sharedInstance].jsonArray.count);
+    //NSLog(@"retrievePosts jsonArray.count: %lu", (unsigned long)[dbArrays sharedInstance].jsonArray.count);
     for(int i = 0; i < [dbArrays sharedInstance].jsonArray.count; i++){
         NSString * post_id = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"post_id"];
         NSString * post_title = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"post_title"];
@@ -172,14 +147,14 @@
         [[dbArrays sharedInstance].postsArray addObject:[[posts alloc]initWithPosts:post_id post_title:post_title post_username:post_username post_price:post_price post_category:post_category post_description:post_description post_date:post_date post_time:post_time post_photos:post_photos post_photo_id:post_photo_id]];
     }
 }
+
 - (void) retrieveReviews {
     NSURL * url = [NSURL URLWithString:getReviewsURL];
     NSData * data = [NSData dataWithContentsOfURL:url];
     
     [dbArrays sharedInstance].jsonArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-    
     [dbArrays sharedInstance].reviewsArray = [[NSMutableArray alloc] init];
-    NSLog(@"retrieveReviews jsonArray.count: %lu", (unsigned long)[dbArrays sharedInstance].jsonArray.count);
+    //NSLog(@"retrieveReviews jsonArray.count: %lu", (unsigned long)[dbArrays sharedInstance].jsonArray.count);
     for(int i = 0; i < [dbArrays sharedInstance].jsonArray.count; i++){
         NSString * review_id = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"review_id"];
         NSString * user_id = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"user_id"];
@@ -191,15 +166,13 @@
     }
 }
 
-- (void) retrieveImages // image_id, image_post_id, image_name, image_pic;
-{
+- (void)retrieveImages{
     NSURL * url = [NSURL URLWithString:getImagesURL];
     NSData * data = [NSData dataWithContentsOfURL:url];
     
     [dbArrays sharedInstance].jsonArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-    
     [dbArrays sharedInstance].imagesArray = [[NSMutableArray alloc] init];
-    NSLog(@"retrieveImages jsonArray.count: %lu", (unsigned long)[dbArrays sharedInstance].jsonArray.count);
+    //NSLog(@"retrieveImages jsonArray.count: %lu", (unsigned long)[dbArrays sharedInstance].jsonArray.count);
     for(int i = 0; i < [dbArrays sharedInstance].jsonArray.count; i++){
         NSString * image_id = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"image_id"];
         NSString * image_post_id = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"image_post_id"];
@@ -213,34 +186,15 @@
         [[dbArrays sharedInstance].imagesArray addObject:[[images alloc]initWithImages:image_id image_post_id:image_post_id image_name:image_name image_pic:image_pic image_data:image_data]];
     }
 }
-- (void) retrieveChat // chat_id, user_id, message, sent_on
-{
-    NSURL * url = [NSURL URLWithString:getChatURL];
-    NSData * data = [NSData dataWithContentsOfURL:url];
-    
-    [dbArrays sharedInstance].jsonArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-    
-    [dbArrays sharedInstance].chatArray = [[NSMutableArray alloc] init];
-    NSLog(@"retrieveChat jsonArray.count: %lu", (unsigned long)[dbArrays sharedInstance].jsonArray.count);
-    for(int i = 0; i < [dbArrays sharedInstance].jsonArray.count; i++) {
-        NSString * chat_id = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"chat_id"];
-        NSString * user_id = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"user_id"];
-        NSString * message = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"message"];
-        NSString * sent_on = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"sent_on"];
-
-        [[dbArrays sharedInstance].chatArray addObject:[[chat alloc]initWithChat:chat_id user_id:user_id message:message sent_on:sent_on ]];
-    }
-}
 
 - (void) retrieveMessages{
-    NSLog(@"RETRIEVING MESSAGES!!!!!!!!!!!!!!");
+    //NSLog(@"RETRIEVING MESSAGES!!!!!!!!!!!!!!");
     NSURL * url = [NSURL URLWithString:getMessagesURL];
     NSData * data = [NSData dataWithContentsOfURL:url];
     
     [dbArrays sharedInstance].jsonArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-    
     [dbArrays sharedInstance].messagesArray = [[NSMutableArray alloc] init];
-    NSLog(@"retrieveMessages jsonArray.count: %lu", (unsigned long)[dbArrays sharedInstance].jsonArray.count);
+    //NSLog(@"retrieveMessages jsonArray.count: %lu", (unsigned long)[dbArrays sharedInstance].jsonArray.count);
     for(int i = 0; i < [dbArrays sharedInstance].jsonArray.count; i++) {
         NSString * message_id = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"message_id"];
         NSString * message_sender = [[[dbArrays sharedInstance].jsonArray objectAtIndex:i] objectForKey:@"message_sender"];
@@ -255,36 +209,44 @@
     }
 }
 
+- (void)presentPopup:(NSString *)titleText message: (NSString *)message{
+    //courtesy popup
+    UIAlertController *alert = [UIAlertController
+                                alertControllerWithTitle:titleText
+                                message:message
+                                preferredStyle:UIAlertControllerStyleAlert];
+    
+    //button creation and function (handler)
+    UIAlertAction* actionOk = [UIAlertAction
+                               actionWithTitle:@"Ok"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action) {}];
+    
+    [alert addAction:actionOk];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)getUser:(id)_user{
+    user = _user;
+}
+
 - (IBAction)loginButton:(id)sender {
     [[self view] endEditing:YES]; 
     //trying to match inputted text with database
     matched = false;
-    NSLog(@"usersArray.count: %lu", (unsigned long)[dbArrays sharedInstance].usersArray.count);
+    //NSLog(@"usersArray.count: %lu", (unsigned long)[dbArrays sharedInstance].usersArray.count);
     for(int i = 0; i < [dbArrays sharedInstance].usersArray.count && !matched; i++){
         
         if([userTF.text isEqualToString:[[[dbArrays sharedInstance].usersArray objectAtIndex:i] username]] && [passwdTF.text isEqualToString:[[[dbArrays sharedInstance].usersArray objectAtIndex:i] password]]){
             user = [[dbArrays sharedInstance].usersArray objectAtIndex:i];
-            NSLog(@"user.username that logged in: %@", user.username);
-            
-            user.loggedIn = @"true";
+            user.loggedIn = true;
             matched = true;
         }
     }
     
     if(!matched || [userTF.text isEqualToString:@""] || [passwdTF.text isEqualToString:@""]){
-        UIAlertController *alert = [UIAlertController
-                                          alertControllerWithTitle:@"Invalid login!"
-                                          message:@"Please enter a correct username/password combination."
-                                          preferredStyle:UIAlertControllerStyleAlert];
-        //button creation and function (handler)
-        UIAlertAction* actionOk = [UIAlertAction
-                                   actionWithTitle:@"OK"
-                                   style:UIAlertActionStyleDefault
-                                   handler:^(UIAlertAction * action) {}];
-        
-        [alert addAction:actionOk];
-
-        [self presentViewController:alert animated:YES completion:nil];
+        [self presentPopup:@"Invalid login!" message:@"Please enter a valid username/password combination."];
     }
     else if(matched){
         UIAlertController *alert = [UIAlertController
@@ -306,39 +268,10 @@
         
         [self presentViewController:alert animated:YES completion:nil];
         
-        //source code: http://stackoverflow.com/a/21877460
+        //http://stackoverflow.com/a/21877460
         AppDelegate *appDelg = (AppDelegate*)[[UIApplication sharedApplication] delegate];
         appDelg.validLogin = 1;
-        //end source code
     }
-    
 }
 
-- (IBAction)registerButton:(id)sender {
-    //[self dismissLoginAndShowRegistration];
-}
-
--(void)getUser:(id)_user{
-    user = _user;
-}
-
-//source code: http://stackoverflow.com/a/21877460
-#pragma mark - Dismissing Delegate Methods
-
-- (void)dismissLoginAndShowRegistration{
-    [self dismissViewControllerAnimated:YES completion:^{
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *registerPage = [storyboard instantiateViewControllerWithIdentifier:@"registerPage"];
-        [self presentViewController:registerPage animated:YES completion:nil];
-    }];
-}
-
-- (void)dismissLoginAndShowTabs {
-    [self dismissViewControllerAnimated:YES completion:^{
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UITabBarController *tabView = [storyboard instantiateViewControllerWithIdentifier:@"tabView"];
-        [self presentViewController:tabView animated:YES completion:nil];
-    }];
-}
-//end source code
 @end

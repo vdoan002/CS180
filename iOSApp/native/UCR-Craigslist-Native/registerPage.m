@@ -20,8 +20,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self setupTextFields];
+    
+    [self setupUI];
     [self setupKeyboard];
     emailTextField.delegate = self;
     userTextField.delegate = self;
@@ -66,9 +66,9 @@
     loginPageObj = _loginPageObj;
 }
 
-- (void)setupTextFields{
+- (void)setupUI{
     emailTextField.placeholder = @"enter an UCR email";
-    userTextField.placeholder = @"enter an username";
+    userTextField.placeholder = @"enter a username";
     passwordTextField.placeholder = @"enter a password";
     
     userTextField.text = loginPageObj.userTF.text;
@@ -82,8 +82,6 @@
                                 message:message
                                 preferredStyle:UIAlertControllerStyleAlert];
     
-    [self presentViewController:alert animated:YES completion:nil];
-    
     //button creation and function (handler)
     UIAlertAction* actionOk = [UIAlertAction
                                actionWithTitle:@"Ok"
@@ -91,11 +89,13 @@
                                handler:^(UIAlertAction * action) {}];
     
     [alert addAction:actionOk];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 // http://stackoverflow.com/a/11515771
 // http://stackoverflow.com/a/15589721
--(void)writeToDB{
+- (void)writeToDB{
     // Create your request string with parameter name as defined in PHP file®
     NSString *myRequestString = [NSString stringWithFormat:@"email=%@&username=%@&password=%@", emailTextField.text, userTextField.text, passwordTextField.text];
     NSLog(@"%@", myRequestString);
@@ -127,17 +127,6 @@
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
-}
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    if([[segue identifier] isEqualToString:@"backToLoginSegue"]){
-        [segue destinationViewController];
-    }
 }
 
 - (IBAction)registerButton:(id)sender {
@@ -173,7 +162,7 @@
     else if([passwordTextField.text isEqualToString:@""]){
         [self presentPopup:@"Empty password!" message:@"Please enter a password."];
     }
-    else if(userExist){ // user already exists!
+    else if(userExist){
         [self presentPopup:@"Username already exists!" message:@"Please enter a different username."];
     }
     else if(emailExist){
@@ -182,7 +171,7 @@
     else if([emailTextField.text rangeOfString:@"@ucr.edu"].location != emailTextField.text.length - 8){
         [self presentPopup:@"Invalid email!" message:@"Please register using a valid UCR email."];
     }
-    else if(userExist && emailExist){ // user and email already exist!
+    else if(userExist && emailExist){
         [self presentPopup:@"Username and email already exist!" message:@"Please enter a different username and email."];
     }
     else{ // valid registration
@@ -195,4 +184,5 @@
 - (IBAction)backToLoginButton:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 @end

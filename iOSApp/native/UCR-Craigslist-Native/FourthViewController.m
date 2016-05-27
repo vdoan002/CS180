@@ -24,23 +24,70 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    [self setupData];
+    [self setupUI];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)setupData{
+    loginPageObj = [[loginPage alloc] init];
+    [loginPageObj retrieveMessages];
+    [self getRelevantThreads];
+    [self.tableView reloadData];
+}
+
+- (void)setupUI{
     self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
     num_threads_label.userInteractionEnabled = false;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self findRelevantThreads];
-    loginPageObj = [[loginPage alloc] init];
     
-    [loginPageObj retrieveMessages];
+    //set num of threads label here
+    if([dbArrays sharedInstance].relevantThreadsArray.count == 0){
+       num_threads_label.text = @"You need friends";
+    }
+    else if([dbArrays sharedInstance].relevantThreadsArray.count == 1){
+        num_threads_label.text = @"1 thread";
+    }
+    else{
+        num_threads_label.text = [NSString stringWithFormat:@"%lu threads", (unsigned long)[dbArrays sharedInstance].relevantThreadsArray.count];
+    }
+    num_threads_label.textColor = [UIColor whiteColor];
+    num_threads_label.backgroundColor = [UIColor blackColor];
+    num_threads_label.textAlignment = NSTextAlignmentCenter;
+}
+
+
+-(void)refreshAll{
+    [self setupData];
+    [self checkTransition];
+    self.navigationController.toolbarHidden = true;
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [self refreshAll];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    //NSLog(@"transition: %d", [dbArrays sharedInstance].transition);
+    if([dbArrays sharedInstance].transition){ // prevent extraneous transitioning
+        //NSLog(@"SHOULD BE TRANSITIONING!!!!!!!!!!!!!!!!!!");
+        [self performSegueWithIdentifier:@"messageCellSegue" sender:self];
+    }
+}
+
+- (void)checkTransition{ //transition to the convo view after sending a new message from the composer
+    //NSLog(@"transition: %d", [dbArrays sharedInstance].transition);
+    if([dbArrays sharedInstance].transition){
+        NSIndexPath * path = [NSIndexPath indexPathForRow:[dbArrays sharedInstance].relevantThreadsArray.count - 1 inSection:0];
+        [self.tableView selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionNone];
+        [self tableView:self.tableView didSelectRowAtIndexPath:path];
+        [dbArrays sharedInstance].transition = false;
+    }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -64,25 +111,38 @@
     [self presentViewController:newMessageViewController animated:YES completion:nil];
 }
 
-- (IBAction)newButton:(id)sender {
-    [self dismissThreadsAndShowComposer];
+- (void)presentPopup:(NSString *)titleText message: (NSString *)message{
+    //courtesy popup
+    UIAlertController *alert = [UIAlertController
+                                alertControllerWithTitle:titleText
+                                message:message
+                                preferredStyle:UIAlertControllerStyleAlert];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+    
+    //button creation and function (handler)
+    UIAlertAction* actionOk = [UIAlertAction
+                               actionWithTitle:@"Ok"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action) {}];
+    
+    [alert addAction:actionOk];
 }
 
-- (void)findRelevantThreads{
+- (void)getRelevantThreads{
     users * userObj;
     messages * message;
-    //NSUInteger reviewCnt = 0;
     
     [dbArrays sharedInstance].relevantThreadsArraySender = [NSMutableArray new];
     [dbArrays sharedInstance].relevantThreadsArray = [NSMutableArray new];
-    NSString * currentLoggedInUserID;
     
+    //finding user.username
     for(int i  = 0; i < [dbArrays sharedInstance].usersArray.count; i++){
         userObj = [[dbArrays sharedInstance].usersArray objectAtIndex:i];
         //NSLog(@"userObj.loggedIn: %@", userObj.loggedIn);
-        if([userObj.loggedIn isEqualToString:@"true"]){
-            [dbArrays sharedInstance].currentLoggedInUserName = userObj.username;
-            currentLoggedInUserID = userObj.userID;
+        if(userObj.loggedIn){
+            [dbArrays sharedInstance].user.username = userObj.username;
+            break;
         }
     }
     
@@ -95,43 +155,31 @@
         NSLog(@"message.message_timesent: %@", message.message_timesent);
         NSLog(@"message.message_date: %@", message.message_date);
         NSLog(@"message.message_seen: %@", message.message_seen);*/
-
-        if([message.message_receiver isEqualToString:[dbArrays sharedInstance].currentLoggedInUserName] && ![[dbArrays sharedInstance].relevantThreadsArraySender containsObject:message.message_sender]){
+        
+        /*NSLog(@"message.message_receiver: %@", message.message_receiver);
+        NSLog(@"message.message_sender: %@", message.message_sender);
+        NSLog(@"[dbArrays sharedInstance].user.username: %@", [dbArrays sharedInstance].user.username);
+        NSLog(@"[dbArrays sharedInstance].relevantThreadsArraySender: %@", [dbArrays sharedInstance].relevantThreadsArraySender);*/
+        
+        if([message.message_receiver isEqualToString:[dbArrays sharedInstance].user.username] && ![[dbArrays sharedInstance].relevantThreadsArraySender containsObject:message.message_sender]){
             //NSLog(@"thread ADDED!!!!!!!!!!!!!!!!!");
             [[dbArrays sharedInstance].relevantThreadsArray addObject:message];
             [[dbArrays sharedInstance].relevantThreadsArraySender addObject:message.message_sender];
         }
-        else if([message.message_sender isEqualToString:[dbArrays sharedInstance].currentLoggedInUserName] && ![[dbArrays sharedInstance].relevantThreadsArraySender containsObject:message.message_receiver]){
+        else if([message.message_sender isEqualToString:[dbArrays sharedInstance].user.username] && ![[dbArrays sharedInstance].relevantThreadsArraySender containsObject:message.message_receiver]){
             //NSLog(@"thread ADDED!!!!!!!!!!!!!!!!!");
             [[dbArrays sharedInstance].relevantThreadsArray addObject:message];
             [[dbArrays sharedInstance].relevantThreadsArraySender addObject:message.message_receiver];
         }
     }
-    
-    //set num of threads label here
-    if([dbArrays sharedInstance].relevantThreadsArray.count == 0){
-       num_threads_label.text = @"You need friends";
-    }
-    else if([dbArrays sharedInstance].relevantThreadsArray.count == 1){
-        num_threads_label.text = @"1 thread";
-    }
-    else{
-        num_threads_label.text = [NSString stringWithFormat:@"%lu threads", (unsigned long)[dbArrays sharedInstance].relevantThreadsArray.count];
-    }
-    num_threads_label.textColor = [UIColor whiteColor];
-    num_threads_label.backgroundColor = [UIColor blackColor];
-    self.num_threads_label.textAlignment = NSTextAlignmentCenter;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"threadCell" forIndexPath:indexPath];
     
-    // Configure the cell...
-    
-    //messages * message;
     messages * message = [[dbArrays sharedInstance].relevantThreadsArray objectAtIndex:indexPath.row];
-    if([message.message_sender isEqualToString:[dbArrays sharedInstance].currentLoggedInUserName]){
+    if([message.message_sender isEqualToString:[dbArrays sharedInstance].user.username]){
         cell.textLabel.text = message.message_receiver;
     }
     else{
@@ -141,81 +189,29 @@
     cell.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.textLabel.highlightedTextColor = [UIColor blackColor];
-    
     return cell;
 }
 
--(void)refreshAll{
-    [loginPageObj retrieveMessages]; //reload database retrieval
-    [self findRelevantThreads];
-    [self.tableView reloadData];
-    self.navigationController.toolbarHidden = true;
-}
-
-/*-(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
-    if(item.tag == 4) {
-        NSLog(@"YOU GOT ME!");
-        [self refreshAll];
-    }
-}*/
-
-- (void) viewWillAppear:(BOOL)animated {
-    [self refreshAll];
-}
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    
     if([[segue identifier] isEqualToString:@"messageCellSegue"]){
         NSIndexPath * indexPath = [self.tableView indexPathForSelectedRow];
-        
-        //get obj for selected row
         messages * message = [[dbArrays sharedInstance].relevantThreadsArray objectAtIndex:indexPath.row];
-        
-        [[segue destinationViewController] getMessages:message];
+        [[segue destinationViewController] getMessages:message]; //pass on message object to convo view
     }
-    /*else if([[segue identifier] isEqualToString:@"newMsgSegue"]){
-        [self setupFriends];
-        NSLog(@"FourthViewController.friends.count: %lu", friends.count);
-        [[segue destinationViewController] getFriends:friends];
-    }*/
+}
+
+- (IBAction)newButton:(id)sender {
+    //NSLog(@"relevantThreadsArray.count: %lu", [dbArrays sharedInstance].relevantThreadsArray.count);
+    //NSLog(@"usersArray.count: %lu", [dbArrays sharedInstance].usersArray.count);
+    if([dbArrays sharedInstance].relevantThreadsArray.count < [dbArrays sharedInstance].usersArray.count - 1){
+        [self dismissThreadsAndShowComposer];
+    }
+    else{
+        [self presentPopup:@"You have already messaged every existing user." message:@"Please select a user to message from your list of threads."];
+    }
 }
 
 @end

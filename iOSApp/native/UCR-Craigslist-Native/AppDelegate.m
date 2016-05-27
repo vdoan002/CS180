@@ -18,20 +18,11 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
     
-    NSHTTPCookie *cookie;
-    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    for (cookie in [cookieJar cookies]) {
-        NSLog(@"%@", cookie);
-    }
-
-    users * user = [[users alloc] init];
-    self.validLogin = [user validUser];
-    
+    //set tint color to white
     [self.window setTintColor:[UIColor whiteColor]];
     
-    //set tab bar color
+    //universal appearance config
     [[UITabBar appearance] setBackgroundColor:[UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0]];
     [[UITabBar appearance] setBarTintColor:[UIColor blackColor]];
     [[UITextField appearance] setTintColor:[UIColor darkGrayColor]];
@@ -40,6 +31,7 @@
     [[UITableView appearance] setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
     [[UITableViewCell appearance] setLayoutMargins:UIEdgeInsetsZero];
     [[UITableViewCell appearance] setSeparatorInset:UIEdgeInsetsZero];
     [[UITableViewCell appearance] setBackgroundColor:[UIColor darkGrayColor]];
@@ -64,7 +56,6 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

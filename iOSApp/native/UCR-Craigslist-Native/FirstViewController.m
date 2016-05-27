@@ -17,40 +17,35 @@
 @end
 
 @implementation FirstViewController
-@synthesize navBar, num_posts_label, loginPageObj;
+@synthesize navBar, num_posts_label, category, relevantPostsArray;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    
-    self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
-    
-    loginPageObj = [[loginPage alloc] init];
-    [loginPageObj retrieveMessages];
-    
-    NSLog(@"FirstViewController: users: %@", [dbArrays sharedInstance].usersArray);
-    
-    num_posts_label.userInteractionEnabled = false;
-    if([dbArrays sharedInstance].postsArray.count == 1){
-        num_posts_label.text = @"1 post";
-    }
-    else{
-        num_posts_label.text = [NSString stringWithFormat:@"%lu posts", [dbArrays sharedInstance].postsArray.count];
-    }
-    num_posts_label.textColor = [UIColor whiteColor];
-    num_posts_label.backgroundColor = [UIColor blackColor];
-    
+    [self setupData];
+    [self setupUI];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)setupData{
+    [self getRelevantPostsArray];
+}
+
+- (void)setupUI{
+    self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
+    num_posts_label.userInteractionEnabled = false;
+    if(relevantPostsArray.count == 1){
+        num_posts_label.text = @"1 post";
+    }
+    else{
+        num_posts_label.text = [NSString stringWithFormat:@"%lu posts", relevantPostsArray.count];
+    }
+    num_posts_label.textColor = [UIColor whiteColor];
+    num_posts_label.backgroundColor = [UIColor blackColor];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -60,16 +55,23 @@
 }
 
 -(void)refreshAll{
-    NSLog(@"Before retrievePosts - postsArray.count: %lu", [dbArrays sharedInstance].postsArray.count);
-    [loginPageObj retrievePosts];
-    NSLog(@"After retrievePosts - postsArray.count: %lu", [dbArrays sharedInstance].postsArray.count);
+    NSLog(@"Before retrievePosts - relevantPostsArray.count: %lu", relevantPostsArray.count);
+    NSLog(@"After retrievePosts - relevantPostsArray.count: %lu", relevantPostsArray.count);
     [self.tableView reloadData];
-    if([dbArrays sharedInstance].postsArray.count == 1){
+    if(relevantPostsArray.count == 1){
         num_posts_label.text = @"1 post";
     }
     else{
-        num_posts_label.text = [NSString stringWithFormat:@"%lu posts", [dbArrays sharedInstance].postsArray.count];
+        num_posts_label.text = [NSString stringWithFormat:@"%lu posts", relevantPostsArray.count];
     }
+    
+    //sort postsArray http://stackoverflow.com/a/12913805
+    NSSortDescriptor * postsName = [NSSortDescriptor
+                                    sortDescriptorWithKey:@"post_title"
+                                    ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:postsName];
+    NSArray * sortedArray = [relevantPostsArray sortedArrayUsingDescriptors:sortDescriptors];
+    relevantPostsArray = [NSMutableArray arrayWithArray:sortedArray];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -86,7 +88,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [dbArrays sharedInstance].postsArray.count;
+    NSLog(@"number of rows: %lu", relevantPostsArray.count);
+    return relevantPostsArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -95,19 +98,68 @@
     // Configure the cell...
     
     posts * post;
-    post = [[dbArrays sharedInstance].postsArray objectAtIndex:indexPath.row];
+    post = [relevantPostsArray objectAtIndex:indexPath.row];
     cell.textLabel.text = post.post_title;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.textLabel.highlightedTextColor = [UIColor blackColor];
+    
     return cell;
 }
 
-- (IBAction)refreshButton:(id)sender {
-    NSLog(@"refreshButton pressed!");
-    [loginPageObj retrieveImages];
-    [self refreshAll];
+- (void)dismissPostsAndShowComposer{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController * ThirdViewController = [storyboard instantiateViewControllerWithIdentifier:@"ThirdViewController"];
+    [self presentViewController:ThirdViewController animated:YES completion:nil];
+}
+
+- (void)getCategory:(id)_category{
+    category = _category;
+}
+
+- (void)getRelevantPostsArray{
+    //NSLog(@"category passed over: %@", category);
+    if([category isEqualToString:@"Books"]){
+        relevantPostsArray = [dbArrays sharedInstance].relevantBooksArray;
+    }
+    else if([category isEqualToString:@"Clothing"]){
+        relevantPostsArray = [dbArrays sharedInstance].relevantClothingArray;
+    }
+    else if([category isEqualToString:@"Electronics"]){
+        relevantPostsArray = [dbArrays sharedInstance].relevantElectronicsArray;
+    }
+    else if([category isEqualToString:@"Furniture"]){
+        relevantPostsArray = [dbArrays sharedInstance].relevantFurnitureArray;
+    }
+    else if([category isEqualToString:@"Household"]){
+        relevantPostsArray = [dbArrays sharedInstance].relevantHouseholdArray;
+    }
+    else if([category isEqualToString:@"Leases"]){
+        relevantPostsArray = [dbArrays sharedInstance].relevantLeasesArray;
+    }
+    else if([category isEqualToString:@"Music"]){
+        relevantPostsArray = [dbArrays sharedInstance].relevantMusicArray;
+    }
+    else if([category isEqualToString:@"Pets"]){
+        relevantPostsArray = [dbArrays sharedInstance].relevantPetsArray;
+    }
+    else if([category isEqualToString:@"Services"]){
+        relevantPostsArray = [dbArrays sharedInstance].relevantServicesArray;
+    }
+    else if([category isEqualToString:@"Tickets"]){
+        relevantPostsArray = [dbArrays sharedInstance].relevantTicketsArray;
+    }
+    else if([category isEqualToString:@"Vehicles"]){
+        relevantPostsArray = [dbArrays sharedInstance].relevantVehiclesArray;
+    }
+    else if([category isEqualToString:@"Other"]){
+        relevantPostsArray = [dbArrays sharedInstance].relevantOtherArray;
+    }
+}
+
+- (IBAction)newButton:(id)sender {
+        [self dismissPostsAndShowComposer];
 }
 /*-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     //I have a static list of section titles in SECTION_ARRAY for reference.
@@ -161,7 +213,8 @@
         NSIndexPath * indexPath = [self.tableView indexPathForSelectedRow];
         
         //get obj for selected row
-        posts * post = [[dbArrays sharedInstance].postsArray objectAtIndex:indexPath.row];
+        
+        posts * post = [relevantPostsArray objectAtIndex:indexPath.row];
         
         [[segue destinationViewController] getPost:post];
     }

@@ -10,20 +10,18 @@
 
 @interface users : NSObject
 
--(void)loginWithUsername:(NSString *)username andPassword:(NSString *)password;
--(BOOL)validUser;
-
 @property (strong, nonatomic) NSString * userID;
 @property (strong, nonatomic) NSString * email;
 @property (strong, nonatomic) NSString * username;
 @property (strong, nonatomic) NSString * password;
 @property (strong, nonatomic) NSString * num_reviews;
 @property (strong, nonatomic) NSString * total_rating;
-@property (strong, nonatomic) NSString * loggedIn;
+
+@property (nonatomic) BOOL loggedIn;
 
 #pragma mark -
 #pragma mark Class Methods
 
-- (id)initWithUsers: (NSString *)_userID email: (NSString *)_email username: (NSString *)_username password: (NSString *)_password num_reviews: (NSString *)_num_reviews total_rating: (NSString *)_total_rating loggedIn: (NSString *)_loggedIn;
+- (id)initWithUsers: (NSString *)_userID email: (NSString *)_email username: (NSString *)_username password: (NSString *)_password num_reviews: (NSString *)_num_reviews total_rating: (NSString *)_total_rating loggedIn: (BOOL)_loggedIn;
 
 @end

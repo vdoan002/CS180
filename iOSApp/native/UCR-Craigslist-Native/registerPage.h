@@ -10,13 +10,18 @@
 #import "loginPage.h"
 
 @interface registerPage : UIViewController<UITextFieldDelegate>
+
 @property (strong, nonatomic) IBOutlet UITextField *userTextField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (strong, nonatomic) IBOutlet UITextField *emailTextField;
 @property (strong, nonatomic) IBOutlet UIButton *registerUIButton;
-@property(nonatomic, strong) loginPage * loginPageObj;
-- (IBAction)registerButton:(id)sender;
-- (IBAction)backToLoginButton:(id)sender;
+
+@property (strong, nonatomic) loginPage * loginPageObj;
+
 - (void)presentPopup:(NSString *)titleText message: (NSString *)message;
 - (void)getLoginPageObj:(id)_loginPageObj;
+
+- (IBAction)registerButton:(id)sender;
+- (IBAction)backToLoginButton:(id)sender;
+
 @end

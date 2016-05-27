@@ -18,7 +18,7 @@
 @end
 
 @implementation FifthViewController
-@synthesize navBar, num_reviews_label;
+@synthesize navBar, num_reviews_label, relevantReviewsArray;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,10 +28,9 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
-    num_reviews_label.userInteractionEnabled = false;
-    
-    [self refreshAll];
+
+    [self setupData];
+    [self setupUI];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,14 +38,45 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)setupUI{
+    self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
+    num_reviews_label.userInteractionEnabled = false;
+    //set rating to 0 if null
+    float currentLoggedInUserRatingFloat = [[dbArrays sharedInstance].user.total_rating floatValue] / [[dbArrays sharedInstance].user.num_reviews floatValue];
+    if(isnan(currentLoggedInUserRatingFloat)){
+        navBar.title = [NSString stringWithFormat:@"%@", [dbArrays sharedInstance].user.username];
+    }
+    else if(currentLoggedInUserRatingFloat == (int)currentLoggedInUserRatingFloat){
+        navBar.title = [NSString stringWithFormat:@"%@: %d/5", [dbArrays sharedInstance].user.username, (int)currentLoggedInUserRatingFloat];
+    }
+    else{
+        navBar.title = [NSString stringWithFormat:@"%@: %.1f/5", [dbArrays sharedInstance].user.username, currentLoggedInUserRatingFloat];
+    }
+    
+    //set num of ratings label here
+    NSLog(@"user.num_reviews: %@", [dbArrays sharedInstance].user.num_reviews);
+    if([[dbArrays sharedInstance].user.num_reviews isEqualToString:@"0"]){
+        num_reviews_label.text = [NSString stringWithFormat:@"No reviews yet"];
+    }
+    else{
+        num_reviews_label.text = [NSString stringWithFormat:@"%@ reviews", [dbArrays sharedInstance].user.num_reviews];
+    }
+    num_reviews_label.textColor = [UIColor whiteColor];
+    num_reviews_label.backgroundColor = [UIColor blackColor];
+}
+
+- (void)setupData{
+    loginPage * loginPageObj = [[loginPage alloc] init];
+    [loginPageObj retrieveReviews];
+    [self getRelevantReviews];
+}
+
 - (void) viewWillAppear:(BOOL)animated {
     [self refreshAll];
 }
 
 - (void)refreshAll{
-    loginPage * loginPageObj = [[loginPage alloc] init];
-    [loginPageObj retrieveReviews];
-    [self findRelevantReviews];
+    [self setupData];
     [self.tableView reloadData];
 }
 
@@ -58,7 +88,7 @@
     }];
 }
 
-- (void)presentOptionPopup:(NSString *)titleText message: (NSString *)message{
+- (void)presentLogoutPopup:(NSString *)titleText message: (NSString *)message{
     //courtesy popup
     UIAlertController *alert = [UIAlertController
                                 alertControllerWithTitle:titleText
@@ -77,7 +107,6 @@
                                handler:^(UIAlertAction * action) {
                                    [dbArrays sharedInstance].usersLoaded = false;
                                    NSLog(@"[dbArrays sharedInstance].usersLoaded: %d", [dbArrays sharedInstance].usersLoaded);
-                                   //[self dismissProfileAndShowLogin];
                                    [self dismissViewControllerAnimated:YES completion:nil];
                                }];
     
@@ -88,76 +117,22 @@
 }
 
 - (IBAction)logoutButton:(id)sender {
-    [self presentOptionPopup:@"Logout" message:@"Are you sure you want to logout?"];
+    [self presentLogoutPopup:@"Logout" message:@"Are you sure you want to logout?"];
 }
 
-- (NSMutableArray*)findRelevantReviews{
-    users * userObj;
+- (void)getRelevantReviews{
     reviews * reviewObj;
-    
-    //NSUInteger reviewCnt = 0;
-    
-    NSMutableArray * relevantReviewsArray = [NSMutableArray new];
-    NSString * currentLoggedInUserID;
-    NSString * currentLoggedInUserRating;
-    NSString * currentLoggedInUserNumOfRatings;
-    float currentLoggedInUserRatingFloat = 0.0;
-    
-    for(int i  = 0; i < [dbArrays sharedInstance].usersArray.count; i++){
-        userObj = [[dbArrays sharedInstance].usersArray objectAtIndex:i];
-        NSLog(@"userObj.loggedIn: %@", userObj.loggedIn);
-        if([userObj.loggedIn isEqualToString:@"true"]){
-            [dbArrays sharedInstance].currentLoggedInUserName = userObj.username;
-            currentLoggedInUserID = userObj.userID;
-            currentLoggedInUserRatingFloat = [userObj.total_rating floatValue] / [userObj.num_reviews floatValue];
-            currentLoggedInUserRating = [NSString stringWithFormat:@"%.1f", currentLoggedInUserRatingFloat];
-            currentLoggedInUserNumOfRatings = userObj.num_reviews;
-        }
-    }
-    
-    NSLog(@"currentLoggedInUserID: %@", currentLoggedInUserID);
-    NSLog(@"currentLoggedInUserName: %@", [dbArrays sharedInstance].currentLoggedInUserName);
-    NSLog(@"currentLoggedInUserRating: %@", currentLoggedInUserRating);
-    NSLog(@"currentLoggedInUserNumOfRatings: %@", currentLoggedInUserNumOfRatings);
-    
+    relevantReviewsArray = [NSMutableArray new];
+
     for(int i = 0; i < [dbArrays sharedInstance].reviewsArray.count; i++){
         reviewObj = [[dbArrays sharedInstance].reviewsArray objectAtIndex:i];
-        NSLog(@"reviewObj.user_id: %@", reviewObj.user_id);
-      
- 
+        //NSLog(@"reviewObj.user_id: %@", reviewObj.user_id);
         
-        if([reviewObj.user_id isEqualToString:currentLoggedInUserID]){
-            NSLog(@"reivewObj ADDED!!!!!!!!!!!!!!!!!");
+        if([reviewObj.user_id isEqualToString:[dbArrays sharedInstance].user.userID]){
+            //NSLog(@"reivewObj ADDED!!!!!!!!!!!!!!!!!");
             [relevantReviewsArray addObject:reviewObj];
-            //reviewCnt++;
         }
     }
-    
-    //set rating to 0 if null
-    if(isnan(currentLoggedInUserRatingFloat)){
-        navBar.title = [NSString stringWithFormat:@"%@", [dbArrays sharedInstance].currentLoggedInUserName];
-    }
-    else if(currentLoggedInUserRatingFloat == (int)currentLoggedInUserRatingFloat){
-        currentLoggedInUserRating = [NSString stringWithFormat:@"%d", (int)currentLoggedInUserRatingFloat];
-        navBar.title = [NSString stringWithFormat:@"%@: %@/5", [dbArrays sharedInstance].currentLoggedInUserName, currentLoggedInUserRating];
-    }
-    else{
-        currentLoggedInUserRating = [NSString stringWithFormat:@"%.1f", currentLoggedInUserRatingFloat];
-        navBar.title = [NSString stringWithFormat:@"%@: %@/5", [dbArrays sharedInstance].currentLoggedInUserName, currentLoggedInUserRating];
-    }
-    
-    //set num of ratings label here
-    if([currentLoggedInUserNumOfRatings isEqualToString:@"0"]){
-        num_reviews_label.text = [NSString stringWithFormat:@"No reviews yet"];
-    }
-    else{
-        num_reviews_label.text = [NSString stringWithFormat:@"%@ reviews", currentLoggedInUserNumOfRatings];
-    }
-    num_reviews_label.textColor = [UIColor whiteColor];
-    num_reviews_label.backgroundColor = [UIColor blackColor];
-    
-    NSLog(@"END OF findRelevantReviews; relevantReviewsArray.count: %lu", (unsigned long)relevantReviewsArray.count);
-    return relevantReviewsArray;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -172,20 +147,16 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"relevantReviewsArray.count: %lu", (unsigned long)[self findRelevantReviews].count);
-    return [self findRelevantReviews].count;
+    //NSLog(@"relevantReviewsArray.count: %lu", (unsigned long)[self findRelevantReviews].count);
+    return relevantReviewsArray.count;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"profileCell" forIndexPath:indexPath];
     
-    // Configure the cell...
-    
     reviews * review;
-    review = [[self findRelevantReviews] objectAtIndex:indexPath.row];
+    review = [relevantReviewsArray objectAtIndex:indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"Review by %@", review.reviewer];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
@@ -203,10 +174,7 @@
     
     if([[segue identifier] isEqualToString:@"profileCellSegue"]){
         NSIndexPath * indexPath = [self.tableView indexPathForSelectedRow];
-        
-        //get obj for selected row
-        reviews * review = [[self findRelevantReviews] objectAtIndex:indexPath.row];
-        
+        reviews * review = [relevantReviewsArray objectAtIndex:indexPath.row];
         [[segue destinationViewController] getReview:review];
     }
 }
