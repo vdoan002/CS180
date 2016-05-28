@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		000512E51CD6EF1A00002D45 /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 000512E41CD6EF1A00002D45 /* ThirdViewController.m */; };
 		000AD0D81CE9A5CA002EDD65 /* postCellDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 000AD0D71CE9A5CA002EDD65 /* postCellDetail.m */; };
-		000E20B01CEBD8B300BCF8E0 /* FifthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 000E20AF1CEBD8B300BCF8E0 /* FifthViewController.m */; };
 		000E20B81CEBDA5B00BCF8E0 /* profileCellDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 000E20B71CEBDA5B00BCF8E0 /* profileCellDetail.m */; };
 		0018DA241CCDA0E20026E5B5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0018DA231CCDA0E20026E5B5 /* main.m */; };
 		0018DA271CCDA0E20026E5B5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0018DA261CCDA0E20026E5B5 /* AppDelegate.m */; };
@@ -19,9 +18,9 @@
 		0018DA351CCDA0E20026E5B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0018DA331CCDA0E20026E5B5 /* LaunchScreen.storyboard */; };
 		0018DA401CCDA0E20026E5B5 /* UCR_Craigslist_NativeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0018DA3F1CCDA0E20026E5B5 /* UCR_Craigslist_NativeTests.m */; };
 		0018DA4B1CCDA0E20026E5B5 /* UCR_Craigslist_NativeUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0018DA4A1CCDA0E20026E5B5 /* UCR_Craigslist_NativeUITests.m */; };
-		002ECDC61CF7E19A0023EA0E /* CategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 002ECDC51CF7E19A0023EA0E /* CategoryTableViewController.m */; };
+		0049D6001CF936BD0008719C /* FirstTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0049D5FC1CF936BD0008719C /* FirstTableViewController.m */; };
+		0049D6011CF936BD0008719C /* PostsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0049D5FD1CF936BD0008719C /* PostsTableViewController.m */; };
 		004A72DD1CF578AB00359447 /* registerPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 004A72DC1CF578AB00359447 /* registerPage.m */; };
-		005674481CE96E82004F359F /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 005674471CE96E82004F359F /* FirstViewController.m */; };
 		006FCDC31CE98E1F000D3004 /* dbArrays.m in Sources */ = {isa = PBXBuildFile; fileRef = 006FCDC21CE98E1F000D3004 /* dbArrays.m */; };
 		007A332B1CEF826800052223 /* FourthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 007A332A1CEF826800052223 /* FourthViewController.m */; };
 		007A332E1CEF83FE00052223 /* messages.m in Sources */ = {isa = PBXBuildFile; fileRef = 007A332D1CEF83FE00052223 /* messages.m */; };
@@ -32,6 +31,7 @@
 		009D01DC1CF69AF700F3E162 /* newMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 009D01DB1CF69AF700F3E162 /* newMessageViewController.m */; };
 		00D7429B1CE8281300471EC9 /* loginPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D7429A1CE8281300471EC9 /* loginPage.m */; };
 		00D742A11CE84CDB00471EC9 /* users.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D742A01CE84CDB00471EC9 /* users.m */; };
+		00FCF5D11CF9392A002B3734 /* CreatePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00FCF5CF1CF9392A002B3734 /* CreatePostViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,8 +56,6 @@
 		000512E41CD6EF1A00002D45 /* ThirdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdViewController.m; sourceTree = "<group>"; };
 		000AD0D61CE9A5CA002EDD65 /* postCellDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postCellDetail.h; sourceTree = "<group>"; };
 		000AD0D71CE9A5CA002EDD65 /* postCellDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = postCellDetail.m; sourceTree = "<group>"; };
-		000E20AE1CEBD8B300BCF8E0 /* FifthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FifthViewController.h; sourceTree = "<group>"; };
-		000E20AF1CEBD8B300BCF8E0 /* FifthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FifthViewController.m; sourceTree = "<group>"; };
 		000E20B61CEBDA5B00BCF8E0 /* profileCellDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = profileCellDetail.h; sourceTree = "<group>"; };
 		000E20B71CEBDA5B00BCF8E0 /* profileCellDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = profileCellDetail.m; sourceTree = "<group>"; };
 		0018DA1F1CCDA0E20026E5B5 /* UCR-Craigslist-Native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "UCR-Craigslist-Native.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,12 +74,12 @@
 		0018DA461CCDA0E20026E5B5 /* UCR-Craigslist-NativeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UCR-Craigslist-NativeUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0018DA4A1CCDA0E20026E5B5 /* UCR_Craigslist_NativeUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UCR_Craigslist_NativeUITests.m; sourceTree = "<group>"; };
 		0018DA4C1CCDA0E20026E5B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		002ECDC41CF7E19A0023EA0E /* CategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryTableViewController.h; sourceTree = "<group>"; };
-		002ECDC51CF7E19A0023EA0E /* CategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryTableViewController.m; sourceTree = "<group>"; };
+		0049D5FC1CF936BD0008719C /* FirstTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstTableViewController.m; sourceTree = "<group>"; };
+		0049D5FD1CF936BD0008719C /* PostsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostsTableViewController.m; sourceTree = "<group>"; };
+		0049D5FE1CF936BD0008719C /* PostsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostsTableViewController.h; sourceTree = "<group>"; };
+		0049D5FF1CF936BD0008719C /* FirstTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstTableViewController.h; sourceTree = "<group>"; };
 		004A72DB1CF578AB00359447 /* registerPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = registerPage.h; sourceTree = "<group>"; };
 		004A72DC1CF578AB00359447 /* registerPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = registerPage.m; sourceTree = "<group>"; };
-		005674461CE96E82004F359F /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		005674471CE96E82004F359F /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
 		006FCDC11CE98E1F000D3004 /* dbArrays.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dbArrays.h; sourceTree = "<group>"; };
 		006FCDC21CE98E1F000D3004 /* dbArrays.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dbArrays.m; sourceTree = "<group>"; };
 		007A33291CEF826800052223 /* FourthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FourthViewController.h; sourceTree = "<group>"; };
@@ -102,6 +100,8 @@
 		00D7429A1CE8281300471EC9 /* loginPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = loginPage.m; sourceTree = "<group>"; };
 		00D7429F1CE84CDB00471EC9 /* users.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = users.h; sourceTree = "<group>"; };
 		00D742A01CE84CDB00471EC9 /* users.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = users.m; sourceTree = "<group>"; };
+		00FCF5CF1CF9392A002B3734 /* CreatePostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePostViewController.m; sourceTree = "<group>"; };
+		00FCF5D01CF9392A002B3734 /* CreatePostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatePostViewController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,20 +156,20 @@
 				0018DA261CCDA0E20026E5B5 /* AppDelegate.m */,
 				006FCDC11CE98E1F000D3004 /* dbArrays.h */,
 				006FCDC21CE98E1F000D3004 /* dbArrays.m */,
-				002ECDC41CF7E19A0023EA0E /* CategoryTableViewController.h */,
-				002ECDC51CF7E19A0023EA0E /* CategoryTableViewController.m */,
-				005674461CE96E82004F359F /* FirstViewController.h */,
-				005674471CE96E82004F359F /* FirstViewController.m */,
+				0049D5FF1CF936BD0008719C /* FirstTableViewController.h */,
+				0049D5FC1CF936BD0008719C /* FirstTableViewController.m */,
 				0018DA2B1CCDA0E20026E5B5 /* SecondViewController.h */,
 				0018DA2C1CCDA0E20026E5B5 /* SecondViewController.m */,
 				000512E31CD6EF1A00002D45 /* ThirdViewController.h */,
 				000512E41CD6EF1A00002D45 /* ThirdViewController.m */,
 				007A33291CEF826800052223 /* FourthViewController.h */,
 				007A332A1CEF826800052223 /* FourthViewController.m */,
-				000E20AE1CEBD8B300BCF8E0 /* FifthViewController.h */,
-				000E20AF1CEBD8B300BCF8E0 /* FifthViewController.m */,
+				0049D5FE1CF936BD0008719C /* PostsTableViewController.h */,
+				0049D5FD1CF936BD0008719C /* PostsTableViewController.m */,
 				009D01DA1CF69AF700F3E162 /* newMessageViewController.h */,
 				009D01DB1CF69AF700F3E162 /* newMessageViewController.m */,
+				00FCF5D01CF9392A002B3734 /* CreatePostViewController.h */,
+				00FCF5CF1CF9392A002B3734 /* CreatePostViewController.m */,
 				00D742991CE8281300471EC9 /* loginPage.h */,
 				00D7429A1CE8281300471EC9 /* loginPage.m */,
 				004A72DB1CF578AB00359447 /* registerPage.h */,
@@ -359,21 +359,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				0082BFB01CE9227800F0C555 /* posts.m in Sources */,
-				002ECDC61CF7E19A0023EA0E /* CategoryTableViewController.m in Sources */,
 				000E20B81CEBDA5B00BCF8E0 /* profileCellDetail.m in Sources */,
 				0082BFB31CE935F700F0C555 /* reviews.m in Sources */,
-				000E20B01CEBD8B300BCF8E0 /* FifthViewController.m in Sources */,
 				0018DA2D1CCDA0E20026E5B5 /* SecondViewController.m in Sources */,
 				000512E51CD6EF1A00002D45 /* ThirdViewController.m in Sources */,
 				0018DA271CCDA0E20026E5B5 /* AppDelegate.m in Sources */,
+				00FCF5D11CF9392A002B3734 /* CreatePostViewController.m in Sources */,
 				009D01DC1CF69AF700F3E162 /* newMessageViewController.m in Sources */,
 				007A33341CEF92EC00052223 /* messagesCellDetail.m in Sources */,
+				0049D6011CF936BD0008719C /* PostsTableViewController.m in Sources */,
 				00D7429B1CE8281300471EC9 /* loginPage.m in Sources */,
 				007A332B1CEF826800052223 /* FourthViewController.m in Sources */,
-				005674481CE96E82004F359F /* FirstViewController.m in Sources */,
 				00D742A11CE84CDB00471EC9 /* users.m in Sources */,
 				007A332E1CEF83FE00052223 /* messages.m in Sources */,
 				006FCDC31CE98E1F000D3004 /* dbArrays.m in Sources */,
+				0049D6001CF936BD0008719C /* FirstTableViewController.m in Sources */,
 				004A72DD1CF578AB00359447 /* registerPage.m in Sources */,
 				0082BFB91CE9361F00F0C555 /* images.m in Sources */,
 				0018DA241CCDA0E20026E5B5 /* main.m in Sources */,

@@ -2,23 +2,19 @@
 //  FourthViewController.h
 //  UCR-Craigslist-Native
 //
-//  Created by Michael Chen on 5/20/16.
+//  Created by Michael Chen on 5/17/16.
 //  Copyright © 2016 UCR. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "loginPage.h"
 
-@interface FourthViewController : UITableViewController<UITabBarDelegate>
-
-@property (strong, nonatomic) IBOutlet UITextField *num_threads_label;
+@interface FourthViewController : UITableViewController
 @property (strong, nonatomic) IBOutlet UINavigationItem *navBar;
-@property(nonatomic, strong) loginPage * loginPageObj;
-@property(nonatomic, strong) NSMutableArray * friends;
+@property (strong, nonatomic) IBOutlet UITextField *num_reviews_label;
 
-- (void)getRelevantThreads;
-- (void)refreshAll;
+@property (strong, nonatomic) NSMutableArray * relevantReviewsArray;
 
-- (IBAction)newButton:(id)sender;
+- (void)getRelevantReviews;
 
+- (IBAction)logoutButton:(id)sender;
 @end

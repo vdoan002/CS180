@@ -15,7 +15,7 @@
 #import "images.h"
 #import "messages.h"
 #import "registerPage.h"
-#import "FirstViewController.h"
+#import "PostsTableViewController.h"
 
 #define getUsersURL @"http://practicemakesperfect.co.nf/getUsers.php"
 #define getPostsURL @"http://practicemakesperfect.co.nf/getPosts.php"

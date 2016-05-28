@@ -1,5 +1,5 @@
 //
-//  FirstViewController.h
+//  PostsTableViewController.h
 //  UCR-Craigslist-Native
 //
 //  Created by Michael Chen on 5/15/16.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "loginPage.h"
 
-@interface FirstViewController : UITableViewController
+@interface PostsTableViewController : UITableViewController
 @property (strong, nonatomic) IBOutlet UITableView *navBar;
 @property (strong, nonatomic) IBOutlet UITextField *num_posts_label;
 @property (strong, nonatomic) NSString * category;

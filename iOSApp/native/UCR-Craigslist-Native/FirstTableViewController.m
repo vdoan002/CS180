@@ -1,22 +1,22 @@
 //
-//  CategoryTableViewController.m
+//  FirstTableViewController.m
 //  UCR-Craigslist-Native
 //
 //  Created by Michael Chen on 5/26/16.
 //  Copyright © 2016 UCR. All rights reserved.
 //
 
-#import "CategoryTableViewController.h"
+#import "FirstTableViewController.h"
 #import "dbArrays.h"
 #import "posts.h"
 #import "loginPage.h"
-#import "FirstViewController.h"
+#import "PostsTableViewController.h"
 
-@interface CategoryTableViewController ()
+@interface FirstTableViewController ()
 
 @end
 
-@implementation CategoryTableViewController
+@implementation FirstTableViewController
 @synthesize categories, num_categories_label;
 
 - (void)viewDidLoad {
@@ -36,7 +36,7 @@
 
 - (void)setupData{
     [self getUserInfo];
-    categories = @[@"Books", @"Clothing", @"Electronics", @"Furniture", @"Household", @"Leases", @"Music", @"Pets", @"Services", @"Tickets", @"Vehicles", @"Other"];
+    categories = @[@"All", @"Books", @"Clothing", @"Electronics", @"Furniture", @"Household", @"Leases", @"Music", @"Pets", @"Services", @"Tickets", @"Vehicles", @"Other"];
     
     for(int i = 0; i < categories.count; i++){ //find all relevant posts for each category
         [self findRelevantPosts:[categories objectAtIndex:i]];
@@ -151,7 +151,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"categoryCell" forIndexPath:indexPath];
-    
+   
     cell.textLabel.text = categories[indexPath.row];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
@@ -199,8 +199,8 @@
 
 - (void)dismissPostsAndShowComposer{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController * ThirdViewController = [storyboard instantiateViewControllerWithIdentifier:@"ThirdViewController"];
-    [self presentViewController:ThirdViewController animated:YES completion:nil];
+    UIViewController * CreatePostViewController = [storyboard instantiateViewControllerWithIdentifier:@"CreatePostViewController"];
+    [self presentViewController:CreatePostViewController animated:YES completion:nil];
 }
 
 - (IBAction)newButton:(id)sender {

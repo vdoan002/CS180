@@ -8,7 +8,7 @@
         <!--Categories-->
         <scene sceneID="Qxf-ov-M2r">
             <objects>
-                <tableViewController id="2nI-SN-ky7" customClass="CategoryTableViewController" sceneMemberID="viewController">
+                <tableViewController id="2nI-SN-ky7" customClass="FirstTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Wc5-5D-MOT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -67,7 +67,7 @@
         <!--Browse-->
         <scene sceneID="6X8-Kc-Rl5">
             <objects>
-                <tableViewController title="Browse" id="Isk-p5-1l4" customClass="FirstViewController" sceneMemberID="viewController">
+                <tableViewController title="Browse" id="Isk-p5-1l4" customClass="PostsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="E9F-yP-2bn">
                         <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -235,7 +235,7 @@
         <!--Create Post-->
         <scene sceneID="Y4C-Pv-u9c">
             <objects>
-                <viewController storyboardIdentifier="ThirdViewController" id="aHO-vU-Lmh" customClass="ThirdViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreatePostViewController" id="aHO-vU-Lmh" customClass="CreatePostViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zax-PC-dch"/>
                         <viewControllerLayoutGuide type="bottom" id="PTP-hR-iDz"/>
@@ -376,7 +376,7 @@
         <!--Messages-->
         <scene sceneID="zKM-3P-iiO">
             <objects>
-                <tableViewController id="6Gg-ti-9Zq" customClass="FourthViewController" sceneMemberID="viewController">
+                <tableViewController id="6Gg-ti-9Zq" customClass="ThirdViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="aiC-LM-ZMe">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -511,7 +511,7 @@
         <!--Title-->
         <scene sceneID="tQD-gr-yYf">
             <objects>
-                <tableViewController storyboardIdentifier="Profile" id="YCw-cK-mg0" customClass="FifthViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Profile" id="YCw-cK-mg0" customClass="FourthViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="wU5-t5-SeN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

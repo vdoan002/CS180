@@ -6,17 +6,17 @@
 //  Copyright © 2016 UCR. All rights reserved.
 //
 
-#import "FirstViewController.h"
+#import "PostsTableViewController.h"
 #import "loginPage.h"
 #import "posts.h"
 #import "dbArrays.h"
 #import "postCellDetail.h"
 
-@interface FirstViewController ()
+@interface PostsTableViewController ()
 
 @end
 
-@implementation FirstViewController
+@implementation PostsTableViewController
 @synthesize navBar, num_posts_label, category, relevantPostsArray;
 
 - (void)viewDidLoad {
@@ -110,8 +110,8 @@
 
 - (void)dismissPostsAndShowComposer{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController * ThirdViewController = [storyboard instantiateViewControllerWithIdentifier:@"ThirdViewController"];
-    [self presentViewController:ThirdViewController animated:YES completion:nil];
+    UIViewController * CreatePostViewController = [storyboard instantiateViewControllerWithIdentifier:@"CreatePostViewController"];
+    [self presentViewController:CreatePostViewController animated:YES completion:nil];
 }
 
 - (void)getCategory:(id)_category{
@@ -120,7 +120,10 @@
 
 - (void)getRelevantPostsArray{
     //NSLog(@"category passed over: %@", category);
-    if([category isEqualToString:@"Books"]){
+    if([category isEqualToString:@"All"]){
+        relevantPostsArray = [dbArrays sharedInstance].postsArray;
+    }
+    else if([category isEqualToString:@"Books"]){
         relevantPostsArray = [dbArrays sharedInstance].relevantBooksArray;
     }
     else if([category isEqualToString:@"Clothing"]){

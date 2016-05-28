@@ -2,69 +2,35 @@
 //  FourthViewController.m
 //  UCR-Craigslist-Native
 //
-//  Created by Michael Chen on 5/20/16.
+//  Created by Michael Chen on 5/17/16.
 //  Copyright © 2016 UCR. All rights reserved.
 //
 
 #import "FourthViewController.h"
-#import "messages.h"
 #import "loginPage.h"
+#import "reviews.h"
 #import "dbArrays.h"
 #import "users.h"
-#import "messagesCellDetail.h"
-#import "newMessageViewController.h"
+#import "profileCellDetail.h"
 
 @interface FourthViewController ()
 
 @end
 
 @implementation FourthViewController
-@synthesize navBar, num_threads_label, loginPageObj, friends;
+@synthesize navBar, num_reviews_label, relevantReviewsArray;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
+    
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
     [self setupData];
     [self setupUI];
-    
-}
-
-- (void)setupData{
-    loginPageObj = [[loginPage alloc] init];
-    [loginPageObj retrieveMessages];
-    [self getRelevantThreads];
-    [self.tableView reloadData];
-}
-
-- (void)setupUI{
-    self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
-    num_threads_label.userInteractionEnabled = false;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    //set num of threads label here
-    if([dbArrays sharedInstance].relevantThreadsArray.count == 0){
-       num_threads_label.text = @"You need friends";
-    }
-    else if([dbArrays sharedInstance].relevantThreadsArray.count == 1){
-        num_threads_label.text = @"1 thread";
-    }
-    else{
-        num_threads_label.text = [NSString stringWithFormat:@"%lu threads", (unsigned long)[dbArrays sharedInstance].relevantThreadsArray.count];
-    }
-    num_threads_label.textColor = [UIColor whiteColor];
-    num_threads_label.backgroundColor = [UIColor blackColor];
-    num_threads_label.textAlignment = NSTextAlignmentCenter;
-}
-
-
--(void)refreshAll{
-    [self setupData];
-    [self checkTransition];
-    self.navigationController.toolbarHidden = true;
-}
-
-- (void) viewWillAppear:(BOOL)animated {
-    [self refreshAll];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -72,21 +38,100 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    //NSLog(@"transition: %d", [dbArrays sharedInstance].transition);
-    if([dbArrays sharedInstance].transition){ // prevent extraneous transitioning
-        //NSLog(@"SHOULD BE TRANSITIONING!!!!!!!!!!!!!!!!!!");
-        [self performSegueWithIdentifier:@"messageCellSegue" sender:self];
+- (void)setupUI{
+    self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
+    num_reviews_label.userInteractionEnabled = false;
+    //set rating to 0 if null
+    float currentLoggedInUserRatingFloat = [[dbArrays sharedInstance].user.total_rating floatValue] / [[dbArrays sharedInstance].user.num_reviews floatValue];
+    if(isnan(currentLoggedInUserRatingFloat)){
+        navBar.title = [NSString stringWithFormat:@"%@", [dbArrays sharedInstance].user.username];
     }
+    else if(currentLoggedInUserRatingFloat == (int)currentLoggedInUserRatingFloat){
+        navBar.title = [NSString stringWithFormat:@"%@: %d/5", [dbArrays sharedInstance].user.username, (int)currentLoggedInUserRatingFloat];
+    }
+    else{
+        navBar.title = [NSString stringWithFormat:@"%@: %.1f/5", [dbArrays sharedInstance].user.username, currentLoggedInUserRatingFloat];
+    }
+    
+    //set num of ratings label here
+    NSLog(@"user.num_reviews: %@", [dbArrays sharedInstance].user.num_reviews);
+    if([[dbArrays sharedInstance].user.num_reviews isEqualToString:@"0"]){
+        num_reviews_label.text = [NSString stringWithFormat:@"No reviews yet"];
+    }
+    else{
+        num_reviews_label.text = [NSString stringWithFormat:@"%@ reviews", [dbArrays sharedInstance].user.num_reviews];
+    }
+    num_reviews_label.textColor = [UIColor whiteColor];
+    num_reviews_label.backgroundColor = [UIColor blackColor];
 }
 
-- (void)checkTransition{ //transition to the convo view after sending a new message from the composer
-    //NSLog(@"transition: %d", [dbArrays sharedInstance].transition);
-    if([dbArrays sharedInstance].transition){
-        NSIndexPath * path = [NSIndexPath indexPathForRow:[dbArrays sharedInstance].relevantThreadsArray.count - 1 inSection:0];
-        [self.tableView selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionNone];
-        [self tableView:self.tableView didSelectRowAtIndexPath:path];
-        [dbArrays sharedInstance].transition = false;
+- (void)setupData{
+    loginPage * loginPageObj = [[loginPage alloc] init];
+    [loginPageObj retrieveReviews];
+    [self getRelevantReviews];
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [self refreshAll];
+}
+
+- (void)refreshAll{
+    [self setupData];
+    [self.tableView reloadData];
+}
+
+- (void)dismissProfileAndShowLogin{
+    [self dismissViewControllerAnimated:YES completion:^{
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UITabBarController *loginPage = [storyboard instantiateViewControllerWithIdentifier:@"loginPage"];
+        [self presentViewController:loginPage animated:YES completion:nil];
+    }];
+}
+
+- (void)presentLogoutPopup:(NSString *)titleText message: (NSString *)message{
+    //courtesy popup
+    UIAlertController *alert = [UIAlertController
+                                alertControllerWithTitle:titleText
+                                message:message
+                                preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction * cancel = [UIAlertAction
+                                   actionWithTitle:@"Cancel"
+                                   style:UIAlertActionStyleCancel
+                                   handler:^(UIAlertAction *action) {}];
+    
+    //button creation and function (handler)
+    UIAlertAction * logout = [UIAlertAction
+                               actionWithTitle:@"Logout"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action) {
+                                   [dbArrays sharedInstance].usersLoaded = false;
+                                   NSLog(@"[dbArrays sharedInstance].usersLoaded: %d", [dbArrays sharedInstance].usersLoaded);
+                                   [self dismissViewControllerAnimated:YES completion:nil];
+                               }];
+    
+    [alert addAction:logout];
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (IBAction)logoutButton:(id)sender {
+    [self presentLogoutPopup:@"Logout" message:@"Are you sure you want to logout?"];
+}
+
+- (void)getRelevantReviews{
+    reviews * reviewObj;
+    relevantReviewsArray = [NSMutableArray new];
+
+    for(int i = 0; i < [dbArrays sharedInstance].reviewsArray.count; i++){
+        reviewObj = [[dbArrays sharedInstance].reviewsArray objectAtIndex:i];
+        //NSLog(@"reviewObj.user_id: %@", reviewObj.user_id);
+        
+        if([reviewObj.user_id isEqualToString:[dbArrays sharedInstance].user.userID]){
+            //NSLog(@"reivewObj ADDED!!!!!!!!!!!!!!!!!");
+            [relevantReviewsArray addObject:reviewObj];
+        }
     }
 }
 
@@ -102,89 +147,17 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [dbArrays sharedInstance].relevantThreadsArray.count;
-}
-
-- (void)dismissThreadsAndShowComposer{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *newMessageViewController = [storyboard instantiateViewControllerWithIdentifier:@"newMessageViewController"];
-    [self presentViewController:newMessageViewController animated:YES completion:nil];
-}
-
-- (void)presentPopup:(NSString *)titleText message: (NSString *)message{
-    //courtesy popup
-    UIAlertController *alert = [UIAlertController
-                                alertControllerWithTitle:titleText
-                                message:message
-                                preferredStyle:UIAlertControllerStyleAlert];
-    
-    [self presentViewController:alert animated:YES completion:nil];
-    
-    //button creation and function (handler)
-    UIAlertAction* actionOk = [UIAlertAction
-                               actionWithTitle:@"Ok"
-                               style:UIAlertActionStyleDefault
-                               handler:^(UIAlertAction * action) {}];
-    
-    [alert addAction:actionOk];
-}
-
-- (void)getRelevantThreads{
-    users * userObj;
-    messages * message;
-    
-    [dbArrays sharedInstance].relevantThreadsArraySender = [NSMutableArray new];
-    [dbArrays sharedInstance].relevantThreadsArray = [NSMutableArray new];
-    
-    //finding user.username
-    for(int i  = 0; i < [dbArrays sharedInstance].usersArray.count; i++){
-        userObj = [[dbArrays sharedInstance].usersArray objectAtIndex:i];
-        //NSLog(@"userObj.loggedIn: %@", userObj.loggedIn);
-        if(userObj.loggedIn){
-            [dbArrays sharedInstance].user.username = userObj.username;
-            break;
-        }
-    }
-    
-    for(int i = 0; i < [dbArrays sharedInstance].messagesArray.count; i++){
-        message = [[dbArrays sharedInstance].messagesArray objectAtIndex:i];
-        /*NSLog(@"message.message_id: %@", message.message_id);
-        NSLog(@"message.message_sender: %@", message.message_sender);
-        NSLog(@"message.message_receiver: %@", message.message_receiver);
-        NSLog(@"message.message_content: %@", message.message_content);
-        NSLog(@"message.message_timesent: %@", message.message_timesent);
-        NSLog(@"message.message_date: %@", message.message_date);
-        NSLog(@"message.message_seen: %@", message.message_seen);*/
-        
-        /*NSLog(@"message.message_receiver: %@", message.message_receiver);
-        NSLog(@"message.message_sender: %@", message.message_sender);
-        NSLog(@"[dbArrays sharedInstance].user.username: %@", [dbArrays sharedInstance].user.username);
-        NSLog(@"[dbArrays sharedInstance].relevantThreadsArraySender: %@", [dbArrays sharedInstance].relevantThreadsArraySender);*/
-        
-        if([message.message_receiver isEqualToString:[dbArrays sharedInstance].user.username] && ![[dbArrays sharedInstance].relevantThreadsArraySender containsObject:message.message_sender]){
-            //NSLog(@"thread ADDED!!!!!!!!!!!!!!!!!");
-            [[dbArrays sharedInstance].relevantThreadsArray addObject:message];
-            [[dbArrays sharedInstance].relevantThreadsArraySender addObject:message.message_sender];
-        }
-        else if([message.message_sender isEqualToString:[dbArrays sharedInstance].user.username] && ![[dbArrays sharedInstance].relevantThreadsArraySender containsObject:message.message_receiver]){
-            //NSLog(@"thread ADDED!!!!!!!!!!!!!!!!!");
-            [[dbArrays sharedInstance].relevantThreadsArray addObject:message];
-            [[dbArrays sharedInstance].relevantThreadsArraySender addObject:message.message_receiver];
-        }
-    }
+    //NSLog(@"relevantReviewsArray.count: %lu", (unsigned long)[self findRelevantReviews].count);
+    return relevantReviewsArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"threadCell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"profileCell" forIndexPath:indexPath];
     
-    messages * message = [[dbArrays sharedInstance].relevantThreadsArray objectAtIndex:indexPath.row];
-    if([message.message_sender isEqualToString:[dbArrays sharedInstance].user.username]){
-        cell.textLabel.text = message.message_receiver;
-    }
-    else{
-        cell.textLabel.text = message.message_sender;
-    }
+    reviews * review;
+    review = [relevantReviewsArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"Review by %@", review.reviewer];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
     cell.textLabel.textColor = [UIColor whiteColor];
@@ -192,25 +165,17 @@
     return cell;
 }
 
-
 #pragma mark - Navigation
 
+// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if([[segue identifier] isEqualToString:@"messageCellSegue"]){
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    
+    if([[segue identifier] isEqualToString:@"profileCellSegue"]){
         NSIndexPath * indexPath = [self.tableView indexPathForSelectedRow];
-        messages * message = [[dbArrays sharedInstance].relevantThreadsArray objectAtIndex:indexPath.row];
-        [[segue destinationViewController] getMessages:message]; //pass on message object to convo view
-    }
-}
-
-- (IBAction)newButton:(id)sender {
-    //NSLog(@"relevantThreadsArray.count: %lu", [dbArrays sharedInstance].relevantThreadsArray.count);
-    //NSLog(@"usersArray.count: %lu", [dbArrays sharedInstance].usersArray.count);
-    if([dbArrays sharedInstance].relevantThreadsArray.count < [dbArrays sharedInstance].usersArray.count - 1){
-        [self dismissThreadsAndShowComposer];
-    }
-    else{
-        [self presentPopup:@"You have already messaged every existing user." message:@"Please select a user to message from your list of threads."];
+        reviews * review = [relevantReviewsArray objectAtIndex:indexPath.row];
+        [[segue destinationViewController] getReview:review];
     }
 }
 

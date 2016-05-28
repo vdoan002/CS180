@@ -1,5 +1,5 @@
 //
-//  CategoryTableViewController.h
+//  FirstTableViewController.h
 //  UCR-Craigslist-Native
 //
 //  Created by Michael Chen on 5/26/16.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CategoryTableViewController : UITableViewController
+@interface FirstTableViewController : UITableViewController
 
 @property (strong, nonatomic) IBOutlet UITextField *num_categories_label;
 @property (strong, nonatomic) NSArray * categories;
