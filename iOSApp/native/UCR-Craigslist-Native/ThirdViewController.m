@@ -43,13 +43,13 @@
     
     //set num of threads label here
     if([dbArrays sharedInstance].relevantThreadsArray.count == 0){
-       num_threads_label.text = @"You need friends";
+       num_threads_label.text = @"       You need friends";
     }
     else if([dbArrays sharedInstance].relevantThreadsArray.count == 1){
-        num_threads_label.text = @"1 thread";
+        num_threads_label.text = @"       1 thread";
     }
     else{
-        num_threads_label.text = [NSString stringWithFormat:@"%lu threads", (unsigned long)[dbArrays sharedInstance].relevantThreadsArray.count];
+        num_threads_label.text = [NSString stringWithFormat:@"       %lu threads", (unsigned long)[dbArrays sharedInstance].relevantThreadsArray.count];
     }
     num_threads_label.textColor = [UIColor whiteColor];
     num_threads_label.backgroundColor = [UIColor blackColor];
@@ -64,7 +64,8 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated {
-    [self refreshAll];
+    [self checkTransition];
+    self.navigationController.toolbarHidden = true;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -74,6 +75,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //NSLog(@"transition: %d", [dbArrays sharedInstance].transition);
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     if([dbArrays sharedInstance].transition){ // prevent extraneous transitioning
         //NSLog(@"SHOULD BE TRANSITIONING!!!!!!!!!!!!!!!!!!");
         [self performSegueWithIdentifier:@"messageCellSegue" sender:self];
@@ -83,6 +85,7 @@
 - (void)checkTransition{ //transition to the convo view after sending a new message from the composer
     //NSLog(@"transition: %d", [dbArrays sharedInstance].transition);
     if([dbArrays sharedInstance].transition){
+        [self setupData];
         NSIndexPath * path = [NSIndexPath indexPathForRow:[dbArrays sharedInstance].relevantThreadsArray.count - 1 inSection:0];
         [self.tableView selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionNone];
         [self tableView:self.tableView didSelectRowAtIndexPath:path];
@@ -212,6 +215,10 @@
     else{
         [self presentPopup:@"You have already messaged every existing user." message:@"Please select a user to message from your list of threads."];
     }
+}
+
+- (IBAction)refreshButton:(id)sender {
+    [self refreshAll];
 }
 
 @end

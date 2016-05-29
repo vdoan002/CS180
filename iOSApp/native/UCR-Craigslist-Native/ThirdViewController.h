@@ -20,5 +20,6 @@
 - (void)refreshAll;
 
 - (IBAction)newButton:(id)sender;
+- (IBAction)refreshButton:(id)sender;
 
 @end

@@ -32,6 +32,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)updateNumOfMessages{
+      //set num of messages label here
+    if(relevantMessagesArray.count == 1){
+        num_messages_label.text = @"       1 message";
+    }
+    else{
+        num_messages_label.text = [NSString stringWithFormat:@"       %lu messages", (unsigned long)relevantMessagesArray.count];
+    }
+}
+
 - (void)setupUI{
     self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
     num_messages_label.userInteractionEnabled = false;
@@ -39,27 +49,36 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     
     //creating composeField at the bottom
-    composeField = [[UITextView alloc] initWithFrame:CGRectMake(0, 10, 310, 32)];
-    self.composeField.layer.cornerRadius = 10;
+    composeField = [[UITextView alloc] initWithFrame:CGRectMake(0, 25, 295, 27.3)];
+    self.composeField.layer.cornerRadius = 5;
+    composeField.tintColor = [UIColor colorWithRed:0.71 green:1.00 blue:1.00 alpha:1.0];
+    composeField.backgroundColor = [UIColor darkGrayColor];
+    composeField.textColor = [UIColor colorWithRed:0.71 green:1.00 blue:1.00 alpha:1.0];
+    composeField.font = [UIFont fontWithName:@"GeosansLight" size:16.0];
     UIBarButtonItem * textFieldItem = [[UIBarButtonItem alloc] initWithCustomView:composeField];
+    
+    //creating send button
+    UIButton * send = [[UIButton alloc] init];
+    [send setTitle:@"Send" forState:UIControlStateNormal];
+    [send setTitleColor:[UIColor colorWithRed:0.71 green:1.00 blue:1.00 alpha:1.0] forState:UIControlStateNormal];
+    [send setTitleColor:[UIColor colorWithRed:0.26 green:0.41 blue:0.41 alpha:1.0] forState:UIControlStateHighlighted];
+    send.frame = CGRectMake(0, 0, 40, 50);
+    [send addTarget:self action:@selector(sendButton:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * sendBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:send];
+    
     self.toolbarItems= @[textFieldItem]; //adding it to the toolbar
     NSMutableArray * newItems = [self.toolbarItems mutableCopy];
-    [newItems addObject:sendButtonItem];
+    //[newItems addObject:sendButtonItem];
+    [newItems addObject:sendBarButtonItem];
     self.toolbarItems = newItems;
-    self.navigationController.toolbar.barTintColor = [UIColor blackColor];
+    self.navigationController.toolbar.barTintColor = [UIColor colorWithRed:0.04 green:0.04 blue:0.04 alpha:1.0];
     [self.navigationController.toolbar setFrame:CGRectMake(self.navigationController.toolbar.frame.origin.x,
                                                            self.navigationController.toolbar.frame.origin.y,
                                                            self.navigationController.toolbar.frame.size.width,
-                                                           self.navigationController.toolbar.frame.size.height + 20)];
+                                                           self.navigationController.toolbar.frame.size.height)];
     self.navigationController.toolbarHidden = false;
     
-    //set num of messages label here
-    if(relevantMessagesArray.count == 1){
-        num_messages_label.text = @"1 message";
-    }
-    else{
-        num_messages_label.text = [NSString stringWithFormat:@"%lu messages", (unsigned long)relevantMessagesArray.count];
-    }
+    [self updateNumOfMessages];
     num_messages_label.textColor = [UIColor whiteColor];
     num_messages_label.backgroundColor = [UIColor blackColor];
 }
@@ -167,6 +186,7 @@
     loginPageObj = [[loginPage alloc] init];
     [loginPageObj retrieveMessages]; //reload database retrieval
     [self getRelevantMessages];
+    [self updateNumOfMessages];
     [self.tableView reloadData];
 }
 
@@ -224,19 +244,35 @@
     return relevantMessagesArray.count;
 }
 
+/*- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath{
+    messages * message_output;
+    message_output = [relevantMessagesArray objectAtIndex:indexPath.row];
+    if([message_output.message_sender isEqualToString:[dbArrays sharedInstance].user.username]){
+        return 18.0;
+    }
+    return 0.0;
+}*/
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"messageCell" forIndexPath:indexPath];
     messages * message_output;
     message_output = [relevantMessagesArray objectAtIndex:indexPath.row];
     NSString * timeStamp = [NSString stringWithFormat:@"%@ on %@", message_output.message_timesent, message_output.message_date];
     if([message_output.message_sender isEqualToString:[dbArrays sharedInstance].user.username]){
-        //right align
+        //NSLog(@"RIGHT ALIGN ME!!!!!!!!!!");
+        cell.detailTextLabel.textColor = [UIColor colorWithRed:0.71 green:1.00 blue:1.00 alpha:1.0];
+        cell.textLabel.textColor = [UIColor colorWithRed:0.71 green:1.00 blue:1.00 alpha:1.0];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"you @ %@", timeStamp];
         //cell.textLabel.textAlignment = NSTextAlignmentRight;
         //cell.detailTextLabel.textAlignment = NSTextAlignmentRight;
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"you @ %@", timeStamp];
     }
     else{
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ @ %@", message_output.message_sender, timeStamp];
+        cell.textLabel.textColor = [UIColor whiteColor];
+        cell.detailTextLabel.textColor = [UIColor whiteColor];
+        //cell.textLabel.numberOfLines = 0;
+        //cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        
     }
     cell.textLabel.text = [NSString stringWithFormat:@"%@", message_output.message_content];
     cell.accessoryType = UITableViewCellAccessoryNone;
@@ -244,15 +280,14 @@
     cell.textLabel.numberOfLines = 0;
     [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
     cell.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
-    cell.textLabel.textColor = [UIColor whiteColor];
-    cell.detailTextLabel.textColor = [UIColor whiteColor];
+
     return cell;
 }
 
 - (IBAction)sendButton:(id)sender{
     if(![composeField.text isEqualToString:@""]){
         [self writeToDB];
-        [self performSelector:@selector(refreshAll) withObject:self afterDelay:0.5];
+        [self performSelector:@selector(refreshAll) withObject:self afterDelay:0.45];
         NSLog(@"composeField.text: %@", composeField.text);
         [composeField setText:@""];
     }

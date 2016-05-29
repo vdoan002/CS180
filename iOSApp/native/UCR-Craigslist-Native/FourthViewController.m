@@ -56,10 +56,10 @@
     //set num of ratings label here
     NSLog(@"user.num_reviews: %@", [dbArrays sharedInstance].user.num_reviews);
     if([[dbArrays sharedInstance].user.num_reviews isEqualToString:@"0"]){
-        num_reviews_label.text = [NSString stringWithFormat:@"No reviews yet"];
+        num_reviews_label.text = [NSString stringWithFormat:@"       No reviews yet"];
     }
     else{
-        num_reviews_label.text = [NSString stringWithFormat:@"%@ reviews", [dbArrays sharedInstance].user.num_reviews];
+        num_reviews_label.text = [NSString stringWithFormat:@"       %@ reviews", [dbArrays sharedInstance].user.num_reviews];
     }
     num_reviews_label.textColor = [UIColor whiteColor];
     num_reviews_label.backgroundColor = [UIColor blackColor];
@@ -72,7 +72,7 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated {
-    [self refreshAll];
+    //[self refreshAll];
 }
 
 - (void)refreshAll{
@@ -149,6 +149,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     //NSLog(@"relevantReviewsArray.count: %lu", (unsigned long)[self findRelevantReviews].count);
     return relevantReviewsArray.count;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

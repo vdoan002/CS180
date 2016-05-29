@@ -13,7 +13,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <textField key="tableFooterView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="num_categories_label" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" id="pK2-aW-f9U">
+                        <textField key="tableFooterView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="num_categories_label" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" id="clE-SJ-bh4">
                             <rect key="frame" x="0.0" y="136" width="375" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -57,10 +57,19 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="num_categories_label" destination="pK2-aW-f9U" id="Vm0-0h-kbd"/>
+                        <outlet property="num_categories_label" destination="clE-SJ-bh4" id="paD-ZO-RxA"/>
+                        <outlet property="searchDisplayController" destination="y6l-11-yqL" id="ZYE-R8-8Np"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cND-bA-zIa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="y6l-11-yqL">
+                    <connections>
+                        <outlet property="delegate" destination="2nI-SN-ky7" id="BWk-Eg-LCR"/>
+                        <outlet property="searchContentsController" destination="2nI-SN-ky7" id="CrG-UU-P5s"/>
+                        <outlet property="searchResultsDataSource" destination="2nI-SN-ky7" id="qyx-TO-haI"/>
+                        <outlet property="searchResultsDelegate" destination="2nI-SN-ky7" id="Onb-pC-n43"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="133.5" y="-1841.5"/>
         </scene>
@@ -114,7 +123,7 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="navBar" destination="E9F-yP-2bn" id="Hw1-5p-OoN"/>
+                        <outlet property="navBar" destination="fpF-sH-P1H" id="jED-ab-nvu"/>
                         <outlet property="num_posts_label" destination="h3u-IO-0Ag" id="gwY-oZ-mXX"/>
                     </connections>
                 </tableViewController>
@@ -223,7 +232,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Map" image="map" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="location" id="cPa-gy-q4n"/>
                     <connections>
                         <outlet property="webView" destination="SB9-O6-sot" id="7v5-cw-ZMR"/>
                     </connections>
@@ -396,7 +405,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="pLg-ey-stz" kind="show" identifier="messageCellSegue" id="6Zt-yQ-lqE"/>
+                                    <segue destination="pLg-ey-stz" kind="show" identifier="messageCellSegue" id="gsf-26-1UE"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -406,6 +415,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Messages" id="wxc-OE-lsV">
+                        <barButtonItem key="leftBarButtonItem" title="refresh" id="zVf-Kp-e4r">
+                            <connections>
+                                <action selector="refreshButton:" destination="6Gg-ti-9Zq" id="8sQ-ud-W03"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="kgd-vc-mAc">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="tKA-DH-H1Y">
                                 <rect key="frame" x="276" y="7" width="83" height="30"/>
@@ -443,7 +457,7 @@
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="messageCell" textLabel="DrQ-eq-0qO" detailTextLabel="F2d-S5-7QO" style="IBUITableViewCellStyleSubtitle" id="Lha-Jm-t3Q">
+                            <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="messageCell" textLabel="DrQ-eq-0qO" detailTextLabel="F2d-S5-7QO" style="IBUITableViewCellStyleSubtitle" id="Lha-Jm-t3Q" customClass="MessagesTableViewCell">
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lha-Jm-t3Q" id="MSt-Rz-X82">
@@ -466,6 +480,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" notEnabled="YES"/>
+                                </accessibility>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -476,7 +493,7 @@
                     <toolbarItems>
                         <barButtonItem title="Item" width="291" id="etB-xr-1g1"/>
                         <barButtonItem title="send" id="Vyr-QF-f5A">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="sendButton:" destination="pLg-ey-stz" id="Aao-KF-ueX"/>
                             </connections>
@@ -687,11 +704,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="next"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vf6-GP-D2K">
-                                <rect key="frame" x="20" y="297" width="335" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="go" secureTextEntry="YES"/>
-                            </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dqH-Dc-swg">
                                 <rect key="frame" x="21" y="196" width="335" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -721,6 +733,11 @@
                                     <action selector="backToLoginButton:" destination="U27-l1-x0E" eventType="touchUpInside" id="NfN-n0-3hO"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vf6-GP-D2K">
+                                <rect key="frame" x="20" y="297" width="335" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="go" secureTextEntry="YES"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.2182967807" blue="0.32730693719999998" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -784,7 +801,7 @@
         <scene sceneID="hPS-SI-Zw5">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ewu-nX-UQr" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="4" title="Chat" image="mail" id="5VK-2b-42d"/>
+                    <tabBarItem key="tabBarItem" tag="4" title="Chat" image="sms" id="5VK-2b-42d"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vjE-q5-1GZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -803,8 +820,8 @@
         <!--Browse-->
         <scene sceneID="o6s-NU-bN7">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hwI-9T-TDj" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Browse" image="browse" id="aIy-hw-jk2"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hwI-9T-TDj" customClass="FirstNavigationControllerMaster" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Browse" image="search" id="aIy-hw-jk2"/>
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="969-R5-EnO">
@@ -823,11 +840,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="browse" width="25" height="25"/>
         <image name="compose" width="25" height="25"/>
-        <image name="mail" width="25" height="25"/>
-        <image name="map" width="25" height="25"/>
+        <image name="location" width="25" height="25"/>
         <image name="profile" width="25" height="25"/>
+        <image name="search" width="25" height="25"/>
+        <image name="sms" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="JqQ-ce-duJ"/>

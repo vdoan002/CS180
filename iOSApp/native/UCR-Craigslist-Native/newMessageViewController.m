@@ -194,8 +194,8 @@
                                    actionWithTitle:@"Ok"
                                    style:UIAlertActionStyleDefault
                                    handler:^(UIAlertAction * action) {
-                                       [self dismissViewControllerAnimated:YES completion:nil];
                                        [dbArrays sharedInstance].transition = true;
+                                       [self dismissViewControllerAnimated:YES completion:nil];
                                    }];
         
         [alert addAction:actionOk];

@@ -175,9 +175,12 @@
         [self presentPopup:@"Username and email already exist!" message:@"Please enter a different username and email."];
     }
     else{ // valid registration
+        loginPageObj = [[loginPage alloc] init];
+        [loginPageObj retrieveUsers];
         [self writeToDB];
         [self presentPopup:@"Registered!" message:@"Thank you for registering for UCR Craigslist."];
         [self dismissRegistrationAndShowLogin];
+        
     }
 }
 

@@ -10,12 +10,13 @@
 #import "loginPage.h"
 
 @interface PostsTableViewController : UITableViewController
-@property (strong, nonatomic) IBOutlet UITableView *navBar;
 @property (strong, nonatomic) IBOutlet UITextField *num_posts_label;
 @property (strong, nonatomic) NSString * category;
 @property (strong, nonatomic) NSMutableArray * relevantPostsArray;
+@property (strong, nonatomic) NSMutableArray * searchResults;
+@property (strong, nonatomic) IBOutlet UINavigationItem *navBar;
+@property (strong, nonatomic) UISearchController * searchController;
 
-- (void)refreshAll;
 - (void)getCategory:(id)_category;
 - (void)getRelevantPostsArray;
 

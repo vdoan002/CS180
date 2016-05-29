@@ -54,6 +54,7 @@
     
     //give textView a rounded border
     self.descView.layer.cornerRadius = 5;
+    self.descView.tintColor = [UIColor colorWithRed:0.29 green:0.53 blue:0.91 alpha:1.0];
     
     //dynamically sized imageView
     imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -231,7 +232,7 @@
         [self presentViewController:alert animated:YES completion:nil];
     }
     else{
-        [self presentPopup:@"Not submitted!" message:@"Ok"];
+        [self presentPopup:@"Invalid submission!" message:@"Please enter a valid submission."];
     }
 }
 

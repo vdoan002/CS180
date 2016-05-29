@@ -23,6 +23,6 @@
 #pragma mark Methods
 
 -(void)getReview:(id)_review;
--(void)setLabels;
+-(void)setupUI;
 
 @end

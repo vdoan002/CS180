@@ -38,7 +38,7 @@
 
 -(void)getPost:(id)_post;
 -(void)getImages:(id)_image;
--(void)setLabels;
+-(void)setupUI;
 -(void)displayImages;
 
 @end

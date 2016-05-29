@@ -53,7 +53,9 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated {
-    [self retrieveUsers];
+    if(![dbArrays sharedInstance].usersLoaded){
+        [self retrieveUsers];
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -104,6 +106,7 @@
 #pragma mark Class Methods
     
 - (void)retrieveUsers { //referenced from: http://youtu.be/nqnohLXQRW4 - database linking
+    NSLog(@"RETRIEVEING USERS!!!!!!");
     NSURL * url = [NSURL URLWithString:getUsersURL];
     NSData * data = [NSData dataWithContentsOfURL:url];
     
@@ -122,6 +125,7 @@
         
         [[dbArrays sharedInstance].usersArray addObject:[[users alloc]initWithUsers:userID email:email username:username password:password num_reviews:num_reviews total_rating:total_rating loggedIn:loggedIn]];
     }
+    [dbArrays sharedInstance].usersLoaded = true;
 }
 
 - (void) retrievePosts{
@@ -185,6 +189,8 @@
         
         [[dbArrays sharedInstance].imagesArray addObject:[[images alloc]initWithImages:image_id image_post_id:image_post_id image_name:image_name image_pic:image_pic image_data:image_data]];
     }
+    
+    [dbArrays sharedInstance].imagesLoaded = true;
 }
 
 - (void) retrieveMessages{

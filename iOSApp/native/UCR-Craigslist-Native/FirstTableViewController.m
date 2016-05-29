@@ -27,6 +27,19 @@
     
     [self setupData];
     [self setupUI];
+   
+}
+
+- (void)refreshAll{
+    loginPage * loginPageObj = [[loginPage alloc] init];
+    [loginPageObj retrievePosts];
+    [loginPageObj retrieveImages];
+    [self setupData];
+    [self setupUI];
+    [self.tableView reloadData];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
 }
 
 - (void)didReceiveMemoryWarning {
@@ -35,20 +48,30 @@
 }
 
 - (void)setupData{
+    NSLog(@"SETTING UP DATA!!!!!!!!!!!!!!!");
     [self getUserInfo];
     categories = @[@"All", @"Books", @"Clothing", @"Electronics", @"Furniture", @"Household", @"Leases", @"Music", @"Pets", @"Services", @"Tickets", @"Vehicles", @"Other"];
     
     for(int i = 0; i < categories.count; i++){ //find all relevant posts for each category
-        [self findRelevantPosts:[categories objectAtIndex:i]];
+        [self getRelevantPosts:[categories objectAtIndex:i]];
     }
 }
 
 - (void)setupUI{
     self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
     num_categories_label.userInteractionEnabled = false;
-    num_categories_label.text = [NSString stringWithFormat:@"%lu categories", categories.count];
     num_categories_label.textColor = [UIColor whiteColor];
     num_categories_label.backgroundColor = [UIColor blackColor];
+    num_categories_label.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    num_categories_label.textAlignment = NSTextAlignmentCenter;
+    num_categories_label.text = [NSString stringWithFormat:@"       %lu categories", categories.count];
+    
+    //remove tab bar text and adjust images down http://stackoverflow.com/a/30771197
+    for(UITabBarItem * tabBarItem in self.tabBarController.tabBar.items){
+        NSLog(@"tabBarItem.title: %@", tabBarItem.title);
+        tabBarItem.title = @"";
+        tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
+    }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -98,7 +121,7 @@
 }
 
 //retrieve relevant posts for each respective category
-- (void)findRelevantPosts: (NSString *)_category{
+- (void)getRelevantPosts: (NSString *)_category{
     //NSLog(@"postsArray.count: %lu", [dbArrays sharedInstance].postsArray.count);
     //NSLog(@"Category being allocated: %@", _category);
     NSMutableArray * relevantPostsArray = [[NSMutableArray alloc] init];
@@ -149,6 +172,10 @@
     NSLog(@"relevant%@Array.count: %lu", _category, relevantPostsArray.count);
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"categoryCell" forIndexPath:indexPath];
    
@@ -166,7 +193,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([[segue identifier] isEqualToString:@"postCellSegue"]){
         NSIndexPath * indexPath = [self.tableView indexPathForSelectedRow];
-        NSLog(@"category: %@", categories[indexPath.row]);
+        //NSLog(@"category: %@", categories[indexPath.row]);
         [[segue destinationViewController] getCategory:categories[indexPath.row]];
     }
 }
@@ -176,8 +203,6 @@
                                 alertControllerWithTitle:titleText
                                 message:message
                                 preferredStyle:UIAlertControllerStyleAlert];
-    
-    [self presentViewController:alert animated:YES completion:nil];
     
     //button creation and function (handler)
     UIAlertAction * cancel = [UIAlertAction
@@ -189,12 +214,13 @@
                                actionWithTitle:@"Ok"
                                style:UIAlertActionStyleDefault
                                handler:^(UIAlertAction * action) {
-                                   loginPage * loginPageObj = [[loginPage alloc] init];
-                                   [loginPageObj retrieveImages];
+                                   [self refreshAll];
                                }];
     
     [alert addAction:cancel];
     [alert addAction:actionOk];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)dismissPostsAndShowComposer{
@@ -210,4 +236,5 @@
 - (IBAction)refreshButton:(id)sender {
     [self presentPopup:@"Press Ok to load images!" message:@"This may take a while..."];
 }
+
 @end
