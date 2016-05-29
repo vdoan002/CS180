@@ -9,33 +9,26 @@
 #import <UIKit/UIKit.h>
 #import "users.h"
 
-@interface loginPage : UIViewController<UITextFieldDelegate> {
-}
+@interface loginPage : UIViewController<UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *userTF;
 @property (strong, nonatomic) IBOutlet UITextField *passwdTF;
 @property (strong, nonatomic) IBOutlet UIButton *loginUIButton;
-@property (strong, nonatomic) IBOutlet UIButton *registerUIButton;
+@property (retain, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) users * user;
+@property (nonatomic) BOOL matched;
 
-- (IBAction)loginButton:(id)sender;
-- (IBAction)registerButton:(id)sender;
-
-//@property (nonatomic, weak) id <LoginViewProtocl> delegate;
-//@property (nonatomic, retain) LoginViewController * loginView;
-
-@property (nonatomic, retain) IBOutlet UILabel *titleLabel;
-@property(nonatomic, strong) users * user;
-
-#pragma mark - 
+#pragma mark -
 #pragma mark Class Methods
 
 - (void) retrieveUsers;
 - (void) retrievePosts;
 - (void) retrieveReviews;
 - (void) retrieveImages;
-- (void) retrieveChat;
 - (void) retrieveMessages;
 
--(void)getUser:(id)_user;
+- (void)getUser:(id)_user;
+
+- (IBAction)loginButton:(id)sender;
 
 @end

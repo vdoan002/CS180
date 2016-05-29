@@ -20,9 +20,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self setupTextFields];
+    
+    [self setupUI];
     [self setupKeyboard];
+    emailTextField.delegate = self;
+    userTextField.delegate = self;
+    passwordTextField.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -63,16 +66,13 @@
     loginPageObj = _loginPageObj;
 }
 
-- (void)setupTextFields{
+- (void)setupUI{
     emailTextField.placeholder = @"enter an UCR email";
-    userTextField.placeholder = @"enter an username";
+    userTextField.placeholder = @"enter a username";
     passwordTextField.placeholder = @"enter a password";
     
     userTextField.text = loginPageObj.userTF.text;
     passwordTextField.text = loginPageObj.passwdTF.text;
-    
-    NSLog(@"loginPageObj.userTF.text: %@", loginPageObj.userTF.text);
-    NSLog(@"loginPageObj.passwdTF.text: %@", loginPageObj.passwdTF.text);
 }
 
 - (void)presentPopup:(NSString *)titleText message: (NSString *)message{
@@ -82,8 +82,6 @@
                                 message:message
                                 preferredStyle:UIAlertControllerStyleAlert];
     
-    [self presentViewController:alert animated:YES completion:nil];
-    
     //button creation and function (handler)
     UIAlertAction* actionOk = [UIAlertAction
                                actionWithTitle:@"Ok"
@@ -91,11 +89,13 @@
                                handler:^(UIAlertAction * action) {}];
     
     [alert addAction:actionOk];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 // http://stackoverflow.com/a/11515771
 // http://stackoverflow.com/a/15589721
--(void)writeToDB{
+- (void)writeToDB{
     // Create your request string with parameter name as defined in PHP file®
     NSString *myRequestString = [NSString stringWithFormat:@"email=%@&username=%@&password=%@", emailTextField.text, userTextField.text, passwordTextField.text];
     NSLog(@"%@", myRequestString);
@@ -103,11 +103,6 @@
     // Create Data from request
     NSData *data = [NSData dataWithBytes: [myRequestString UTF8String] length: [myRequestString length]];
     NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[data length]];
-    /*NSDictionary *dictionary = @{@"content": composeField.text, @"sender": currentLoggedInUserName, @"receiver": message.message_sender};
-     NSError *error = nil;
-     NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary
-     options:kNilOptions error:&error];*/
-    
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString: @"http://www.practicemakesperfect.co.nf/setRegistration.php"]];
     
     [request setHTTPMethod: @"POST"];
@@ -167,7 +162,7 @@
     else if([passwordTextField.text isEqualToString:@""]){
         [self presentPopup:@"Empty password!" message:@"Please enter a password."];
     }
-    else if(userExist){ // user already exists!
+    else if(userExist){
         [self presentPopup:@"Username already exists!" message:@"Please enter a different username."];
     }
     else if(emailExist){
@@ -176,17 +171,21 @@
     else if([emailTextField.text rangeOfString:@"@ucr.edu"].location != emailTextField.text.length - 8){
         [self presentPopup:@"Invalid email!" message:@"Please register using a valid UCR email."];
     }
-    else if(userExist && emailExist){ // user and email already exist!
+    else if(userExist && emailExist){
         [self presentPopup:@"Username and email already exist!" message:@"Please enter a different username and email."];
     }
     else{ // valid registration
+        loginPageObj = [[loginPage alloc] init];
+        [loginPageObj retrieveUsers];
         [self writeToDB];
         [self presentPopup:@"Registered!" message:@"Thank you for registering for UCR Craigslist."];
         [self dismissRegistrationAndShowLogin];
+        
     }
 }
 
 - (IBAction)backToLoginButton:(id)sender {
-    [self dismissRegistrationAndShowLogin];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 @end

@@ -14,6 +14,7 @@
 @property (strong, nonatomic) NSString * image_post_id;
 @property (strong, nonatomic) NSString * image_name;
 @property (strong, nonatomic) NSString * image_pic;
+
 @property (strong, nonatomic) NSData * image_data;
 
 #pragma mark -

@@ -2,60 +2,70 @@
 //  ThirdViewController.m
 //  UCR-Craigslist-Native
 //
-//  Created by Michael Chen on 5/1/16.
+//  Created by Michael Chen on 5/20/16.
 //  Copyright © 2016 UCR. All rights reserved.
 //
 
 #import "ThirdViewController.h"
-#import "FirstViewController.h"
-#import "users.h"
+#import "messages.h"
+#import "loginPage.h"
 #import "dbArrays.h"
+#import "users.h"
+#import "messagesCellDetail.h"
+#import "newMessageViewController.h"
 
 @interface ThirdViewController ()
 
 @end
 
 @implementation ThirdViewController
-@synthesize catPicker, titleField, priceField, descView, categories, category, titleName, price, desc, currentLoggedInUserName;
+@synthesize navBar, num_threads_label, loginPageObj, friends;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    //keyboard dismiss: http://stackoverflow.com/a/5711504
-    [self getUserName];
-    self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                          action:@selector(dismissKeyboard)];
-    [self.view addGestureRecognizer:tap];
     
-    //set UITextField and UITextView BG Color
-    //[titleField setBackgroundColor:[UIColor blackColor]];
-    //[priceField setBackgroundColor:[UIColor blackColor]];
-    //[descView setBackgroundColor:[UIColor blackColor]];
+    [self setupData];
+    [self setupUI];
     
-    //set placeholder text color
-    UIColor *color = [UIColor lightGrayColor];
-    titleField.attributedPlaceholder =[[NSAttributedString alloc] initWithString:@"enter a title" attributes:@{NSForegroundColorAttributeName:color}];
-    priceField.attributedPlaceholder =[[NSAttributedString alloc] initWithString:@"enter a price" attributes:@{NSForegroundColorAttributeName:color}];
-    
-    //set delegates
-    titleField.delegate = self;
-    priceField.delegate = self;
-    descView.delegate = self;
-    
-    catPicker.delegate = self;
-    catPicker.dataSource = self;
-    
-    categories = @[@"Books", @"Clothing", @"Electronics", @"Furniture", @"Household", @"Leases", @"Music", @"Pets", @"Services", @"Tickets", @"Vehicles", @"Other"];
-    
-    //self.descView.layer.borderWidth = 5.0f;
-    //self.descView.layer.borderColor = [[UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0] CGColor]
-    self.descView.layer.cornerRadius = 5;
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleLightContent;
+- (void)setupData{
+    loginPageObj = [[loginPage alloc] init];
+    [loginPageObj retrieveMessages];
+    [self getRelevantThreads];
+    [self.tableView reloadData];
+}
+
+- (void)setupUI{
+    self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
+    num_threads_label.userInteractionEnabled = false;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    //set num of threads label here
+    if([dbArrays sharedInstance].relevantThreadsArray.count == 0){
+       num_threads_label.text = @"       You need friends";
+    }
+    else if([dbArrays sharedInstance].relevantThreadsArray.count == 1){
+        num_threads_label.text = @"       1 thread";
+    }
+    else{
+        num_threads_label.text = [NSString stringWithFormat:@"       %lu threads", (unsigned long)[dbArrays sharedInstance].relevantThreadsArray.count];
+    }
+    num_threads_label.textColor = [UIColor whiteColor];
+    num_threads_label.backgroundColor = [UIColor blackColor];
+    num_threads_label.textAlignment = NSTextAlignmentCenter;
+}
+
+
+-(void)refreshAll{
+    [self setupData];
+    [self checkTransition];
+    self.navigationController.toolbarHidden = true;
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [self checkTransition];
+    self.navigationController.toolbarHidden = true;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -63,219 +73,152 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)dismissKeyboard { //http://stackoverflow.com/a/5711504
-    [titleField resignFirstResponder];
-    [priceField resignFirstResponder];
-    [descView resignFirstResponder];
-}
-
--(void)getUserName{
-    users * userObj;
-    
-    for(int i  = 0; i < [dbArrays sharedInstance].usersArray.count; i++){
-        userObj = [[dbArrays sharedInstance].usersArray objectAtIndex:i];
-        //NSLog(@"userObj.loggedIn: %@", userObj.loggedIn);
-        if([userObj.loggedIn isEqualToString:@"true"]){
-            currentLoggedInUserName = userObj.username;
-        }
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    //NSLog(@"transition: %d", [dbArrays sharedInstance].transition);
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if([dbArrays sharedInstance].transition){ // prevent extraneous transitioning
+        //NSLog(@"SHOULD BE TRANSITIONING!!!!!!!!!!!!!!!!!!");
+        [self performSegueWithIdentifier:@"messageCellSegue" sender:self];
     }
 }
 
-//UIPickerView setup http://stackoverflow.com/questions/13756591/how-would-i-set-up-a-uipickerview
-// http://www.techotopia.com/index.php/An_iOS_7_UIPickerView_Example#UIPickerView_Delegate_and_DataSource
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)thePickerView {
+- (void)checkTransition{ //transition to the convo view after sending a new message from the composer
+    //NSLog(@"transition: %d", [dbArrays sharedInstance].transition);
+    if([dbArrays sharedInstance].transition){
+        [self setupData];
+        NSIndexPath * path = [NSIndexPath indexPathForRow:[dbArrays sharedInstance].relevantThreadsArray.count - 1 inSection:0];
+        [self.tableView selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionNone];
+        [self tableView:self.tableView didSelectRowAtIndexPath:path];
+        [dbArrays sharedInstance].transition = false;
+    }
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
-- (NSInteger)pickerView:(UIPickerView *)thePickerView numberOfRowsInComponent:(NSInteger)component {
-    
-    return 12;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [dbArrays sharedInstance].relevantThreadsArray.count;
 }
 
-- (NSString *)pickerView:(UIPickerView *)thePickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    return categories[row];
+- (void)dismissThreadsAndShowComposer{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *newMessageViewController = [storyboard instantiateViewControllerWithIdentifier:@"newMessageViewController"];
+    [self presentViewController:newMessageViewController animated:YES completion:nil];
 }
 
-// changing pickerView text color http://stackoverflow.com/q/20698547
-- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    NSString *title = categories[row];
-    NSAttributedString *attString = [[NSAttributedString alloc] initWithString:title attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    
-    return attString;
-}
-
-#pragma mark -
-#pragma mark PickerView Delegate
--(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row
-      inComponent:(NSInteger)component
-{
-    category = categories[row];
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if (textField == titleField) {
-        [textField resignFirstResponder];
-        [priceField becomeFirstResponder];
-    } else if (textField == priceField) {
-        [textField resignFirstResponder];
-        [descView becomeFirstResponder];
-    }
-    return YES;
-}
-
-- (void)textViewDidBeginEditing:(UITextView *)textView{
-    NSLog(@"descView.text: %@", descView.text);
-    if(textView == descView && [descView.text isEqualToString:@"enter a description"]){
-        NSLog(@"descView.text: %@", descView.text);
-        descView.text = @"";
-    }
-}
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-- (void)imagePickerController:(UIImagePickerController *)picker
-        didFinishPickingImage:(UIImage *)image
-                  editingInfo:(NSDictionary *)editingInfo
-{
+- (void)presentPopup:(NSString *)titleText message: (NSString *)message{
     //courtesy popup
     UIAlertController *alert = [UIAlertController
-                                alertControllerWithTitle:[NSString stringWithFormat:@"Photo chosen!"]
-                                message:@"Please continue with your submission."
+                                alertControllerWithTitle:titleText
+                                message:message
                                 preferredStyle:UIAlertControllerStyleAlert];
     
     [self presentViewController:alert animated:YES completion:nil];
     
     //button creation and function (handler)
     UIAlertAction* actionOk = [UIAlertAction
-                               actionWithTitle:@"OK"
+                               actionWithTitle:@"Ok"
                                style:UIAlertActionStyleDefault
                                handler:^(UIAlertAction * action) {}];
     
     [alert addAction:actionOk];
-
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    //UIImage *newImage = image;
 }
 
-// http://stackoverflow.com/a/11515771
-// http://stackoverflow.com/a/15589721
--(void)writeToDB{
-    // Create your request string with parameter name as defined in PHP file®
-    NSString *myRequestString = [NSString stringWithFormat:@"user=%@&category=%@&title=%@&price=%@&description=%@", currentLoggedInUserName, category, titleName, price, desc];
-    NSLog(@"%@", myRequestString);
+- (void)getRelevantThreads{
+    users * userObj;
+    messages * message;
     
-    // Create Data from request
-    NSData *data = [NSData dataWithBytes: [myRequestString UTF8String] length: [myRequestString length]];
-    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[data length]];
-    /*NSDictionary *dictionary = @{@"content": composeField.text, @"sender": currentLoggedInUserName, @"receiver": message.message_sender};
-     NSError *error = nil;
-     NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary
-     options:kNilOptions error:&error];*/
+    [dbArrays sharedInstance].relevantThreadsArraySender = [NSMutableArray new];
+    [dbArrays sharedInstance].relevantThreadsArray = [NSMutableArray new];
     
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString: @"http://www.practicemakesperfect.co.nf/setPost.php"]];
+    //finding user.username
+    for(int i  = 0; i < [dbArrays sharedInstance].usersArray.count; i++){
+        userObj = [[dbArrays sharedInstance].usersArray objectAtIndex:i];
+        //NSLog(@"userObj.loggedIn: %@", userObj.loggedIn);
+        if(userObj.loggedIn){
+            [dbArrays sharedInstance].user.username = userObj.username;
+            break;
+        }
+    }
     
-    [request setHTTPMethod: @"POST"];
-    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody: data];
-    
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-    [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSString *requestReply = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-        NSLog(@"requestReply: %@", requestReply);
-    }] resume];
-    
-    /*NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-     NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
-     NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:request fromData:data completionHandler:^(NSData *data,NSURLResponse *response, NSError *error) {
-     NSLog(@"response: %@", response);
-     }];
-     [uploadTask resume];*/
-    //NSData * returnData = [NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil];
-    // Log Response
-    //NSString * response = [[NSString alloc] initWithBytes:[returnSession bytes] length:[returnData length] encoding:NSUTF8StringEncoding];
-    //NSLog(@"response: %@",response);
+    for(int i = 0; i < [dbArrays sharedInstance].messagesArray.count; i++){
+        message = [[dbArrays sharedInstance].messagesArray objectAtIndex:i];
+        /*NSLog(@"message.message_id: %@", message.message_id);
+        NSLog(@"message.message_sender: %@", message.message_sender);
+        NSLog(@"message.message_receiver: %@", message.message_receiver);
+        NSLog(@"message.message_content: %@", message.message_content);
+        NSLog(@"message.message_timesent: %@", message.message_timesent);
+        NSLog(@"message.message_date: %@", message.message_date);
+        NSLog(@"message.message_seen: %@", message.message_seen);*/
+        
+        /*NSLog(@"message.message_receiver: %@", message.message_receiver);
+        NSLog(@"message.message_sender: %@", message.message_sender);
+        NSLog(@"[dbArrays sharedInstance].user.username: %@", [dbArrays sharedInstance].user.username);
+        NSLog(@"[dbArrays sharedInstance].relevantThreadsArraySender: %@", [dbArrays sharedInstance].relevantThreadsArraySender);*/
+        
+        if([message.message_receiver isEqualToString:[dbArrays sharedInstance].user.username] && ![[dbArrays sharedInstance].relevantThreadsArraySender containsObject:message.message_sender]){
+            //NSLog(@"thread ADDED!!!!!!!!!!!!!!!!!");
+            [[dbArrays sharedInstance].relevantThreadsArray addObject:message];
+            [[dbArrays sharedInstance].relevantThreadsArraySender addObject:message.message_sender];
+        }
+        else if([message.message_sender isEqualToString:[dbArrays sharedInstance].user.username] && ![[dbArrays sharedInstance].relevantThreadsArraySender containsObject:message.message_receiver]){
+            //NSLog(@"thread ADDED!!!!!!!!!!!!!!!!!");
+            [[dbArrays sharedInstance].relevantThreadsArray addObject:message];
+            [[dbArrays sharedInstance].relevantThreadsArraySender addObject:message.message_receiver];
+        }
+    }
 }
 
--(void)refreshAll{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-}
-
-- (IBAction)chooseButton:(id)sender {
-    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc]init];
-    imagePickerController.delegate = self;
-    imagePickerController.sourceType =  UIImagePickerControllerSourceTypePhotoLibrary;
-    [self presentModalViewController:imagePickerController animated:YES];
-}
-
-- (IBAction)takeButton:(id)sender {
-    pickerCamera = [[UIImagePickerController alloc] init];
-    pickerCamera.delegate = self;
-    [pickerCamera setSourceType:UIImagePickerControllerSourceTypeCamera];
-    [self presentViewController:pickerCamera animated:YES completion:NULL];
-}
-
-- (IBAction)submitButton:(id)sender {
-    // write to the db
-    if(![titleField.text isEqualToString:@""] && ![priceField.text isEqualToString:@""] && ![descView.text isEqualToString:@""] && ![descView.text isEqualToString:@"enter a description"]){
-        titleName = titleField.text;
-        price = priceField.text;
-        desc = descView.text;
-        [self writeToDB];
-        
-        titleField.text = @"";
-        priceField.text = @"";
-        descView.text = @"enter a description";
-        
-        //courtesy popup
-        UIAlertController *alert = [UIAlertController
-                                    alertControllerWithTitle:[NSString stringWithFormat:@"Submitted!"]
-                                    message:@"Thank you for your submission."
-                                    preferredStyle:UIAlertControllerStyleAlert];
-        
-        [self presentViewController:alert animated:YES completion:nil];
-        
-        //button creation and function (handler)
-        UIAlertAction* actionOk = [UIAlertAction
-                                   actionWithTitle:@"OK"
-                                   style:UIAlertActionStyleDefault
-                                   handler:^(UIAlertAction * action) {}];
-        
-        [alert addAction:actionOk];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"threadCell" forIndexPath:indexPath];
+    
+    messages * message = [[dbArrays sharedInstance].relevantThreadsArray objectAtIndex:indexPath.row];
+    if([message.message_sender isEqualToString:[dbArrays sharedInstance].user.username]){
+        cell.textLabel.text = message.message_receiver;
     }
     else{
-        //courtesy popup
-        UIAlertController *alert = [UIAlertController
-                                    alertControllerWithTitle:[NSString stringWithFormat:@"Not submitted!"]
-                                    message:@"Please enter a valid submission."
-                                    preferredStyle:UIAlertControllerStyleAlert];
-        
-        [self presentViewController:alert animated:YES completion:nil];
-        
-        //button creation and function (handler)
-        UIAlertAction* actionOk = [UIAlertAction
-                                   actionWithTitle:@"OK"
-                                   style:UIAlertActionStyleDefault
-                                   handler:^(UIAlertAction * action) {}];
-        
-        [alert addAction:actionOk];
+        cell.textLabel.text = message.message_sender;
+    }
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.highlightedTextColor = [UIColor blackColor];
+    return cell;
+}
+
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if([[segue identifier] isEqualToString:@"messageCellSegue"]){
+        NSIndexPath * indexPath = [self.tableView indexPathForSelectedRow];
+        messages * message = [[dbArrays sharedInstance].relevantThreadsArray objectAtIndex:indexPath.row];
+        [[segue destinationViewController] getMessages:message]; //pass on message object to convo view
     }
 }
 
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
-    // store image here into blob data
-    //image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-    //[imageView setImage:image];
-    [self dismissViewControllerAnimated:YES completion:NULL];
+- (IBAction)newButton:(id)sender {
+    //NSLog(@"relevantThreadsArray.count: %lu", [dbArrays sharedInstance].relevantThreadsArray.count);
+    //NSLog(@"usersArray.count: %lu", [dbArrays sharedInstance].usersArray.count);
+    if([dbArrays sharedInstance].relevantThreadsArray.count < [dbArrays sharedInstance].usersArray.count - 1){
+        [self dismissThreadsAndShowComposer];
+    }
+    else{
+        [self presentPopup:@"You have already messaged every existing user." message:@"Please select a user to message from your list of threads."];
+    }
 }
 
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    [self dismissViewControllerAnimated:YES completion:NULL];
+- (IBAction)refreshButton:(id)sender {
+    [self refreshAll];
 }
+
 @end

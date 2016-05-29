@@ -18,33 +18,34 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
     
-    NSHTTPCookie *cookie;
-    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    for (cookie in [cookieJar cookies]) {
-        NSLog(@"%@", cookie);
-    }
-
-    users * user = [[users alloc] init];
-    self.validLogin = [user validUser];
-    
+    //set tint color to white
     [self.window setTintColor:[UIColor whiteColor]];
     
-    //set tab bar color
-    [[UITabBar appearance] setBackgroundColor:[UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0]];
-    [[UITabBar appearance] setBarTintColor:[UIColor blackColor]];
-    [[UITextField appearance] setTintColor:[UIColor darkGrayColor]];
-    [[UITextView appearance] setTintColor:[UIColor darkGrayColor]];
+    //universal appearance config
+    [[UITabBar appearance] setBackgroundColor:[UIColor colorWithRed:0.04 green:0.04 blue:0.04 alpha:1.0]];
+    [[UITabBar appearance] setBarTintColor:[UIColor colorWithRed:0.04 green:0.04 blue:0.04 alpha:1.0]];
+    [[UITextField appearance] setTintColor:[UIColor colorWithRed:0.29 green:0.53 blue:0.91 alpha:1.0]];
+    //[[UITextView appearance] setTintColor:[UIColor darkGrayColor]];
+    //[[UITextView appearance] setTextColor:[UIColor whiteColor]];
     [[UITableViewCell appearance] setSelectionStyle:UITableViewCellSelectionStyleGray];
     [[UITableView appearance] setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
     [[UITableViewCell appearance] setLayoutMargins:UIEdgeInsetsZero];
     [[UITableViewCell appearance] setSeparatorInset:UIEdgeInsetsZero];
     [[UITableViewCell appearance] setBackgroundColor:[UIColor darkGrayColor]];
     [[UITextField appearance] setClearButtonMode:UITextFieldViewModeAlways];
-
+    [[UISearchBar appearance] setBarStyle:UIBarStyleBlackTranslucent];
+    //[[UISearchBar appearance] setBackgroundColor:[UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0]];
+    //[[UISearchBar appearance] setPlaceholder:@"search for a keyword"];
+    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setDefaultTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setAttributedPlaceholder:[[NSAttributedString alloc] initWithString:@"search for a keyword"]];
+    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setContentVerticalAlignment:UIControlContentVerticalAlignmentBottom];
+    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UIToolbar class]]] setTintColor:[UIColor cyanColor]];
+    [[UITabBar appearance] setBackgroundImage:[[UIImage alloc] init]];
+    [[UITabBar appearance] setShadowImage:[[UIImage alloc] init]];
+    
     return YES;
 }
 
@@ -64,7 +65,6 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

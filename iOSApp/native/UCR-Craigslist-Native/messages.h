@@ -17,6 +17,7 @@
 @property (strong, nonatomic) NSString * message_timesent;
 @property (strong, nonatomic) NSString * message_date;
 @property (strong, nonatomic) NSString * message_seen;
+
 @property (nonatomic) BOOL message_threadLoaded;
 
 #pragma mark -

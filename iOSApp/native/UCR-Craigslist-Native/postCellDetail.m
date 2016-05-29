@@ -22,9 +22,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
-    [self setLabels];
+    
+    [self setupUI];
     [self displayImages];
 }
 
@@ -45,9 +44,6 @@
 }
 
 -(void)displayImages{
-    //imagesArray we have image_post_id
-    //postsArray we have post_id
-   
     images * imageObj;
     BOOL image1Set = false, image2Set = false, image3Set = false, image4Set = false;
     
@@ -74,7 +70,8 @@
     }
 }
 
--(void)setLabels{
+-(void)setupUI{
+    self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
     navBarItem.title = post.post_title;
     
     post_id_label.text = post.post_id;
@@ -94,7 +91,6 @@
     post_date_label.textColor = [UIColor whiteColor];
     post_photos_label.textColor = [UIColor whiteColor];
     post_photo_id_label.textColor = [UIColor whiteColor];;
-    
 }
     
 @end
