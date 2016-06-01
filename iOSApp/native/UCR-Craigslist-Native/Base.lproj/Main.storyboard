@@ -71,7 +71,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="133.5" y="-1841.5"/>
+            <point key="canvasLocation" x="109.5" y="-1505.5"/>
         </scene>
         <!--Browse-->
         <scene sceneID="6X8-Kc-Rl5">
@@ -129,7 +129,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9HW-zf-Gvb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="662.5" y="-1841.5"/>
+            <point key="canvasLocation" x="562.5" y="-1505.5"/>
         </scene>
         <!--Title-->
         <scene sceneID="tLy-Nr-dzH">
@@ -143,53 +143,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="post_username_label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dcJ-xd-eCB">
-                                <rect key="frame" x="20" y="440" width="160" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="post_category_label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hjc-kb-CQE">
-                                <rect key="frame" x="20" y="469" width="151" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xh6-rG-uUZ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <items>
                                     <navigationItem title="Title" id="Ovx-12-kHh"/>
                                 </items>
                             </navigationBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="post_price_label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8hl-7B-gC5">
-                                <rect key="frame" x="20" y="498" width="124" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WMz-aE-HIh">
-                                <rect key="frame" x="0.0" y="103" width="151" height="89"/>
+                                <rect key="frame" x="20" y="103" width="151" height="89"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xt4-Db-Aga">
-                                <rect key="frame" x="0.0" y="249" width="151" height="102"/>
+                                <rect key="frame" x="20" y="226" width="151" height="102"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O3j-Wq-gvP">
-                                <rect key="frame" x="229" y="103" width="151" height="89"/>
+                                <rect key="frame" x="204" y="103" width="151" height="89"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="post_date_label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NPf-PH-GJF">
-                                <rect key="frame" x="20" y="411" width="330" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="post_description_label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Kt-me-VSQ">
                                 <rect key="frame" x="20" y="512" width="318" height="106"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="post_username_label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dcJ-xd-eCB">
+                                <rect key="frame" x="20" y="407" width="335" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="post_price_label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8hl-7B-gC5">
+                                <rect key="frame" x="20" y="477" width="335" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="post_date_label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vyr-Sl-JCm">
+                                <rect key="frame" x="20" y="442" width="335" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B5E-Sz-ZJv">
-                                <rect key="frame" x="224" y="249" width="151" height="102"/>
+                                <rect key="frame" x="204" y="226" width="151" height="102"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -202,8 +196,7 @@
                         <outlet property="image3" destination="xt4-Db-Aga" id="aZm-w2-nyc"/>
                         <outlet property="image4" destination="B5E-Sz-ZJv" id="SHx-1J-JYq"/>
                         <outlet property="navBarItem" destination="XQf-Ck-nWP" id="cx8-dr-n7r"/>
-                        <outlet property="post_category_label" destination="hjc-kb-CQE" id="RiV-CT-Uc8"/>
-                        <outlet property="post_date_label" destination="NPf-PH-GJF" id="z20-2a-vUf"/>
+                        <outlet property="post_date_label" destination="Vyr-Sl-JCm" id="V7T-0g-W50"/>
                         <outlet property="post_description_label" destination="5Kt-me-VSQ" id="rCB-BZ-yAr"/>
                         <outlet property="post_price_label" destination="8hl-7B-gC5" id="95x-AG-rbV"/>
                         <outlet property="post_username_label" destination="dcJ-xd-eCB" id="lER-bZ-uQj"/>
@@ -211,7 +204,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="62Q-hl-g4Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1140.5" y="-1841.5"/>
+            <point key="canvasLocation" x="1004.5" y="-1505.5"/>
         </scene>
         <!--Map-->
         <scene sceneID="wg7-f3-ORb">
@@ -239,7 +232,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-340.5" y="-1058.5"/>
+            <point key="canvasLocation" x="-340.5" y="-766.5"/>
         </scene>
         <!--Create Post-->
         <scene sceneID="Y4C-Pv-u9c">
@@ -325,7 +318,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zaB-EK-Pl1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="502.5" y="-2594.5"/>
+            <point key="canvasLocation" x="1438.5" y="-1505.5"/>
         </scene>
         <!--New Message View Controller-->
         <scene sceneID="8UR-Fq-ASi">
@@ -380,7 +373,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GfY-cU-x3g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="720.5" y="-331.5"/>
+            <point key="canvasLocation" x="1004.5" y="5.5"/>
         </scene>
         <!--Messages-->
         <scene sceneID="zKM-3P-iiO">
@@ -440,7 +433,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JnL-hr-eT8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="246.5" y="449.5"/>
+            <point key="canvasLocation" x="109.5" y="5.5"/>
         </scene>
         <!--Title-->
         <scene sceneID="sKb-c5-aDL">
@@ -523,7 +516,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Da8-TT-GA8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="903.5" y="539.5"/>
+            <point key="canvasLocation" x="562.5" y="5.5"/>
         </scene>
         <!--Title-->
         <scene sceneID="tQD-gr-yYf">
@@ -572,7 +565,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5f4-RC-uaT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="246.5" y="1212.5"/>
+            <point key="canvasLocation" x="109.5" y="764.5"/>
         </scene>
         <!--Title-->
         <scene sceneID="uyU-Gm-cKS">
@@ -611,7 +604,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xr0-c1-FhG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="710.5" y="1212.5"/>
+            <point key="canvasLocation" x="562.5" y="764.5"/>
         </scene>
         <!--login-->
         <scene sceneID="vCf-pD-ZUD">
@@ -752,7 +745,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cG6-8W-nrX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1638.5" y="232.5"/>
+            <point key="canvasLocation" x="-1604.5" y="256.5"/>
         </scene>
         <!--Profile-->
         <scene sceneID="yl2-sM-qoP">
@@ -795,7 +788,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="leT-v9-JuF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-340.5" y="1212.5"/>
+            <point key="canvasLocation" x="-340.5" y="752.5"/>
         </scene>
         <!--Chat-->
         <scene sceneID="hPS-SI-Zw5">
@@ -815,7 +808,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z58-lO-126" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-340.5" y="449.5"/>
+            <point key="canvasLocation" x="-340.5" y="5.5"/>
         </scene>
         <!--Browse-->
         <scene sceneID="o6s-NU-bN7">
@@ -836,7 +829,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o2H-AE-iIZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-340.5" y="-1841.5"/>
+            <point key="canvasLocation" x="-340.5" y="-1505.5"/>
         </scene>
     </scenes>
     <resources>

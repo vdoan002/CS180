@@ -45,58 +45,8 @@
 		</script>
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link href="/home.css" rel="stylesheet">
-	<head>
+	</head>
 	<body>
-		<!-- Add post collapse -->
-		<!--
-		<div class="collapse" id="addPost">
-			<div class="wrapper">
-				<form action="add.php" method="POST" enctype="multipart/form-data">
-					<fieldset class="form-group">
-					<label for="category">Category</label>
-						<select class="form-control" id="category" name="category">
-						  <option value="books">Books</option>
-						  <option value="clothing">Clothing</option>
-						  <option value="electronics">Electronics</option>
-						  <option value="furniture">Furniture</option>
-						  <option value="household">Household</option>
-						  <option value="leases">Leases</option>
-						  <option value="music">Music</option>
-						  <option value="pets">Pets</option>
-						  <option value="services">Services</option>
-						  <option value="tickets">Tickets</option>
-						  <option value="vehicles">Vehicles</option>
-
-						  <option value="other">Other</option>
-						</select>
-					</fieldset>
-					
-					<fieldset class="form-group">
-						<label for="title">Title</label>
-						<input class="form-control" id="title" type="text" maxlength="100" name="title" required/> 
-					</fieldset>
-					
-					<h5><strong> Price </strong></h5>
-					<div class="input-group">
-						<span class="input-group-addon">$</span>
-						<input class="form-control" type="number" min="0" name="price" required/>
-						<span class="input-group-addon">.00</span>
-					</div>
-					
-					<fieldset class="form-group">
-					<label for="description">Description</label>
-					<textarea class="form-control" rows="4" cols="50" id="description" name="description" required></textarea><br/>
-					</fieldset>
-					
-					<div id="moreFiles">
-						Image File 1: <input type="file" name="itemimages[]"/><br/>
-					</div>
-					<input type="button" value="Add Another Image" onclick="addFileUpload('moreFiles')"/><br/>
-					<input type="submit" value="Add to posts"/>
-				</form>
-			</div>
-		</div>
-		-->
 		<!-- Add post modal -->
 		<div class="modal fade" id="addPost" role="dialog">
 			<div class="modal-dialog">
@@ -111,19 +61,19 @@
 							<fieldset class="form-group">
 							<label for="category">Category</label>
 								<select class="form-control" id="category" name="category">
-								  <option value="books">Books</option>
-								  <option value="clothing">Clothing</option>
-								  <option value="electronics">Electronics</option>
-								  <option value="furniture">Furniture</option>
-								  <option value="household">Household</option>
-								  <option value="leases">Leases</option>
-								  <option value="music">Music</option>
-								  <option value="pets">Pets</option>
-								  <option value="services">Services</option>
-								  <option value="tickets">Tickets</option>
-								  <option value="vehicles">Vehicles</option>
+								  <option value="Books">Books</option>
+								  <option value="Clothing">Clothing</option>
+								  <option value="Electronics">Electronics</option>
+								  <option value="Furniture">Furniture</option>
+								  <option value="Household">Household</option>
+								  <option value="Leases">Leases</option>
+								  <option value="Music">Music</option>
+								  <option value="Pets">Pets</option>
+								  <option value="Services">Services</option>
+								  <option value="Tickets">Tickets</option>
+								  <option value="Vehicles">Vehicles</option>
 
-								  <option value="other">Other</option>
+								  <option value="Other">Other</option>
 								</select>
 							</fieldset>
 							
@@ -146,11 +96,13 @@
 							<textarea class="form-control" rows="4" cols="50" id="description" name="description" required></textarea><br/>
 							</fieldset>
 							
+							
 							<div id="moreFiles">
-								Image File 1: <input type="file" name="itemimages[]"/><br/>
+								Image File 1: <input type="file" style="display none;" name="itemimages[]"/><br/>
 							</div>
-							<input type="button" value="Add Another Image" onclick="addFileUpload('moreFiles')"/><br/>
-							<input type="submit" value="Add to posts"/>
+							
+							<input type="button" class="btn btn-default btn-xs" value="Add Another Image" onclick="addFileUpload('moreFiles')"/><br/><br/>
+							<p align="center"><input type="submit" class="btn btn-primary" value="Add to posts"/></p>
 						</form>
 					</div>
 				</div>
@@ -163,11 +115,9 @@
 				<thead>
 					<tr>
 						<th>Title</th>
-						<th>Seller</th>
 						<th>Price</th>
 						<th>Category</th>
 						<th>Date / Time</th>
-						<th>Pictures</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -182,12 +132,11 @@
 						Print "<tr>";
 							$id = $row['post_id'];
 							Print '<td align="center"><a href="specificpost.php?post_id='.$id.'">'. $row['post_title'] . "</a></td>";
-							Print '<td align="center"><a href="profile.php?user_profile='. $row['post_username'] .'">'.$row['post_username']."</a></td>";
 							Print '<td align="center">$'. $row['post_price'] . "</td>";
 							Print '<td align="center">'. $row['post_category'] . "</td>";
 							Print '<td align="center">'. $row['post_date'] . " - ". $row['post_time']."</td>";
-							Print '<td align="center"><a href="edit.php?post_id='. $row['post_id'] .'">edit</a> </td>';
-							Print '<td align="center"><a href="#" onclick="myFunction('.$row['post_id'].')">delete</a> </td>';
+							Print '<td align="center"><a role="button" class="btn btn-warning btn-xs" href="edit.php?post_id='. $row['post_id'] .'">Edit &nbsp<span class="glyphicon glyphicon-pencil"></span></a> </td>';
+							Print '<td align="center"><a role="button" class="btn btn-danger btn-xs" href="#" onclick="myFunction('.$row['post_id'].')">Delete &nbsp<span class="glyphicon glyphicon-trash"></span></a> </td>';
 						Print "</tr>";
 					}
 				?>

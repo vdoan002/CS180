@@ -7,3 +7,8 @@
   user-select: none;           /* Non-prefixed version, currently
                                   not supported by any browser */
 }
+
+form{
+	padding-top: 0px;
+	bottom: -155px;
+}

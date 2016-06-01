@@ -24,7 +24,8 @@
 	</head>
 	<body>
 		<h2 align="center"><?php echo ucfirst($category) ?></h2>
-<table class ="table table-hover table-sm">
+		<div class="wrapperHome">
+		<table class ="table table-hover table-sm">
 			<thead>
 				<tr>
 					<th>Title</th>
@@ -66,5 +67,6 @@
 		?>
 		</tbody>
 		</table>
+		</div>
 	</body>
 </html>

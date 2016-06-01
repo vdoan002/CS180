@@ -6,8 +6,8 @@ body {
 blockquote {border: 0}
 
 .wrapper {
-    min-width:400px;
-    max-width:400px;
+    min-width:600px;
+    max-width:600px;
     text-align:center;
     margin:0 auto;
 }

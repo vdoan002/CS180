@@ -12,8 +12,7 @@
 			</div>
 			<p>
 			<div class="container" align="center">
-			<a class="btn btn-primary" href="login.php">Login</a>
-			
+			<a class="btn btn-primary" href="login.php">Login</a>    &nbsp
 			<a class="btn btn-warning" href="register.html">Register</a>
 			</p>
 			</div>
@@ -54,7 +53,7 @@
 				<tr>
 				  <td>Find the items you need for class that are being sold by others. Dodge those high price markups that the retailers charge you.</td>
 				  <td>Post your items for sale onlien for other users to see. Catagorize your items for easier searchabilitiy</td>
-				  <td>Reports are avaible for all users to see. Users can decide to visit the areas with issues and help better the enviroment. Users can group up with other users through Green and work together to improve the enviroment around them.</td>
+				  <td>Negotiate prices with your seller through the messaging system. You may end up trading items instead of paying!</td>
 				</tr>
 			  </tbody>
 			</table>

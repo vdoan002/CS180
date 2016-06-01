@@ -1,0 +1,30 @@
+.wrapper {
+    min-width:900px;
+    max-width:900px;
+    text-align:center;
+    margin:0 auto;
+}
+
+.carousel-inner > .item > img {
+    margin: 0 auto;
+	height: 400px;
+	width: 400px;
+}
+
+.carousel-inner{
+	max-height:400px !important;
+	max-width: 900px;
+	margin-bottom:50px;
+
+}
+
+.carousel-indicators {
+  bottom:-50px;
+}
+
+img{
+	max-height:300px;
+	max-width:300px;
+	min-width:300px;
+	min-height:300px;
+}

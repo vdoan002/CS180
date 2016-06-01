@@ -14,7 +14,8 @@
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html">
   <title>UCR Craigslist</title>
-  <link rel="stylesheet" type="text/css" media="all" href="css/styles.css">
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/profile.css" rel="stylesheet">
   <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
   <script>
 	  	function toggleHidden(divID){
@@ -25,13 +26,15 @@
 			item.className = 'hidden';
 		}
   </script>
+  
 </head>
 
 <body>
+	<div class="wrapper">
 	<?php
 		$user = $_SESSION['user'];
 		$user_profile = $_GET['user_profile'];
-		Print '<h1>'.$user_profile.'</h1>';
+
 		include 'serverconnect.php'; //server connection code
 
 		//list current rating and number of reviews
@@ -45,35 +48,72 @@
 				$current_rating = $total_rating / $num_reviews;
 			else
 				$current_rating = 0;
-			Print $user_profile."'s rating: " . $current_rating . '/5<br>
+			
+			if($current_rating <= 2.0)
+			{
+				Print '<div class="panel panel-danger">';
+			}
+			else if($current_rating > 2.0 && $current_rating < 4.0)
+			{
+				Print '<div class="panel panel-warning">';
+			}
+			else if($current_rating >= 4.0)
+			{
+				Print '<div class="panel panel-success">';
+			}
+			Print '<div class="panel-heading"><h3>'.$user_profile.'</h3></div>
+					<div class="panel-body">';
+			Print $user_profile."'s rating: " . round($current_rating,1) . '/5<br>
 			Total reviews: '.$num_reviews.'<br>';
+			if($user != $user_profile){
+			Print '<a class="btn btn-success" href="http://practicemakesperfect.co.nf/message.php?username='.$user_profile.'">Contact User</a>';
+			}
+			Print'
+			</div>
+			</div>
+			';
+			
 		}
 
-		Print '<h2> Current Reviews </h2>';
+		Print '<hr><h3> Current Reviews </h3></div>';
+
 		//find and display any reviews for profile
 		if($num_reviews > 0){
+			Print '<div class="wrapper2"><div class="panel-group">';
 			$query = mysqli_query($conn, "SELECT * FROM reviews WHERE user_id='$user_id'");
 			while($row = mysqli_fetch_array($query,MYSQLI_ASSOC)){
 				Print'
-				Reviewer: '. $row['reviewer'] . ' Rating: '.$row['rating'].'<br/>
-				Review: <p> '. $row['review']. '</p><br/><br/>
+				<div class="panel panel-default">
+				<div class="panel-heading">
+				Reviewer: <a href="profile.php?user_profile='. $row['reviewer'] .'"> '. $row['reviewer'] . ' </a> 
+				</div>
+				<div class="panel-body">
+				<strong>Rating: '.$row['rating'].'</strong><br/>
+				Review: <p> '. $row['review']. '</p><br/>
+				</div>
+				</div>
 				';
 			}
+
 		}
+
 		else{
-			Print '<p> This user has not been rated </p>';
+			Print '<p align="center"> This user has not been rated </p>';
 		}
+		
+					Print '</div>';
 		//review submission code
 		if($user != $user_profile){ //user can't review himself
 			$query = mysqli_query($conn, "SELECT * FROM reviews WHERE reviewer='$user' AND user_id='$user_id'"); // SQL Query
 			$count = mysqli_num_rows($query);
 			if($count  == 0){ //if they havent reviewed this user
 				Print'
+
 				<section id="user_review">
-				  	<div class="leavereview">
-				  	<h2>Leave a review</h2>
+								<div class="wrapper">
 					<form action="sendreview.php" method="POST" enctype="multipart/form-data">
-						<textarea rows="4" cols="50" name="review" required></textarea><br/>
+						<label for="review">Leave a review</label>
+						<textarea class="form-control" id="review" rows="4" cols="50" name="review" required></textarea><br/>
 						Rating:
 						<select name="rating">
 							<option value="1">1</option>
@@ -101,9 +141,9 @@
 				You\'ve already reviewed this user<br/>
 				<button type="button" onclick="toggleHidden(\'editReview\')" class="visible" id="restart">Edit Review</button>
 				<div class="hidden" id="editReview">
-					<h2>Edit Review</h2>
 					<form action="editreview.php" method="POST" enctype="multipart/form-data">
-						<textarea rows="4" cols="50" name="review" required>'.$review.'</textarea><br/>
+						<label for="edit">Edit review</label>
+						<textarea class="form-control" id="edit" rows="4" cols="50" name="review" required>'.$review.'</textarea><br/>
 						Rating:
 						<select name="rating">
 							<option value="'.$rating.'">'.$rating.'</option>
@@ -125,5 +165,6 @@
 			}
 		}
 	?>
+	</div>
 </body>
 </html>

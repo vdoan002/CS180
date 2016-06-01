@@ -24,7 +24,7 @@ blockquote {border: 0;}
 
 #info{
 	background-color: #2D6CC0;
-	height: 50vh;
+	min-height: 50vh;
 	padding-top: 50px;
 	
 	h2 { padding-top: 30px; }
@@ -32,15 +32,23 @@ blockquote {border: 0;}
 }
 
 #landing {
-	color: gray;
+  color: gray;
   background-color: white;
   background-size: cover;
-  height: 50vh;
+  min-height: 50vh;
+
+  font-size: auto;
+  overflow: auto;
 
   h1 { padding-top: 100px; 
 		text-align: center;}
   img {text-align: center;}
   p { padding-top: 20px; }
+}
+
+img{
+	width: auto;
+	height: auto;
 }
 
 #info2{
