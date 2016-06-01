@@ -1,0 +1,183 @@
+<?php
+$users = array();
+$users[0] = array();
+$users[0]['userRole'] = AJAX_CHAT_GUEST;
+$users[0]['userName'] = null;
+$users[0]['password'] = null;
+$users[0]['channels'] = array(0);
+$users[1]['userRole'] = AJAX_CHAT_USER;
+$users[1]['userName'] = tester;
+$users[1]['password'] = tester;
+$users[1]['channels'] = array(0,1);
+ 
+asdf$users[2]['userRole'] = AJAX_CHAT_USER;
+$users[2]['userName'] = rluk001;
+$users[2]['password'] = kenneth;
+$users[2]['channels'] = array(0,1);
+ 
+asdf$users[3]['userRole'] = AJAX_CHAT_USER;
+$users[3]['userName'] = chicken;
+$users[3]['password'] = little;
+$users[3]['channels'] = array(0,1);
+ 
+asdf$users[4]['userRole'] = AJAX_CHAT_USER;
+$users[4]['userName'] = crock;
+$users[4]['password'] = pot;
+$users[4]['channels'] = array(0,1);
+ 
+asdf$users[5]['userRole'] = AJAX_CHAT_USER;
+$users[5]['userName'] = ttruo018;
+$users[5]['password'] = abc123;
+$users[5]['channels'] = array(0,1);
+ 
+asdf$users[6]['userRole'] = AJAX_CHAT_USER;
+$users[6]['userName'] = mchen046;
+$users[6]['password'] = silentshrub913;
+$users[6]['channels'] = array(0,1);
+ 
+asdf$users[7]['userRole'] = AJAX_CHAT_USER;
+$users[7]['userName'] = jchn098;
+$users[7]['password'] = 123456;
+$users[7]['channels'] = array(0,1);
+ 
+asdf$users[8]['userRole'] = AJAX_CHAT_USER;
+$users[8]['userName'] = vdoan002;
+$users[8]['password'] = 1234567890;
+$users[8]['channels'] = array(0,1);
+ 
+asdf$users[9]['userRole'] = AJAX_CHAT_USER;
+$users[9]['userName'] = tkeme001;
+$users[9]['password'] = 080947UCR;
+$users[9]['channels'] = array(0,1);
+ 
+asdf$users[10]['userRole'] = AJAX_CHAT_USER;
+$users[10]['userName'] = trash;
+$users[10]['password'] = can;
+$users[10]['channels'] = array(0,1);
+ 
+asdf$users[11]['userRole'] = AJAX_CHAT_USER;
+$users[11]['userName'] = michael;
+$users[11]['password'] = chen;
+$users[11]['channels'] = array(0,1);
+ 
+asdf$users[12]['userRole'] = AJAX_CHAT_USER;
+$users[12]['userName'] = faine;
+$users[12]['password'] = tran;
+$users[12]['channels'] = array(0,1);
+ 
+asdf$users[13]['userRole'] = AJAX_CHAT_USER;
+$users[13]['userName'] = account;
+$users[13]['password'] = account;
+$users[13]['channels'] = array(0,1);
+ 
+asdf$users[14]['userRole'] = AJAX_CHAT_USER;
+$users[14]['userName'] = mememe;
+$users[14]['password'] = 12345;
+$users[14]['channels'] = array(0,1);
+ 
+asdf$users[15]['userRole'] = AJAX_CHAT_USER;
+$users[15]['userName'] = vdoan001;
+$users[15]['password'] = 12345;
+$users[15]['channels'] = array(0,1);
+ 
+asdf$users[16]['userRole'] = AJAX_CHAT_USER;
+$users[16]['userName'] = aznguy;
+$users[16]['password'] = aznguy;
+$users[16]['channels'] = array(0,1);
+ 
+asdf$users[17]['userRole'] = AJAX_CHAT_USER;
+$users[17]['userName'] = yash;
+$users[17]['password'] = brown;
+$users[17]['channels'] = array(0,1);
+ 
+asdf$users[18]['userRole'] = AJAX_CHAT_USER;
+$users[18]['userName'] = grand;
+$users[18]['password'] = marc;
+$users[18]['channels'] = array(0,1);
+ 
+asdf$users[19]['userRole'] = AJAX_CHAT_USER;
+$users[19]['userName'] = river;
+$users[19]['password'] = side;
+$users[19]['channels'] = array(0,1);
+ 
+asdf$users[20]['userRole'] = AJAX_CHAT_USER;
+$users[20]['userName'] = terry;
+$users[20]['password'] = liu;
+$users[20]['channels'] = array(0,1);
+ 
+asdf$users[21]['userRole'] = AJAX_CHAT_USER;
+$users[21]['userName'] = jackiewackie44;
+$users[21]['password'] = jackiewackie44;
+$users[21]['channels'] = array(0,1);
+ 
+asdf$users[22]['userRole'] = AJAX_CHAT_USER;
+$users[22]['userName'] = pingtest1;
+$users[22]['password'] = ping;
+$users[22]['channels'] = array(0,1);
+ 
+asdf$users[23]['userRole'] = AJAX_CHAT_USER;
+$users[23]['userName'] = pingtest6;
+$users[23]['password'] = asdf;
+$users[23]['channels'] = array(0,1);
+ 
+asdf$users[24]['userRole'] = AJAX_CHAT_USER;
+$users[24]['userName'] = pingtest7;
+$users[24]['password'] = asdf;
+$users[24]['channels'] = array(0,1);
+ 
+asdf$users[25]['userRole'] = AJAX_CHAT_USER;
+$users[25]['userName'] = pingtest8;
+$users[25]['password'] = asdf;
+$users[25]['channels'] = array(0,1);
+ 
+asdf$users[26]['userRole'] = AJAX_CHAT_USER;
+$users[26]['userName'] = pingtest9;
+$users[26]['password'] = asdf;
+$users[26]['channels'] = array(0,1);
+ 
+asdf$users[27]['userRole'] = AJAX_CHAT_USER;
+$users[27]['userName'] = ping10;
+$users[27]['password'] = asdf;
+$users[27]['channels'] = array(0,1);
+ 
+asdf$users[28]['userRole'] = AJAX_CHAT_USER;
+$users[28]['userName'] = ping11;
+$users[28]['password'] = test;
+$users[28]['channels'] = array(0,1);
+ 
+asdf$users[29]['userRole'] = AJAX_CHAT_USER;
+$users[29]['userName'] = jd;
+$users[29]['password'] = asdf;
+$users[29]['channels'] = array(0,1);
+ 
+asdf$users[30]['userRole'] = AJAX_CHAT_USER;
+$users[30]['userName'] = jad;
+$users[30]['password'] = asdf;
+$users[30]['channels'] = array(0,1);
+ 
+asdf$users[31]['userRole'] = AJAX_CHAT_USER;
+$users[31]['userName'] = pingtest15;
+$users[31]['password'] = asdf;
+$users[31]['channels'] = array(0,1);
+ 
+asdf$users[32]['userRole'] = AJAX_CHAT_USER;
+$users[32]['userName'] = topseller123;
+$users[32]['password'] = asdf;
+$users[32]['channels'] = array(0,1);
+ 
+asdf$users[33]['userRole'] = AJAX_CHAT_USER;
+$users[33]['userName'] = asdf;
+$users[33]['password'] = asdf;
+$users[33]['channels'] = array(0,1);
+ 
+asdf$users[34]['userRole'] = AJAX_CHAT_USER;
+$users[34]['userName'] = twtw;
+$users[34]['password'] = twtw;
+$users[34]['channels'] = array(0,1);
+ 
+asdf$users[35]['userRole'] = AJAX_CHAT_USER;
+$users[35]['userName'] = test16;
+$users[35]['password'] = asdf;
+$users[35]['channels'] = array(0,1);
+ 
+asdf?>

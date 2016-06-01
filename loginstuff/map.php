@@ -41,7 +41,7 @@
 				  width="600"
 				  height="450"
 				  frameborder="0" style="border:0"
-				  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAXuuDhTJljm3Glal3QQwpPUFPO7BAK7tw &q=Coffee+Bean+UCR,Riverside+CA" allowfullscreen>
+				  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAXuuDhTJljm3Glal3QQwpPUFPO7BAK7tw &q='Coffee Bean UCR'" allowfullscreen>
 				</iframe>
 			</div>
 		</div>

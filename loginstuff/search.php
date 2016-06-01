@@ -19,7 +19,8 @@
 		<link href="/home.css" rel="stylesheet">
 	</head>
 	<body>
-		<h2 align="center"><?php echo ucfirst($category) ?></h2>
+		<h2 align="center">Search results for '<?php echo ucfirst($search) ?>'</h2>
+		<div class="wrapperHome">
 		<table class ="table table-hover table-sm">
 			<thead>
 				<tr>
@@ -77,5 +78,6 @@
 		?>
 		</tbody>
 		</table>
+		</div>
 	</body>
 </html>

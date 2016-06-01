@@ -20,7 +20,7 @@
 				<li><a href="home.php">Home</a></li>
 				<li>
 				
-					<a class="dropdown-toggle" data-toggle="dropdown">Browse by Category<span class="caret"></span></a>
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Browse by Category<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="category.php?category=books">Books</a></li>
 							<li><a href="category.php?category=clothing">Clothing</a></li>
@@ -38,15 +38,24 @@
 				
 				</li>
 				<li><a href="postitem.php">Manage Posts</a></li>
-				<li><a href="chat.php">Messages</a></li>
+				<li><a href="messenger.php">Messages</a></li>
+                                <li><a href="chat/index.php">Chat</a></li> 
 				<li><a href="map.php">Map</a></li>
 				<li><a href="profile.php?user_profile='.$user.'">'.strtoupper($user).'</a></li>
-				<li><a href="logout.php">Logout</a></li>
+				<li><a href="logout.php">Logout &nbsp<span class="glyphicon glyphicon-log-out"></span></a></li>
 			</ul>
-			<form class="form-inline pull-xs-right" action="search.php" method="GET" enctype="multipart/form-data">
-				<input class="form-control" placeholder="Search" type="text" name="search" maxlength="50" required/>
-				<button class="btn btn-success-outline" type="submit">Search</button>
-			</form>
+			
+			<div class="col-sm-3 col-md-3 pull-right">
+				<form class="navbar-form" role="search" action="search.php" method="GET" enctype="multipart/form-data">
+					<div class="input-group">
+						<input class="form-control" placeholder="Search" type="text" name="search" maxlength="50" required/>
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span>&nbsp</button>
+							</span>
+					</div>
+				</form>
+			</div>
+			
 		</div>
 	</nav>
 	'

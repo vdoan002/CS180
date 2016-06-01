@@ -23,10 +23,12 @@
 			Print '<script>window.location.assign("register.html");</script>';
 		}
 	}
-	if($bool){
+	
+        if($bool){
 		mysqli_query($conn,"INSERT INTO users (email, username, password) VALUES('$email','$username','$password')");
 		//mysqli_query($conn,"INSERT INTO users (username, password) VALUES('$username','$password')");
 		Print '<script>alert("Successfully Registered!");</script>';
 		Print '<script>window.location.assign("index.php");</script>';
+		
 	}
 ?>

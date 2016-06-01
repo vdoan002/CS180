@@ -44,6 +44,11 @@
 }
 
 -(void)displayImages{
+    image1.contentMode = UIViewContentModeScaleAspectFit;
+    image2.contentMode = UIViewContentModeScaleAspectFit;
+    image3.contentMode = UIViewContentModeScaleAspectFit;
+    image4.contentMode = UIViewContentModeScaleAspectFit;
+    
     images * imageObj;
     BOOL image1Set = false, image2Set = false, image3Set = false, image4Set = false;
     
@@ -68,20 +73,45 @@
             image4Set = true;
         }
     }
+    
+    [self setTextFrames:image1Set and:image2Set and:image3Set and:image4Set];
+}
+
+- (void)setTextFrames: (BOOL)image1Set and: (BOOL)image2Set and: (BOOL)image3Set and: (BOOL)image4Set{
+    if((!image1Set && !image2Set && !image3Set && !image4Set) || ((image1Set || image2Set) && !image3Set && !image4Set)){
+        NSLog(@"NO IMAGES OR ONLY FIRST ROW OF IMAGES");
+        NSLog(@"x: %f / y: %f", post_username_label.frame.origin.x, post_username_label.frame.origin.y);
+        CGRect post_username_frame = post_username_label.frame;
+        post_username_frame.origin.x = 20;
+        post_username_frame.origin.y = 235;
+        post_username_label.frame = post_username_frame;
+        post_username_label.frame = CGRectMake(20, 235, post_username_label.frame.size.width, post_username_label.frame.size.height);
+        post_date_label.frame = CGRectMake(20, 270, post_date_label.frame.size.width, post_date_label.frame.size.height);
+        post_price_label.frame = CGRectMake(20, 305, post_price_label.frame.size.width, post_price_label.frame.size.height);
+        post_description_label.frame = CGRectMake(20, 340, post_description_label.frame.size.width, post_description_label.frame.size.height);
+    }
+    else if(image1Set && image2Set && (image3Set || image4Set)){
+        NSLog(@"ALL ROWS OF IMAGES PRESENT");
+        NSLog(@"x: %f / y: %f", post_username_label.frame.origin.x, post_username_label.frame.origin.y);
+        post_username_label.frame = CGRectMake(20, 407, post_username_label.frame.size.width, post_username_label.frame.size.height);
+        post_date_label.frame = CGRectMake(20, 442, post_date_label.frame.size.width, post_date_label.frame.size.height);
+        post_price_label.frame = CGRectMake(20, 477, post_price_label.frame.size.width, post_price_label.frame.size.height);
+        post_description_label.frame = CGRectMake(20, 512, post_description_label.frame.size.width, post_description_label.frame.size.height);
+    }
 }
 
 -(void)setupUI{
     self.view.backgroundColor = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
     navBarItem.title = post.post_title;
     
-    post_id_label.text = post.post_id;
-    post_username_label.text = [NSString stringWithFormat:@"Seller: %@", post.post_username];
-    post_price_label.text = [NSString stringWithFormat:@"Price: $%@", post.post_price];
-    post_category_label.text = [NSString stringWithFormat:@"Category: %@", post.post_category];
-    post_description_label.text = [NSString stringWithFormat:@"Description: %@", post.post_description];
-    post_date_label.text = [NSString stringWithFormat:@"Posted on %@ at %@", post.post_date, post.post_time];
-    post_photos_label.text = post.post_photos;
-    post_photo_id_label.text = post.post_photo_id;
+    //post_id_label.text = post.post_id;
+    post_username_label.text = [NSString stringWithFormat:@"%@", post.post_username];
+    post_price_label.text = [NSString stringWithFormat:@"$ %@", post.post_price];
+    //post_category_label.text = [NSString stringWithFormat:@"Category: %@", post.post_category];
+    post_description_label.text = [NSString stringWithFormat:@"%@", post.post_description];
+    post_date_label.text = [NSString stringWithFormat:@"%@ @ %@", post.post_date, post.post_time];
+    //post_photos_label.text = post.post_photos;
+    //post_photo_id_label.text = post.post_photo_id;
     
     post_id_label.textColor = [UIColor whiteColor];
     post_username_label.textColor = [UIColor whiteColor];
